@@ -3,9 +3,11 @@ The program is composed of strings of characters.
 Each character is a character from Unicode characters in range of 0000 to ffff.
 If a charcter is not defined, it is a no-op.
 Starts excecution of the program from left to right.
+Reaching an either end of the program will stop execution.
+A value which are not then 
 
 Variables:
-There are infinite variables of type boolean, int, uint, superint, superuint, float, double, quadruple, str, array, function, and object. These are called normal variables.
+There are infinite variables of type boolean, int, uint, superint, superuint, float, double, quadruple, str, array, function, object, and variable. These are called normal variables.
 There are one of each variable type pointer, direction, program, and stack. These are called special variables.
 boolean - Holds value boolean - Holds value of either true or false.
 int - A signed 32 bit integer.
@@ -19,6 +21,7 @@ str - A string of Unicode characters.
 array - An array of normal variables.
 function - Takes inputs and evaluates to an output.
 object - A collection of normal variables each assigned to a label(which is also a normal variable).
+variable - A label which the value can be any normal variable.
 pointer - An superint which holds information of which character the program is reading and executing. Initialized to 0.
 direction - An superint which holds information of which direction the program is reading. Positive for right, negative for left, 0 for static. The absolute value will dictate at which interval of the program will be read.
 program - A str which holds the program itself. Initialized to the equivalent of the source code. Changing this will change the program.
