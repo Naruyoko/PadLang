@@ -1,0 +1,25 @@
+Syntax:
+The program is composed of strings of characters.
+Each character is a character from Unicode characters in range of 0000 to ffff.
+If a charcter is not defined, it is a no-op.
+Starts excecution of the program from left to right.
+
+Variables:
+There are infinite variables of type boolean, int, uint, superint, superuint, float, double, quadruple, str, array, function, and object. These are called normal variables.
+There are one of each variable type pointer, direction, program, and stack. These are called special variables.
+boolean - Holds value boolean - Holds value of either true or false.
+int - A signed 32 bit integer.
+uint - An unsigned 32 bit integer.
+superint - A signed integer of arbitrary size. More memory is given as the value increases.
+superuint - An unsigned integer of arbitrary size. More memory is given as the value increases.
+float - A floating-point number according to IEEE 754.
+double - A double-precision floatong-point number according to IEEE 754 binary64.
+quadruple - A quadruple-precision floating-point number according to IEEE 754 binary128.
+str - A string of Unicode characters.
+array - An array of normal variables.
+function - Takes inputs and evaluates to an output.
+object - A collection of normal variables each assigned to a label(which is also a normal variable).
+pointer - An superint which holds information of which character the program is reading and executing. Initialized to 0.
+direction - An superint which holds information of which direction the program is reading. Positive for right, negative for left, 0 for static. The absolute value will dictate at which interval of the program will be read.
+program - A str which holds the program itself. Initialized to the equivalent of the source code. Changing this will change the program.
+stack - An array which holds superint that shows where the program jumped to execute a function or has looped.
