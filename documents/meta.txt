@@ -1,10 +1,11 @@
 Syntax:
 The program is composed of strings of characters.
 Each character is a character from Unicode characters in range of 0000 to ffff.
-If a charcter is not defined, it is a no-op.
-Starts excecution of the program from left to right.
+If a character is not defined, it is a no-op.
+Starts the execution of the program from left to right.
 Reaching an either end of the program will stop execution.
-A value which are not then 
+A value which are not used or dumped will be implicitly outputted.
+The general syntax for operators are prefix form.
 
 Variables:
 There are infinite variables of type boolean, int, uint, superint, superuint, float, double, quadruple, str, array, function, object, and variable. These are called normal variables.

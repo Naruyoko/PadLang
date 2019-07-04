@@ -1,10 +1,20 @@
-(u+0000) - All variables are reset, except program pointer.
+(u+0000) - All variables are reset, except program pointer.
+(u+0003) - It will pop from the stack, and sets the pointer to it.
+(u+0005) - Returns the pointer variable.
+(u+0006) - Returns the direction variable.
+(u+0007) - Returns the stack variable.
+(u+0008) - Returns the program variable.
+(u+001a) - Returns the current value of the variable. If it is not a type variable, it is implicitly converted.
+(u+001b) - Forcefully exit the program.
 "(u+0022) - Initializes a str with content between this u+0022 and the next u+0022. The content will not be executed. Standard escape sequence applies.
 #(u+0023) - Returns the length if the variable is str or array.
 $(u+0024) - Assigns the first value after to the second. If the second is not a type variable, it is implicitly converted.
+'(u+0027) - If first value is an object, it returns the value of the label of second. If first value is an array, it will get the value of the second value-th element.
+*(u+002a) - Multiplies two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible. If the first input is str and the second is either int, uint, superint, superuint, float, double, or quadruple, it will repeat the first input max(0,floor(second input)) times. If the first input is array and the second is either int, uint, superint, superuint, float, double, or quadruple, it will repeat the first input max(0,floor(second input)) times.
++(u+002b) - Adds two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible. If either of the two inputs are str, it will comvert to str and concatenates them. If both of the inputs are array, it will concatenate them. If only the first input is an array, it append add the second input to the first input. If only the second input is an array, it will prepend the first input to the second input. If both of the inputs are objects, add the properties of the second object to the first object, and if they share a property, the value of the second input will be prioritized.
 ,(u+002c) - If it is inside of an array literal, it separates elements. If it is inside an object literal, it will separate entries.
--(u+002d) - Negates value of int, superint, float, double, and quadruple. Reverses str and array.
-/(u+002f) - If the next is an object, it returns the value of the label of second. If the next is an array, it will get the value of the second value-th element.
+-(u+002d) - Subtracts two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible. If either of the two inputs are str, it will convert to str, then it will delete the last matching characters for each character in the second input from the first input. If both inputs are array, it will remove the last match to the elements of the second input from the first input. If only the first input is array, it will remove the last match to the second input from the first input. If both inputs are objects, it will remove last match of properties of the second input from the first input.
+/(u+002f) - Divides two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible.
 0(u+0030) - Initializes an int of value 0.
 1(u+0031) - Initializes an int with itself then rest of consecutive decimal digits. Prevents the latter digits from creating more int.
 2(u+0032) - Initializes an int with itself then rest of consecutive decimal digits. Prevents the latter digits from creating more int.
@@ -16,10 +26,12 @@ $(u+0024) - Assigns the first value after to the second. If the second is not a 
 8(u+0038) - Initializes an int with itself then rest of consecutive decimal digits. Prevents the latter digits from creating more int.
 9(u+0039) - Initializes an int with itself then rest of consecutive decimal digits. Prevents the latter digits from creating more int.
 :(u+003b) - If it is inside an object literal, it will separate label and value. Else, force separates command.
+@(u+0040) - If the first input is an array, it will return the variable corresponding to the second input-th index. If the first input is an object, it will return the variable corresponding to the label of the second input.
 I(u+0049) - Initializes an superint, with decimal number after it.
 U(u+0055) - Initializes an superuint, with decimal number after it.
 [(u+005b) - Starts array literal.
 ](u+005d) - Ends array literal.
+^(u+005e) - Exponentiates two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible.
 a(u+0061) - Converts variable to an array with one element which value is the input.
 i(u+0069) - Initializes an int, with decimal number after it.
 s(u+0073) - Initializes a str, with length as int, uint, superint, or superuint and then the content. The content will not be executed.
@@ -28,3 +40,18 @@ v(u+0076) - Initializes a variable with label the value following.
 {(u+007b) - Starts object literal.
 }(u+007d) - Ends object literal.
 ~(u+007e) - Inverts the raw binary value.
+±(u+00b1) - Negates value of int, superint, float, double, and quadruple. Reverses str and array.
+²(u+00b2) - Squares int, uint, superint, superuint, float, double, or quadruple.
+³(u+00b3) - Cubes int, uint, superint, superuint, float, double, or quadruple.
+À(u+00c0) - Pushes second input to the first input.
+Á(u+00c1) - Pops the input.
+Â(u+00c2) - Unshifts second input to the first input.
+Ã(u+00c3) - Shifts the input.
+Ä(u+00c4) - Inserts the second input at the index third input to the first input array.
+Å(u+00c5) - Remove and returns the index second input from the first input.
+Æ(u+00c6) - Inserts multiple variables as elements of the second input at the index third input to the first input.
+Ç(u+00c7) - Removes and returns as array the second input amount of elements at the index third input from the first input.
+È(u+00c8) - Returns subarray of the second input amount of elements at the index third input from the first input.
+É(u+00c9) - Inserts second inputs at third input to first input str.
+Ê(u+00ca) - Returns the substring of length third input from the index second input from the first input str.
+Ë(u+00cb) - Returns the substring of length from the index second input to the index third input from the first input str.
