@@ -34,6 +34,9 @@ $(u+0024) - Assigns the first value after to the second. If the second is not a 
 D(u+0044) - Dumps the value.
 F(u+0045) - Initializes a function with first onput arguments, then that many variables after, then expression. The parameters are not accessible outside of the function call. The variable variables are actually overwritten by the variable of fuction itself followed by the name.
 I(u+0049) - Initializes an superint, with decimal number after it.
+L(u+004c) - "do". Pushes to stack.
+M(u+004d) - "do...while". If the expression is truly, it will pop and jump.
+N(u+004e) - "do...while". If the expression is falsy, it will pop and jump.
 U(u+0055) - Initializes an superuint, with decimal number after it.
 [(u+005b) - Starts array literal.
 ](u+005d) - Ends array literal.
@@ -42,11 +45,15 @@ a(u+0061) - Converts variable to an array with one element which value is the in
 c(u+0063) - "if". If not immediately followed by u+0064, it will execute the next command if and only if the input was truly. If followed by u+0064, if the input was truly, it will jump after the u+0064. If it was falsy, it will jump after the next u+0065 or u+0066.
 d(u+0064) - "then".
 e(u+0065) - "else". Jump to the next u+0066.
-f(u+0066) - No-op.
+f(u+0066) - "end if". No-op.
 i(u+0069) - Initializes an int, with decimal number after it.
+q(u+0071) - "for". Runs first expression. Then, if second expression is truly. push to stack, and skip third expression. If second expression is false, pop the stack, and jump after the next u+0072. If jumped from a u+0003, it will execute the third ones, then check for the second expression again.
+r(u+0072) - "while". If the input expression is truly, it will push to the stack. If it is falsy, it will jump after the next u+0003.
 s(u+0073) - Initializes a str, with length as int, uint, superint, or superuint and then the content. The content will not be executed.
 u(u+0075) - Initializes an uint, with decimal number after it.
 v(u+0076) - Initializes a variable with label the value following.
+w(u+0077) - Returns an array of ints in range from the first input to the second input. If second input is less than the first input, it will be reversed range from the second input from the first input. Inclusive.
+x(u+0078) - Returns an array of ints in range from from 0 to the input. If the input is negative it will instead be from input to 0. Inclusive.
 {(u+007b) - Starts object literal.
 }(u+007d) - Ends object literal.
 ~(u+007e) - Inverts the raw binary value.
