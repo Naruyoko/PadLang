@@ -13,6 +13,7 @@
 #(u+0023) - Returns the length if the variable is str or array.
 $(u+0024) - Assigns the first value after to the second. If the second is not a type variable, it is implicitly converted.
 %(u+0025) - Takes modulo of two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible.
+&(u+0026) - Performs logical "and" on two inputs.
 '(u+0027) - If first value is an object, it returns the value of the label of second. If first value is an array, it will get the value of the second value-th element.
 *(u+002a) - Multiplies two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible. If the first input is str and the second is either int, uint, superint, superuint, float, double, or quadruple, it will repeat the first input max(0,floor(second input)) times. If the first input is array and the second is either int, uint, superint, superuint, float, double, or quadruple, it will repeat the first input max(0,floor(second input)) times.
 +(u+002b) - Adds two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible. If either of the two inputs are str, it will comvert to str and concatenates them. If both of the inputs are array, it will concatenate them. If only the first input is an array, it append add the second input to the first input. If only the second input is an array, it will prepend the first input to the second input. If both of the inputs are objects, add the properties of the second object to the first object, and if they share a property, the value of the second input will be prioritized.
@@ -32,6 +33,7 @@ $(u+0024) - Assigns the first value after to the second. If the second is not a 
 :(u+003b) - If it is inside an object literal, it will separate label and value. Else, force separates command.
 @(u+0040) - If the first input is an array, it will return the variable corresponding to the second input-th index. If the first input is an object, it will return the variable corresponding to the label of the second input.
 D(u+0044) - Dumps the value.
+E(u+0045) - Performs logical "xor" on two inputs.
 F(u+0045) - Initializes a function with first onput arguments, then that many variables after, then expression. The parameters are not accessible outside of the function call. The variable variables are actually overwritten by the variable of fuction itself followed by the name.
 I(u+0049) - Initializes an superint, with decimal number after it.
 L(u+004c) - "do". Pushes to stack.
@@ -47,6 +49,9 @@ d(u+0064) - "then".
 e(u+0065) - "else". Jump to the next u+0066.
 f(u+0066) - "end if". No-op.
 i(u+0069) - Initializes an int, with decimal number after it.
+l(u+006c) - Performs short-circuit "xor" on two inputs.
+n(u+006d) - Performs short-circuit "and" on two inputs.
+o(u+006f) - Performs short-circuit "or" on two inputs.
 q(u+0071) - "for". Runs first expression. Then, if second expression is truly. push to stack, and skip third expression. If second expression is false, pop the stack, and jump after the next u+0072. If jumped from a u+0003, it will execute the third ones, then check for the second expression again.
 r(u+0072) - "while". If the input expression is truly, it will push to the stack. If it is falsy, it will jump after the next u+0003.
 s(u+0073) - Initializes a str, with length as int, uint, superint, or superuint and then the content. The content will not be executed.
@@ -55,13 +60,14 @@ v(u+0076) - Initializes a variable with label the value following.
 w(u+0077) - Returns an array of ints in range from the first input to the second input. If second input is less than the first input, it will be reversed range from the second input from the first input. Inclusive.
 x(u+0078) - Returns an array of ints in range from from 0 to the input. If the input is negative it will instead be from input to 0. Inclusive.
 {(u+007b) - Starts object literal.
+|(u+007c) - Performs logical "or" on two inputs and returns a boolean.
 }(u+007d) - Ends object literal.
 ~(u+007e) - Inverts the raw binary value.
-«(u+00ab) - Shifts left the value of the first onlut by second input.
+«(u+00ab) - Shifts left the value of the first input by second input.
 ±(u+00b1) - Negates value of int, superint, float, double, and quadruple. Reverses str and array.
 ²(u+00b2) - Squares int, uint, superint, superuint, float, double, or quadruple.
 ³(u+00b3) - Cubes int, uint, superint, superuint, float, double, or quadruple.
-»(u+00bb) - Shifts right the value of the first onlut by second input.
+»(u+00bb) - Shifts right the value of the first input by second input.
 À(u+00c0) - Pushes second input to the first input.
 Á(u+00c1) - Pops the input.
 Â(u+00c2) - Unshifts second input to the first input.
