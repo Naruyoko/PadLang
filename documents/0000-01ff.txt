@@ -4,9 +4,12 @@
 (u+0006) - Returns the direction variable.
 (u+0007) - Returns the stack variable.
 (u+0008) - Returns the program variable.
+
+(u+000a) - Force separates commands.
 (u+000c) - Interrupts program and wait for user input. Returns the input as a str.
 
 (u+000d) - Outputs the input. If not an str, then it is implicitly converted to str.
+(u+0017) - Outputs the input and u+0020. If not an str, then it is implicitly converted to str.
 (u+001a) - Returns the current value of the variable. If it is not a type variable, it is implicitly converted.
 (u+001b) - Forcefully exit the program.
 "(u+0022) - Initializes a str with content between this u+0022 and the next u+0022. The content will not be executed. Standard escape sequence applies.
@@ -35,6 +38,7 @@ $(u+0024) - Assigns the first value after to the second. If the second is not a 
 D(u+0044) - Dumps the value.
 E(u+0045) - Performs logical "xor" on two inputs.
 F(u+0045) - Initializes a function with first onput arguments, then that many variables after, then expression. The parameters are not accessible outside of the function call. The variable variables are actually overwritten by the variable of fuction itself followed by the name.
+H(u+0048) - Outputs "Hello, World!".
 I(u+0049) - Initializes an superint, with decimal number after it.
 L(u+004c) - "do". Pushes to stack.
 M(u+004d) - "do...while". If the expression is truly, it will pop and jump.
@@ -48,6 +52,7 @@ c(u+0063) - "if". If not immediately followed by u+0064, it will execute the nex
 d(u+0064) - "then".
 e(u+0065) - "else". Jump to the next u+0066.
 f(u+0066) - "end if". No-op.
+h(u+0068) - Returns str with value "Hello, World!"
 i(u+0069) - Initializes an int, with decimal number after it.
 l(u+006c) - Performs short-circuit "xor" on two inputs.
 n(u+006d) - Performs short-circuit "and" on two inputs.
