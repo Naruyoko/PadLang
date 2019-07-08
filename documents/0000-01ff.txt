@@ -34,6 +34,9 @@ $(u+0024) - Assigns the first value after to the second. If the second is not a 
 8(u+0038) - Initializes an int with itself then rest of consecutive decimal digits. Prevents the latter digits from creating more int.
 9(u+0039) - Initializes an int with itself then rest of consecutive decimal digits. Prevents the latter digits from creating more int.
 :(u+003b) - If it is inside an object literal, it will separate label and value. Else, force separates command.
+<(u+003c) - Returns boolean of whether if the first input is less than the second input.
+=(u+003d) - Returns boolean of whether if the first input is equal to the second input.
+>(u+003e) - Returns boolean of whether if the first input is greater than the second input.
 @(u+0040) - If the first input is an array, it will return the variable corresponding to the second input-th index. If the first input is an object, it will return the variable corresponding to the label of the second input.
 D(u+0044) - Dumps the value.
 E(u+0045) - Performs logical "xor" on two inputs.
