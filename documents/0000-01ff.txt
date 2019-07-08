@@ -45,7 +45,7 @@ H(u+0048) - Outputs "Hello, World!".
 I(u+0049) - Initializes an superint, with decimal number after it.
 L(u+004c) - "do". Pushes to stack.
 M(u+004d) - "do...while". If the expression is truly, it will pop and jump.
-N(u+004e) - "do...while". If the expression is falsy, it will pop and jump.
+N(u+004e) - "do...until". If the expression is falsy, it will pop and jump.
 U(u+0055) - Initializes an superuint, with decimal number after it.
 [(u+005b) - Starts array literal.
 ](u+005d) - Ends array literal.
