@@ -69,10 +69,15 @@ x(u+0078) - Returns an array of ints in range from from 0 to the input. If the i
 }(u+007d) - Ends object literal.
 ~(u+007e) - Inverts the raw binary value.
 «(u+00ab) - Shifts left the value of the first input by second input.
+¯(u+00af) - Increments the variable. If the input is not type variable, it is implicitly converted to variable.
+°(u+00b0) - Decrements the variable. If the input is not type variable, it is implicitly converted to variable.
 ±(u+00b1) - Negates value of int, superint, float, double, and quadruple. Reverses str and array.
 ²(u+00b2) - Squares int, uint, superint, superuint, float, double, or quadruple.
 ³(u+00b3) - Cubes int, uint, superint, superuint, float, double, or quadruple.
+¹(u+00b9) - Adds 1 to the input.
+º(u+00ba) - Subtracts 1 to the input.
 »(u+00bb) - Shifts right the value of the first input by second input.
+¿(u+00bf) - Null command.
 À(u+00c0) - Pushes second input to the first input.
 Á(u+00c1) - Pops the input.
 Â(u+00c2) - Unshifts second input to the first input.
