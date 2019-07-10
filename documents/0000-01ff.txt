@@ -50,6 +50,7 @@ U(u+0055) - Initializes an superuint, with decimal number after it.
 [(u+005b) - Starts array literal.
 ](u+005d) - Ends array literal.
 ^(u+005e) - Exponentiates two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible.
+`(u+0060) - Returns an empty str.
 a(u+0061) - Converts variable to an array with one element which value is the input.
 c(u+0063) - "if". If not immediately followed by u+0064, it will execute the next command if and only if the input was truly. If followed by u+0064, if the input was truly, it will jump after the u+0064. If it was falsy, it will jump after the next u+0065 or u+0066.
 d(u+0064) - "then".
@@ -95,7 +96,11 @@ x(u+0078) - Returns an array of ints in range from from 0 to the input. If the i
 Ë(u+00cb) - Returns the substring of length from the index second input to the index third input from the first input str.
 Ð(u+00d0) - Returns superint with value of the input str as Base64.
 Ñ(u+00d1) - Returns superint with value of the input str as following bases: Prefix "0b" is binary; Prefix "0" is octal; Prefix "0x" is hexadecimal; and no prefix is decimal.
+Ò(u+00d2) - Returns str that expresses the input as Base64.
+Ó(u+00d3) - Returns str that expresses the input as Base256.
+Ô(u+00d4) - Returns str that expresses the input as Base65536.
 Ø(u+00d8) - Returns an empty array.
+Ý(u+00dd) - Returns an str that expresses the first input in base-k system, with digits of the second input as str. If The second input is an empty str, return an empty str. If the second input is 1 character long, it will return the character repeated first input+1 times.
 Þ(u+00de) - Returns superint with value of the input str as Base256.
-ß(u+00df) - Returnz superint with value of the input str as Base65536.
+ß(u+00df) - Returns superint with value of the input str as Base65536.
 ø(u+00f8) - Returns an empty object.
