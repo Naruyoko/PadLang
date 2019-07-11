@@ -1,9 +1,9 @@
 Collatz Problem
 Takes input, and outputs it and then if it is even, divide by 2, if it is odd, multiply by 3 and add 1, and repeats it until 1.
 !Code - 30 chars
-$Ì0L$?%02/02+1*03N0=01
+$Ì0L$?%02+1*03/02N0=01
 !Hex
-0017 0024 00cc 000c 0030 004c 0024 003f 0025 001a 0030 0032 002f 001a 0030 0032 002b 0031 002a 001a 0030 0033 0030 004e 003d 001a 0030 0031
+0017 0024 00cc 000c 0030 004c 0024 003f 0025 001a 0030 0032 002b 0031 002a 001a 0030 0033 002f 001a 0030 0032 0030 004e 003d 001a 0030 0031
 !Explaination
 0017 - Outputs with newline
  0024 - Assigns
@@ -18,16 +18,16 @@ Takes input, and outputs it and then if it is even, divide by 2, if it is odd, m
     001a - Substitute value of
      0030 - int of value 0
     0032 - int of value 2
-   002f - Divide
-    001a - Substitute value of
-     0030 - int of value 0
-    0032 - int of value 2
    002b - Add
     0031 - int of value 1
      002a - Multiply
       001a - Substitute value of
        0030 - int of value 0
       0033 - int of value 3
+   002f - Divide
+    001a - Substitute value of
+     0030 - int of value 0
+    0032 - int of value 2
   0030 - int of value 0
 004e - ...until
  003d - is equal?
