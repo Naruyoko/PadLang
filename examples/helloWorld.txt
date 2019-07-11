@@ -1,0 +1,8 @@
+Hello World
+Outputs "Hello, World!"
+!Code - 1 char
+H
+!Hex
+0048
+!Explanation
+Ommited.
