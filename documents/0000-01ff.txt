@@ -85,6 +85,7 @@ x(u+0078) - Returns an array of ints in range from from 0 to the input. If the i
 ~(u+007e) - Inverts the raw binary value.
 ¢(u+00a2) - Increments the variable and return the original value. If the input is not type variable, it is implicitly converted to variable.
 £(u+00a3) - Decrements the variable and return the original value. If the input is not type variable, it is implicitly converted to variable.
+¦(u+00a6) - Separates int literals. 
 ª(u+00aa) - Returns an array of str with each character in the input.
 «(u+00ab) - Shifts left the value of the first input by second input.
 ¯(u+00af) - Increments the variable and return it. If the input is not type variable, it is implicitly converted to variable.
