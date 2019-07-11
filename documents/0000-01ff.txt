@@ -104,6 +104,7 @@ x(u+0078) - Returns an array of ints in range from from 0 to the input. If the i
 É(u+00c9) - Inserts second inputs at third input to first input str.
 Ê(u+00ca) - Returns the substring of length third input from the index second input from the first input str.
 Ë(u+00cb) - Returns the substring of length from the index second input to the index third input from the first input str.
+Ì(u+00cc) - Convert to int.
 Ð(u+00d0) - Returns superint with value of the input str as Base64.
 Ñ(u+00d1) - Returns superint with value of the input str as following bases: Prefix "0b" is binary; Prefix "0" is octal; Prefix "0x" is hexadecimal; and no prefix is decimal.
 Ò(u+00d2) - Returns str that expresses the input as Base64.
