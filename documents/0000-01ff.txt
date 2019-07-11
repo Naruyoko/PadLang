@@ -12,12 +12,15 @@
 (u+0017) - Outputs the input and u+0020. If not an str, then it is implicitly converted to str.
 (u+001a) - Returns the current value of the variable. If it is not a type variable, it is implicitly converted.
 (u+001b) - Forcefully exit the program.
-"(u+0022) - Initializes a str with content between this u+0022 and the next u+0022. The content will not be executed. Standard escape sequence applies.
+!(u+0021) - If the input is int, uint, superint, superuint, float, double, or quadruple, it will return the factorial. If the input is a str, it will return an array of permutation of the characters. If the input is an array, it will return an array of permutation of elements.
+"(u+0022) - Initializes a str with content between this u+0022 and the next u+0022. The content will not be executed. Standard escape sequence applies inside of it.
 #(u+0023) - Returns the length if the variable is str or array.
 $(u+0024) - Assigns the first value after to the second. If the second is not a type variable, it is implicitly converted.
 %(u+0025) - Takes modulo of two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible.
 &(u+0026) - Performs logical "and" on two inputs.
 '(u+0027) - If first value is an object, it returns the value of the label of second. If first value is an array, it will get the value of the second value-th element.
+((u+0028) - Starts grouping of expressions.
+)(u+0029) - Ends grouping of expressions. The group evaluates to the last expression's value.
 *(u+002a) - Multiplies two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible. If the first input is str and the second is either int, uint, superint, superuint, float, double, or quadruple, it will repeat the first input max(0,floor(second input)) times. If the first input is array and the second is either int, uint, superint, superuint, float, double, or quadruple, it will repeat the first input max(0,floor(second input)) times.
 +(u+002b) - Adds two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible. If either of the two inputs are str, it will comvert to str and concatenates them. If both of the inputs are array, it will concatenate them. If only the first input is an array, it append add the second input to the first input. If only the second input is an array, it will prepend the first input to the second input. If both of the inputs are objects, add the properties of the second object to the first object, and if they share a property, the value of the second input will be prioritized.
 ,(u+002c) - If it is inside of an array literal, it separates elements. If it is inside an object literal, it will separate entries.
@@ -33,25 +36,30 @@ $(u+0024) - Assigns the first value after to the second. If the second is not a 
 7(u+0037) - Initializes an int with itself then rest of consecutive decimal digits. Prevents the latter digits from creating more int.
 8(u+0038) - Initializes an int with itself then rest of consecutive decimal digits. Prevents the latter digits from creating more int.
 9(u+0039) - Initializes an int with itself then rest of consecutive decimal digits. Prevents the latter digits from creating more int.
-:(u+003b) - If it is inside an object literal, it will separate label and value. Else, force separates command.
+:(u+003a) - If it is inside an object literal, it will separate label and value. Else, force separates command.
+;(u+003b) - Commands until next u+000a, u+003b, or u+003c are not executed.
 <(u+003c) - Returns boolean of whether if the first input is less than the second input.
 =(u+003d) - Returns boolean of whether if the first input is equal to the second input.
 >(u+003e) - Returns boolean of whether if the first input is greater than the second input.
+?(u+003f) - If the first input is truly, then it evaluates to the second input. Else, it evaluates to the third input.
 @(u+0040) - If the first input is an array, it will return the variable corresponding to the second input-th index. If the first input is an object, it will return the variable corresponding to the label of the second input.
+B(u+0042) - If the inputs are int, uint, superint, superuint, float, double, or quadruple, it will return first input combination second input. If the first input is a str, it will return an array of combination of the second input many characters from the first input such that the order is not changed and same characters are differentiated. If the first input is an array, it will return an array of permutation of the second input many elements from the first input such that the order is not changed and same elements are differentiated.
 D(u+0044) - Dumps the value.
 E(u+0045) - Performs logical "xor" on two inputs.
-F(u+0045) - Initializes a function with first onput arguments, then that many variables after, then expression. The parameters are not accessible outside of the function call. The variable variables are actually overwritten by the variable of fuction itself followed by the name.
+F(u+0045) - Initializes a function with first onput arguments, then that many variables after, then expression. The parameters are not accessible outside of the function call. The variable variables are actually overwritten by the variable of fuction itself followed by the name. The expression continues until u+0003.
 H(u+0048) - Outputs "Hello, World!".
 I(u+0049) - Initializes an superint, with decimal number after it.
 L(u+004c) - "do". Pushes to stack.
-M(u+004d) - "do...while". If the expression is truly, it will pop and jump.
-N(u+004e) - "do...until". If the expression is falsy, it will pop and jump.
+M(u+004d) - "do...while". If the input is truly, it will pop and jump.
+N(u+004e) - "do...until". If the input is falsy, it will pop and jump.
+P(u+0050) - If the inputs are int, uint, superint, superuint, float, double, or quadruple, it will return first input permulation second input. If the first input is a str, it will return an array of permutation of the second input many characters from the first input and same characters are differentiated. If the first input is an array, it will return an array of permutation of the second input many elements from the first input and same elements are differentiated.
 U(u+0055) - Initializes an superuint, with decimal number after it.
 [(u+005b) - Starts array literal.
 ](u+005d) - Ends array literal.
 ^(u+005e) - Exponentiates two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible.
 `(u+0060) - Returns an empty str.
 a(u+0061) - Converts variable to an array with one element which value is the input.
+b(u+0062) - If the inputs are int, uint, superint, superuint, float, double, or quadruple, it will return first input combination second input. If the first input is a str, it will return an array of combination of the second input many characters from the first input such that the order is not changed and same characters are not differentiated. If the first input is an array, it will return an array of permutation of the second input many elements from the first input such that the order is not changed and same elements are not differentiated.
 c(u+0063) - "if". If not immediately followed by u+0064, it will execute the next command if and only if the input was truly. If followed by u+0064, if the input was truly, it will jump after the u+0064. If it was falsy, it will jump after the next u+0065 or u+0066.
 d(u+0064) - "then".
 e(u+0065) - "else". Jump to the next u+0066.
@@ -61,6 +69,7 @@ i(u+0069) - Initializes an int, with decimal number after it.
 l(u+006c) - Performs short-circuit "xor" on two inputs.
 n(u+006d) - Performs short-circuit "and" on two inputs.
 o(u+006f) - Performs short-circuit "or" on two inputs.
+p(u+0070) - If the inputs are int, uint, superint, superuint, float, double, or quadruple, it will return first input permulation second input. If the first input is a str, it will return an array of permutation of the second input many characters from the first input and same characters are not differentiated. If the first input is an array, it will return an array of permutation of the second input many elements from the first input and same elements are not differentiated.
 q(u+0071) - "for". Runs first expression. Then, if second expression is truly. push to stack, and skip third expression. If second expression is false, pop the stack, and jump after the next u+0072. If jumped from a u+0003, it will execute the third ones, then check for the second expression again.
 r(u+0072) - "while". If the input expression is truly, it will push to the stack. If it is falsy, it will jump after the next u+0003.
 s(u+0073) - Initializes a str, with length as int, uint, superint, or superuint and then the content. The content will not be executed.
@@ -72,6 +81,7 @@ x(u+0078) - Returns an array of ints in range from from 0 to the input. If the i
 |(u+007c) - Performs logical "or" on two inputs and returns a boolean.
 }(u+007d) - Ends object literal.
 ~(u+007e) - Inverts the raw binary value.
+ª(u+00aa) - Returns an array of str with each character in the input.
 «(u+00ab) - Shifts left the value of the first input by second input.
 ¯(u+00af) - Increments the variable. If the input is not type variable, it is implicitly converted to variable.
 °(u+00b0) - Decrements the variable. If the input is not type variable, it is implicitly converted to variable.
@@ -103,4 +113,10 @@ x(u+0078) - Returns an array of ints in range from from 0 to the input. If the i
 Ý(u+00dd) - Returns an str that expresses the first input in base-k system, with digits of the second input as str. If The second input is an empty str, return an empty str. If the second input is 1 character long, it will return the character repeated first input+1 times.
 Þ(u+00de) - Returns superint with value of the input str as Base256.
 ß(u+00df) - Returns superint with value of the input str as Base65536.
+à(u+00e0) - Returns str of characters from u+0000 to u+007f.
+á(u+00e1) - Returns str of printable characters characters in u+0000 to u+007f.
+â(u+00e2) - Returns str of characters from u+0000 to u+00ff.
+ã(u+00e3) - Returns str of printable characters characters in u+0000 to u+00ff.
+ä(u+00e4) - Returns str of characters from u+0000 to u+ffff.
+å(u+00e5) - Returns str of printable characters characters in u+0000 to u+ffff.
 ø(u+00f8) - Returns an empty object.
