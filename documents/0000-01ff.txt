@@ -53,6 +53,7 @@ I(u+0049) - Initializes an superint, with decimal number after it.
 L(u+004c) - "do". Pushes to stack.
 M(u+004d) - "do...while". If the input is truly, it will pop and jump.
 N(u+004e) - "do...until". If the input is falsy, it will pop and jump.
+O(u+004f) - Assigns the first value after to the second but does not return. If the second is not a type variable, it is implicitly converted.
 P(u+0050) - If the inputs are int, uint, superint, superuint, float, double, or quadruple, it will return first input permulation second input. If the first input is a str, it will return an array of permutation of the second input many characters from the first input and same characters are differentiated. If the first input is an array, it will return an array of permutation of the second input many elements from the first input and same elements are differentiated.
 U(u+0055) - Initializes an superuint, with decimal number after it.
 [(u+005b) - Starts array literal.
