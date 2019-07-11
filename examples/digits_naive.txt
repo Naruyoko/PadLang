@@ -1,0 +1,8 @@
+Digits/Naive
+Outputs digits from 0 to 9 consecutively, as "0123456789".
+!Code - 12 chars
+"0123456789"
+!Hex
+0022 0030 0031 0032 0033 0034 0035 0036 0037 0038 0039 0022
+!Explanation
+Ommited.
