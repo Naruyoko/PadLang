@@ -18,7 +18,7 @@
 $(u+0024) - Assigns the first value after to the second and returns the value. If the second is not a type variable, it is implicitly converted.
 %(u+0025) - Takes modulo of two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible.
 &(u+0026) - Performs logical "and" on two inputs.
-'(u+0027) - If first value is an object, it returns the value of the label of second. If first value is an array, it will get the value of the second value-th element.
+'(u+0027) - If first value is a str, it will return the str with the second value-th character. If first value is an array, it will get the value of the second value-th element. If first value is an object, it returns the value of the label of second.
 ((u+0028) - Starts grouping of expressions.
 )(u+0029) - Ends grouping of expressions. The group evaluates to the last expression's value.
 *(u+002a) - Multiplies two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible. If the first input is str and the second is either int, uint, superint, superuint, float, double, or quadruple, it will repeat the first input max(0,floor(second input)) times. If the first input is array and the second is either int, uint, superint, superuint, float, double, or quadruple, it will repeat the first input max(0,floor(second input)) times.
