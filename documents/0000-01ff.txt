@@ -100,9 +100,9 @@ x(u+0078) - Returns an array of ints in range from from 0 to the input. If the i
 »(u+00bb) - Shifts right the value of the first input by second input.
 ¿(u+00bf) - Null command.
 À(u+00c0) - Pushes second input to the first input and return new array. If the first input is variable, do it to the variable. Else, do it to the conversion to array.
-Á(u+00c1) - Pops the input and return new array. If the first input is variable, do it to the variable. Else, do it to the conversion to array.
+Á(u+00c1) - Pops the input and return the popped element. If the first input is variable, do it to the variable. Else, do it to the conversion to array.
 Â(u+00c2) - Unshifts second input to the first input and return new array. If the first input is variable, do it to the variable. Else, do it to the conversion to array.
-Ã(u+00c3) - Shifts the input and return new array. If the first input is variable, do it to the variable. Else, do it to the conversion to array.
+Ã(u+00c3) - Shifts the input and return the shifted element. If the first input is variable, do it to the variable. Else, do it to the conversion to array.
 Ä(u+00c4) - Inserts the second input at the index third input to the first input array.
 Å(u+00c5) - Remove and returns the index second input from the first input.
 Æ(u+00c6) - Inserts multiple variables as elements of the second input at the index third input to the first input.
