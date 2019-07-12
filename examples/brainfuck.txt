@@ -1,0 +1,222 @@
+brainfuck Interpreter
+Takes a brainfuck program, and executes it.
+Unbounded number of cells.
+Cells are a signed 8 bit integer.
+Output is in ASCII.
+Input is in decimal.
+!Code
+
+!Hex
+
+!Explanation
+variable 0 is the brainfuck program.
+variable 1 is the memory.
+variable 2 is the stack.
+variable 3 is the program pointer.
+variable 4 is the memory pointer.
+004f - Assign without return
+ 000c - Takes user input
+ 0030 - int of value 0
+004f - Assign without return
+ 00d8 - Empty array
+ 0031 - int of value 1
+004f - Assign without return
+ 00d8 - Empty array
+ 0032 - int of value 2
+0072 - while
+ 0026 - Logical and
+  003d - Is equal?
+   001a - Substitute value of
+    0033 - int of value 3
+   0023 - Length of
+    001a - Substitute value of
+     0030 - int of value 0
+  003c - Is less than?
+   001a - Substitute value of
+    0034 - int of value 4
+    00a6 - Separate int literals
+   0030 - inf of value 0
+0063 - if
+ 003d - Is equal?
+  0024 - Assigns
+   0027 - Get value at
+    001a - Substitute value of
+     0030 - int of value 0
+    001a - Substitute value of
+     0033 - int of value 3
+     00a6 - Separate int literals
+   0035 - int of value 5
+  0022 003e 0022 - str literal ">"
+0064 - then
+00a4 - Increment but don't return
+ 0034 - int of value 4
+0065 - else
+0063 - if
+ 003d - Is equal?
+  001a - Substitute value of
+   0035 - int of value 5
+  0022 003c 0022 - str literal "<"
+0064 - then
+00a5 - Decrement but don't return
+ 0034 - int of value 4
+0065 - else
+0063 - if
+ 003d - Is equal?
+  001a - Substitute value of
+   0035 - int of value 5
+  0022 002b 0022 - str literal "+"
+0064 - then
+00a4 - Increment but don't return
+ 0040 - Get variable at
+  0031 - int of value 1
+  001a - Substitute value of
+   0034 - int of value 4
+0063 - if
+ 003d - Is equal?
+  0040 - Get value at
+   001a - Substitute value of
+    0031 - int of value 1
+   001a - Substitute value of
+    0034 - int of value 4
+    00a6 - Separate int literals
+  0031 0032 0038 - int of value 128
+004f - Assign without return
+ 00b1 - Negate
+  0031 0032 0038 - int of value 128
+ 0040 - Get variable at
+  0031 - int of value 1
+  001a - Substitute value of
+   0034 - int of value 4
+0065 - else
+0063 - if
+ 003d - Is equal?
+  001a - Substitute value of
+   0035 - int of value 5
+  0022 002d 0022 - str literal "-"
+0064 - then
+00a5 - Decrement but don't return
+ 0040 - Get variable at
+  0031 - int of value 1
+  001a - Substitute value of
+   0034 - int of value 4
+0063 - if
+ 003d - Is equal?
+  0040 - Get value at
+   001a - Substitute value of
+    0031 - int of value 1
+   001a - Substitute value of
+    0034 - int of value 4
+  00b1 - Negate
+   0031 0032 0039 - int of value 129
+004f - Assign without return
+ 0031 0032 0037 - int of value 127
+ 0040 - Get variable at
+  0031 - int of value 1
+  001a - Substitute value of
+   0034 - int of value 4
+0065 - else
+0063 - if
+ 003d - Is equal?
+  001a - Substitute value of
+   0035 - int of value 5
+  0022 003e 0022 - str literal "."
+0064 - then
+[implicit output]
+00d3 - Encode in Base256
+ 0025 - Modulo
+  002b - Add
+   0040 - Get value at
+    001a - Substitute value of
+     0031 - int of value 1
+    001a - Substitute value of
+     0034 - int of value 4
+     00a6 - Separate int literals
+   0032 0035 0036 - int of value 256
+   00a6 - Separate int literals
+  0032 0035 003- - int of value 256
+0065 - else
+0063 - if
+ 003d - Is equal?
+  001a - Substitute value of
+   0035 - int of value 5
+  0022 002c 0022 - str literal ","
+0064 - then
+004f - Assign without return
+ 002d - Subtract
+  0025 - Modulo
+   002b - Add
+    00cc - Convert to int
+     000c - Takes user input
+    0031 0032 0038 - int of value 128
+    00a6 - Separate int literals
+   0032 0035 0036 - int of value 256
+   00a6 - Separate int literals
+  0031 0032 0038 - int of value 128
+ 0040 - Get variable at
+  0031 - int of value 1
+  001a - Substitute value of
+   0034 - int of value 4
+0065 - else
+0063 - if
+ 003d - Is equal?
+  001a - Substitute value of
+   0035 - int of value 5
+  0022 005b 0022 - str literal "["
+0064 - then
+0063 - if
+ 0040 - Get value at
+  001a - Substitute value of
+   0031 - int of value 1
+  001a - Substitute value of
+   0034 - int of value 4
+0064 - then
+00c0 - Push
+ 0076 - Initialize a variable
+  0032 - int of value 2
+ 001a - Substitite value of
+  0033 - int of value 3
+0065 - else
+004c - do...
+004e - ...until
+ 003d - Is equal?
+  0027 - Get value at
+   001a - Substitute value of
+    0030 - int of value 0
+   00af - Increment and return
+    0033 - int of value 3
+    00a6 - Separate int literals
+  0022 005d 0022 - str literal "]"
+0066 - end-if
+0065 - else
+0063 - if
+ 003d - Is equal?
+  001a - Substitute value of
+   0035 - int of value 5
+  0022 005d 0022 - str literal "]"
+0064 - then
+0063 - if
+ 0040 - Get value at
+  001a - Substitute value of
+   0031 - int of value 1
+  001a - Substitute value of
+   0034 - int of value 4
+0064 - then
+004f - Assign without return
+ 00c1 - Pop
+  001a - Substitute value of
+   0032 - int of value 2
+ 0033 - int of value 3
+0065 - else
+0044 - Dump
+ 00c1 - Pop
+  0076 - Initialize a variable
+   0032 - int of value 2
+0066 - end-if
+0066 - end-if
+0066 - end-if
+0066 - end-if
+0066 - end-if
+0066 - end-if
+0066 - end-if
+0066 - end-if
+0066 - end-if
