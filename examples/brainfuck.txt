@@ -220,3 +220,6 @@ variable 4 is the memory pointer.
 0066 - end-if
 0066 - end-if
 0066 - end-if
+00a4 - Increment without return
+ 0033 - int of value 3
+0003 - Return by stack
