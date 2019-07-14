@@ -99,16 +99,16 @@ x(u+0078) - Returns an array of ints in range from from 0 to the input. If the i
 º(u+00ba) - Subtracts 1 to the input.
 »(u+00bb) - Shifts right the value of the first input by second input.
 ¿(u+00bf) - Null command.
-À(u+00c0) - Pushes second input to the first input and return new array. If the first input is variable, do it to the variable. Else, do it to the conversion to array.
-Á(u+00c1) - Pops the input and return the popped element. If the first input is variable, do it to the variable. Else, do it to the conversion to array.
-Â(u+00c2) - Unshifts second input to the first input and return new array. If the first input is variable, do it to the variable. Else, do it to the conversion to array.
-Ã(u+00c3) - Shifts the input and return the shifted element. If the first input is variable, do it to the variable. Else, do it to the conversion to array.
-Ä(u+00c4) - Inserts the second input at the index third input to the first input array.
-Å(u+00c5) - Remove and returns the index second input from the first input.
-Æ(u+00c6) - Inserts multiple variables as elements of the second input at the index third input to the first input.
-Ç(u+00c7) - Removes and returns as array the second input amount of elements at the index third input from the first input.
+À(u+00c0) - Pushes second input to the first input and return new array. If the first input is variable, do it to the variable value, and alter the variable. Else, do it to the conversion to array.
+Á(u+00c1) - Pops the input and return the popped element. If the first input is variable, do it to the variable value, and alter the variable. Else, do it to the conversion to array.
+Â(u+00c2) - Unshifts second input to the first input and return new array. If the first input is variable, do it to the variable value, and alter the variable. Else, do it to the conversion to array.
+Ã(u+00c3) - Shifts the input and return the shifted element. If the first input is variable value, and alter the variable, do it to the variable. Else, do it to the conversion to array.
+Ä(u+00c4) - Inserts and returns the second input at the index third input to the first input array. Alters the variable if it is a variable.
+Å(u+00c5) - Removes and returns and returns the index second input from the first input. Alters the variable if it is a variable.
+Æ(u+00c6) - Inserts and returns multiple variables as elements of the second input at the index third input to the first input. Alters the variable if it is a variable.
+Ç(u+00c7) - Removes and returns as array the second input amount of elements at the index third input from the first input. Alters the variable if it is a variable.
 È(u+00c8) - Returns subarray of the second input amount of elements at the index third input from the first input.
-É(u+00c9) - Inserts second inputs at third input to first input str.
+É(u+00c9) - Inserts and returns second inputs at third input to first input str. Alters the variable if it is a variable.
 Ê(u+00ca) - Returns the substring of length third input from the index second input from the first input str.
 Ë(u+00cb) - Returns the substring of length from the index second input to the index third input from the first input str.
 Ì(u+00cc) - Convert to int.
@@ -118,6 +118,7 @@ x(u+0078) - Returns an array of ints in range from from 0 to the input. If the i
 Ó(u+00d3) - Returns str that expresses the input as Base256.
 Ô(u+00d4) - Returns str that expresses the input as Base65536.
 Ø(u+00d8) - Returns an empty array.
+Ù(u+00d9) - Inserts and returns second inputs at third input to first input str. Does not alter the variable if it is a variable.
 Ý(u+00dd) - Returns an str that expresses the first input in base-k system, with digits of the second input as str. If The second input is an empty str, return an empty str. If the second input is 1 character long, it will return the character repeated first input+1 times.
 Þ(u+00de) - Returns superint with value of the input str as Base256.
 ß(u+00df) - Returns superint with value of the input str as Base65536.
@@ -127,4 +128,12 @@ x(u+0078) - Returns an array of ints in range from from 0 to the input. If the i
 ã(u+00e3) - Returns str of printable characters characters in u+0000 to u+00ff.
 ä(u+00e4) - Returns str of characters from u+0000 to u+ffff.
 å(u+00e5) - Returns str of printable characters characters in u+0000 to u+ffff.
+è(u+00e8) - Pushes second input to the first input and return new array. If the first input is variable, do it to the variable value, but does not alter the variable. Else, do it to the conversion to array.
+é(u+00e9) - Pops the input and return the popped element. If the first input is variable, do it to the variable value, but does not alter the variable. Else, do it to the conversion to array.
+ê(u+00ea) - Unshifts second input to the first input and return new array. If the first input is variable, do it to the variable value, but does not alter the variable. Else, do it to the conversion to array.
+ë(u+00eb) - Shifts the input and return the shifted element. Even if the first input is variable value, it does not alter the variable, do it to the variable. Else, do it to the conversion to array.
+ì(u+00ec) - Inserts and returns the second input at the index third input to the first input array. Does not alter the variable if it is a variable.
+í(u+00ed) - Removes and returns and returns the index second input from the first input. Does not alter the variable if it is a variable.
+î(u+00ee) - Inserts and returns multiple variables as elements of the second input at the index third input to the first input. Does not alter the variable if it is a variable.
+ï(u+00ef) - Removes and returns as array the second input amount of elements at the index third input from the first input. Does not alter the variable if it is a variable.
 ø(u+00f8) - Returns an empty object.
