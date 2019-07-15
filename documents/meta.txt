@@ -2,11 +2,26 @@ Syntax:
 The program is composed of strings of characters.
 Each character is a character from Unicode characters in range of 0000 to ffff.
 If a character is not defined, it is a no-op.
+The general syntax for operators are prefix form.
+
+Execution:
 Starts the execution of the program from left to right.
 Reaching an either end of the program will stop execution.
 A value which are not used or dumped will be implicitly outputted.
-The general syntax for operators are prefix form.
-If an uninitialized variable is called, it will be type int of value 0.
+
+File:
+The file extention is one of the following:
+ .pdl
+ .padl
+ .padlang
+When the file is edited as a text file, it should be saved as a UTF-16 file(Do not use UTF-8, ANSI, UTF-32, and others).
+The interpreter bundled can also import/export as Hex, which you may save any JavaScript readable format. It will accept following:
+ .pdlh
+ .padlh
+ .padlangh
+ .padh
+ .padhex
+ .padlanghex
 
 Variables:
 There are infinite variables of type boolean, int, uint, superint, superuint, float, double, quadruple, str, array, function, object, and variable. These are called normal variables.
@@ -28,3 +43,4 @@ pointer - An superint which holds information of which character the program is 
 direction - An superint which holds information of which direction the program is reading. Positive for right, negative for left, 0 for static. The absolute value will dictate at which interval of the program will be read.
 program - A str which holds the program itself. Initialized to the equivalent of the source code. Changing this will change the program.
 stack - An array which holds superint that shows where the program jumped to execute a function or has looped.
+If an uninitialized variable is called, it will be type int of value 0.
