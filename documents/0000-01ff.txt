@@ -59,6 +59,10 @@ R(u+0052) - If the first variable is a function, it will run the function on the
 S(u+0053) - If the first variable is a function, it will run the function on the elements of the second input as array and return the function's return value. Else, it will return the first input as a binary command.
 T(u+0054) - Returns boolean of value True.
 U(u+0055) - Initializes an superuint, with decimal number after it.
+V(u+0056) - If the first input is a string, returns boolean of whether the second input is a substring of the first input. If the first input is an array, return boolean of whether the second input is an element of the first input.
+W(u+0057) - If the first input is a string, remove all matches of the second input in first input and return it. If the first input is an array, remove all matches of the second input in first input and return it. If the first input is a variable, do it to the value, and modify it.
+X(u+0058) - If the first input is a string, remove all matches of the second input in first input but don't return. If the first input is an array, remove all matches of the second input in first input but dom't return. If the first input is a variable, do it to the value, and modify it.
+Y(u+0059) - If the first input is a string, remove all matches of the second input in first input and return it. If the first input is an array, remove all matches of the second input in first input and return it. If the first input is a variable, do it to the value, but don't modify it.
 [(u+005b) - Starts array literal.
 ](u+005d) - Ends array literal.
 ^(u+005e) - Exponentiates two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible.
@@ -71,6 +75,8 @@ e(u+0065) - "else". Jump to the corresponding u+0066.
 f(u+0066) - "end if". No-op.
 h(u+0068) - Returns str with value "Hello, World!"
 i(u+0069) - Initializes an int, with decimal number after it.
+j(u+006a) - Convert to float.
+k(u+006b) - Convert to double.
 l(u+006c) - Performs short-circuit "xor" on two inputs.
 n(u+006d) - Performs short-circuit "and" on two inputs.
 o(u+006f) - Performs short-circuit "or" on two inputs.
@@ -117,6 +123,9 @@ x(u+0078) - Returns an array of ints in range from from 0 to the input. If the i
 Ê(u+00ca) - Returns the substring of length third input from the index second input from the first input str.
 Ë(u+00cb) - Returns the substring of length from the index second input to the index third input from the first input str.
 Ì(u+00cc) - Convert to int.
+Í(u+00cd) - Convert to uint.
+Î(u+00ce) - Convert to superint.
+Ï(u+00cf) - Convert to superuint.
 Ð(u+00d0) - Returns superint with value of the input str as Base64.
 Ñ(u+00d1) - Returns superint with value of the input str as following bases: Prefix "0b" is binary; Prefix "0" is octal; Prefix "0x" is hexadecimal; and no prefix is decimal.
 Ò(u+00d2) - Returns str that expresses the input as Base64.
@@ -141,4 +150,8 @@ x(u+0078) - Returns an array of ints in range from from 0 to the input. If the i
 í(u+00ed) - Removes and returns and returns the index second input from the first input. Does not alter the variable if it is a variable.
 î(u+00ee) - Inserts and returns multiple variables as elements of the second input at the index third input to the first input. Does not alter the variable if it is a variable.
 ï(u+00ef) - Removes and returns as array the second input amount of elements at the index third input from the first input. Does not alter the variable if it is a variable.
+ð(u+00f0) - If the first input is an array, return an array where each element is value of each element of the first input inputted into the second input. If the first input is an object, return an object where each property value is value of each value of properties of the first input inputted into the second input.
+ñ(u+00f1) - If the first input is a string, replace all matches of the second input in first input with the third input and return it. If the first input is an array, replace all matches of the second input in first input with the third input and return it. If the first input is a variable, do it to the value, and modify it.
+ò(u+00f2) - If the first input is a string, replace all matches of the second input in first input with the third input but don't return. If the first input is an array, replace all matches of the second input in first input with the third input but dom't return. If the first input is a variable, do it to the value, and modify it.
+ó(u+00f3) - If the first input is a string, replace all matches of the second input in first input with the third input and return it. If the first input is an array, replace all matches of the second input in first input with the third input and return it. If the first input is a variable, do it to the value, but don't modify it.
 ø(u+00f8) - Returns an empty object.
