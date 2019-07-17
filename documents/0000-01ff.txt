@@ -154,4 +154,12 @@ x(u+0078) - Returns an array of ints in range from from 0 to the input. If the i
 ñ(u+00f1) - If the first input is a string, replace all matches of the second input in first input with the third input and return it. If the first input is an array, replace all matches of the second input in first input with the third input and return it. If the first input is a variable, do it to the value, and modify it.
 ò(u+00f2) - If the first input is a string, replace all matches of the second input in first input with the third input but don't return. If the first input is an array, replace all matches of the second input in first input with the third input but dom't return. If the first input is a variable, do it to the value, and modify it.
 ó(u+00f3) - If the first input is a string, replace all matches of the second input in first input with the third input and return it. If the first input is an array, replace all matches of the second input in first input with the third input and return it. If the first input is a variable, do it to the value, but don't modify it.
+ô(u+00f4) - Add the second input from right to the first input as variable and return.
+õ(u+00f5) - Subtract the second input from right to the first input as variable and return.
 ø(u+00f8) - Returns an empty object.
+ú(u+00fa) - Add the second input from right to the first input as variable but don't return.
+û(u+00fb) - Subtract the second input from right to the first input as variable but don't return.
+ü(u+00fc) - Add the second input from left to the first input as variable and return.
+ý(u+00fd) - Subtract the second input from left to the first input as variable and return.
+þ(u+00fe) - Add the second input from left to the first input as variable but don't return.
+ÿ(u+00ff) - Subtract the second input from left to the first input as variable but don't return.
