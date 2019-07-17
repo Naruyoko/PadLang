@@ -12,6 +12,7 @@
 (u+0017) - Outputs the input and u+0020. If not an str, then it is implicitly converted to str.
 (u+001a) - Returns the current value of the variable. If it is not a type variable, it is implicitly converted.
 (u+001b) - Forcefully exit the program.
+ (u+0020) - No-op
 !(u+0021) - If the input is int, uint, superint, superuint, float, double, or quadruple, it will return the factorial. If the input is a str, it will return an array of permutation of the characters. If the input is an array, it will return an array of permutation of elements.
 "(u+0022) - Initializes a str with content between this u+0022 and the next u+0022(except escaped, meaning it is leaded with an odd number of u+005c). The content will not be executed. Standard escape sequence applies inside of it.
 #(u+0023) - Returns the length if the variable is str or array.
