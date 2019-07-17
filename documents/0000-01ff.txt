@@ -120,8 +120,8 @@ x(u+0078) - Returns an array of ints in range from from 0 to the input. If the i
 Ç(u+00c7) - Removes and returns as array the second input amount of elements at the index third input from the first input. Alters the variable if it is a variable.
 È(u+00c8) - Returns subarray of the second input amount of elements at the index third input from the first input.
 É(u+00c9) - Inserts and returns second inputs at third input to first input str. Alters the variable if it is a variable.
-Ê(u+00ca) - Returns the substring of length third input from the index second input from the first input str.
-Ë(u+00cb) - Returns the substring of length from the index second input to the index third input from the first input str.
+Ê(u+00ca) - Returns the substring of length third input from the index second input(inclusive) from the first input str.
+Ë(u+00cb) - Returns the substring from the index second input(inclusive) to the index third input(exclusive) from the first input str.
 Ì(u+00cc) - Convert to int.
 Í(u+00cd) - Convert to uint.
 Î(u+00ce) - Convert to superint.
