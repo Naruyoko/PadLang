@@ -8,6 +8,7 @@ Execution:
 Starts the execution of the program from left to right.
 Reaching an either end of the program will stop execution.
 A value which are not used or dumped will be implicitly outputted.
+If pointer is moved manually, it will not advance next(it will execute the command it landed on).
 
 File:
 The file extention is one of the following:
