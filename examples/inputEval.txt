@@ -1,0 +1,43 @@
+Input eval
+Runs the user input code.
+!Code
+
+!Hex
+
+!Explanation
+00fa - Add from right but don't return
+ 0008 - program variable
+ 002b - Add
+  0024 - Assigns
+   000c - User input
+   0030 - int of value 0
+  002b - Add
+   002b - Add
+    0022 001b 0000 004f 00cb 001a 0008 0033 0039 0023 001a 0008 0008 0022 - str literal for *1
+    002a - Multiply
+     0022 0020 0022 - str literal for a space
+     0033 0039 - inf of value 39
+   004f 0030 0005 - str literal for *2
+004f - Assign without return
+ 002b - Add
+  0023 - Length of
+   001a - Substitute value of
+    0030 - int of value 0
+  0033 0039 - inf of value 39
+ 0005 - pointer variable
+*1
+001b - Exit the program
+0000 - Reset variables
+004f - Assign without return
+ 00cb - Get substring in range
+  001a - Substitute value of
+   0008 - program variable
+  0033 0039 - int of value 39
+  0023 - Get length
+   001a - Substitute value of
+    0008 - program variable
+ 0008 - program variable
+*2
+004f - Assign without return
+ 0030 - int of value 0
+ 0005 - pointer variable
