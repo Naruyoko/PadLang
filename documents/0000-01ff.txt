@@ -1,4 +1,4 @@
-(u+0000) - All variables are reset, except program pointer.
+(u+0000) - All variables are reset, except program and pointer.
 (u+0003) - It will pop from the stack, and sets the pointer to it.
 (u+0005) - Returns the pointer variable.
 (u+0006) - Returns the direction variable.
