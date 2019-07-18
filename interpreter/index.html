@@ -32,9 +32,18 @@
       <button onclick="readFile()">Read file</button>
     </p>
     <p>
+      <input type="text" id="fileName" onchange="generateFile()" value="name">
+      <select id="fileExtention" onchange="generateFile()"></select>
+      <select id="fileType" onchange="changeFileType();generateFile();">
+        <option value="Raw">Raw</option>
+        <option value="Hex">Hex</option>
+      </select>
+      <a id="saveLink">Save</a>
+    </p>
+    <p>
       <div id="fileInfo">&lt;No file&gt;</div>
     </p>
     <textarea id="rawview" class="program" style="float:left" onchange="changeRawProgram()">H</textarea>
-    <textarea id="hexview" class="program" style="float:left" onchange="changeHexProgram()">0048</textarea>
+    <textarea id="hexview" class="program" style="float:left" onchange="changeHexProgram()"></textarea>
   </body>
 </html>
