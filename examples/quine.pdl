@@ -1,10 +1,1 @@
-Quine
-Outputs its source code.
-!Code - 2 char
 
-!Hex
-001a 0008
-!Explanation
-[implicit output]
-001a - Substitute value of
- 0008 - The program variable
