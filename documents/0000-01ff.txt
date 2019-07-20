@@ -1,4 +1,4 @@
-(u+0000) - All variables are reset, except program and pointer.
+﻿(u+0000) - All variables are reset, except program and pointer.
 (u+0003) - It will pop from the stack, and sets the pointer to it.
 (u+0005) - Returns the pointer variable.
 (u+0006) - Returns the direction variable.
@@ -23,10 +23,10 @@ $(u+0024) - Assigns the first value after to the second and returns the value. I
 ((u+0028) - Starts grouping of expressions.
 )(u+0029) - Ends grouping of expressions. The group evaluates to the last expression's value.
 *(u+002a) - Multiplies two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible. If the first input is str and the second is either int, uint, superint, superuint, float, double, or quadruple, it will repeat the first input max(0,floor(second input)) times. If the first input is array and the second is either int, uint, superint, superuint, float, double, or quadruple, it will repeat the first input max(0,floor(second input)) times.
-+(u+002b) - Adds two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible. If either of the two inputs are str, it will comvert to str and concatenates them. If both of the inputs are array, it will concatenate them. If only the first input is an array, it append add the second input to the first input. If only the second input is an array, it will prepend the first input to the second input. If both of the inputs are objects, add the properties of the second object to the first object, and if they share a property, the value of the second input will be prioritized.
++(u+002b) - Adds two of int, uint, superint, superuint, float, or double, and returns in the data type of two that are more expressible. If either of the two inputs are str, it will comvert to str and concatenates them. If both of the inputs are array, it will concatenate them. If only the first input is an array, it append add the second input to the first input. If only the second input is an array, it will prepend the first input to the second input. If both of the inputs are objects, add the properties of the second object to the first object, and if they share a property, the value of the second input will be prioritized.
 ,(u+002c) - If it is inside of an array literal, it separates elements. If it is inside an object literal, it will separate entries.
--(u+002d) - Subtracts two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible. If either of the two inputs are str, it will convert to str, then it will delete the last matching characters for each character in the second input from the first input. If both inputs are array, it will remove the last match to the elements of the second input from the first input. If only the first input is array, it will remove the last match to the second input from the first input. If both inputs are objects, it will remove last match of properties of the second input from the first input.
-/(u+002f) - Divides two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible.
+-(u+002d) - Subtracts two of int, uint, superint, superuint, float, or double, and returns in the data type of two that are more expressible. If either of the two inputs are str, it will convert to str, then it will delete the last matching characters for each character in the second input from the first input. If both inputs are array, it will remove the last match to the elements of the second input from the first input. If only the first input is array, it will remove the last match to the second input from the first input. If both inputs are objects, it will remove last match of properties of the second input from the first input.
+/(u+002f) - Divides two of int, uint, superint, superuint, float, or double, and returns in the data type of two that are more expressible.
 0(u+0030) - Initializes an int of value 0.
 1(u+0031) - Initializes an int with itself then rest of consecutive decimal digits. Prevents the latter digits from creating more int.
 2(u+0032) - Initializes an int with itself then rest of consecutive decimal digits. Prevents the latter digits from creating more int.
@@ -45,7 +45,7 @@ $(u+0024) - Assigns the first value after to the second and returns the value. I
 ?(u+003f) - If the first input is truly, then it evaluates to the second input. Else, it evaluates to the third input.
 @(u+0040) - If the first input is a variable holding array, it will return the variable corresponding to the second input-th index. If the first input is a variable holding object, it will return the variable corresponding to the label of the second input. If the first input is not an variable, it will be implicitly converted to variable.
 A(u+0041) - Assigns the first value after to the second and returns the original value. If the second is not a type variable, it is implicitly converted.
-B(u+0042) - If the inputs are int, uint, superint, superuint, float, double, or quadruple, it will return first input combination second input. If the first input is a str, it will return an array of combination of the second input many characters from the first input such that the order is not changed and same characters are differentiated. If the first input is an array, it will return an array of permutation of the second input many elements from the first input such that the order is not changed and same elements are differentiated.
+B(u+0042) - If the inputs are int, uint, superint, superuint, float, or double, it will return first input combination second input. If the first input is a str, it will return an array of combination of the second input many characters from the first input such that the order is not changed and same characters are differentiated. If the first input is an array, it will return an array of permutation of the second input many elements from the first input such that the order is not changed and same elements are differentiated.
 D(u+0044) - Dumps the value.
 E(u+0045) - Performs logical "xor" on two inputs.
 F(u+0045) - Initializes a function with first onput arguments, then that many variables after, then expression. The parameters are not accessible outside of the function call. The variable variables are actually overwritten by the variable of fuction itself followed by the name. The expression continues until u+0003.
@@ -55,7 +55,7 @@ L(u+004c) - "do". Pushes to stack.
 M(u+004d) - "do...while". If the input is truly, it will pop and jump.
 N(u+004e) - "do...until". If the input is falsy, it will pop and jump.
 O(u+004f) - Assigns the first value after to the second but does not return. If the second is not a type variable, it is implicitly converted.
-P(u+0050) - If the inputs are int, uint, superint, superuint, float, double, or quadruple, it will return first input permulation second input. If the first input is a str, it will return an array of permutation of the second input many characters from the first input and same characters are differentiated. If the first input is an array, it will return an array of permutation of the second input many elements from the first input and same elements are differentiated.
+P(u+0050) - If the inputs are int, uint, superint, superuint, float, or double, it will return first input permulation second input. If the first input is a str, it will return an array of permutation of the second input many characters from the first input and same characters are differentiated. If the first input is an array, it will return an array of permutation of the second input many elements from the first input and same elements are differentiated.
 R(u+0052) - If the first variable is a function, it will run the function on the other inputs and return the function's return value. Else, it will return the first input as a unary command.
 S(u+0053) - If the first variable is a function, it will run the function on the elements of the second input as array and return the function's return value. Else, it will return the first input as a binary command.
 T(u+0054) - Returns boolean of value True.
@@ -66,10 +66,10 @@ X(u+0058) - If the first input is a string, remove all matches of the second inp
 Y(u+0059) - If the first input is a string, remove all matches of the second input in first input and return it. If the first input is an array, remove all matches of the second input in first input and return it. If the first input is a variable, do it to the value, but don't modify it.
 [(u+005b) - Starts array literal.
 ](u+005d) - Ends array literal.
-^(u+005e) - Exponentiates two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible.
+^(u+005e) - Exponentiates two of int, uint, superint, superuint, float, or double, and returns in the data type of two that are more expressible.
 `(u+0060) - Returns an empty str.
 a(u+0061) - Converts variable to an array with one element which value is the input.
-b(u+0062) - If the inputs are int, uint, superint, superuint, float, double, or quadruple, it will return first input combination second input. If the first input is a str, it will return an array of combination of the second input many characters from the first input such that the order is not changed and same characters are not differentiated. If the first input is an array, it will return an array of permutation of the second input many elements from the first input such that the order is not changed and same elements are not differentiated.
+b(u+0062) - If the inputs are int, uint, superint, superuint, float, or double, it will return first input combination second input. If the first input is a str, it will return an array of combination of the second input many characters from the first input such that the order is not changed and same characters are not differentiated. If the first input is an array, it will return an array of permutation of the second input many elements from the first input such that the order is not changed and same elements are not differentiated.
 c(u+0063) - "if". If not immediately followed by u+0064, it will execute the next command if and only if the input was truly. If followed by u+0064, if the input was truly, it will jump after the u+0064. If it was falsy, it will jump after the next u+0065 or u+0066.
 d(u+0064) - "then".
 e(u+0065) - "else". Jump to the corresponding u+0066.
@@ -81,7 +81,7 @@ k(u+006b) - Convert to double.
 l(u+006c) - Performs short-circuit "xor" on two inputs.
 n(u+006d) - Performs short-circuit "and" on two inputs.
 o(u+006f) - Performs short-circuit "or" on two inputs.
-p(u+0070) - If the inputs are int, uint, superint, superuint, float, double, or quadruple, it will return first input permulation second input. If the first input is a str, it will return an array of permutation of the second input many characters from the first input and same characters are not differentiated. If the first input is an array, it will return an array of permutation of the second input many elements from the first input and same elements are not differentiated.
+p(u+0070) - If the inputs are int, uint, superint, superuint, float, or double, it will return first input permulation second input. If the first input is a str, it will return an array of permutation of the second input many characters from the first input and same characters are not differentiated. If the first input is an array, it will return an array of permutation of the second input many elements from the first input and same elements are not differentiated.
 q(u+0071) - "for". Runs first expression. Then, if second expression is truly. push to stack, and skip third expression. If second expression is false, pop the stack, and jump after the corresponding u+0072. If jumped from a u+0003, it will execute the third ones, then check for the second expression again.
 r(u+0072) - "while". If the input expression is truly, it will push to the stack. If it is falsy, it will jump after the corresponding u+0003.
 s(u+0073) - Initializes a str, with length as int, uint, superint, or superuint and then the content. The content will not be executed.
@@ -104,9 +104,9 @@ x(u+0078) - Returns an array of ints in range from from 0 to the input. If the i
 «(u+00ab) - Shifts left the value of the first input by second input.
 ¯(u+00af) - Increments the variable and return it. If the input is not type variable, it is implicitly converted to variable.
 °(u+00b0) - Decrements the variable and return it. If the input is not type variable, it is implicitly converted to variable.
-±(u+00b1) - Negates value of int, superint, float, double, and quadruple. Reverses str and array.
-²(u+00b2) - Squares int, uint, superint, superuint, float, double, or quadruple.
-³(u+00b3) - Cubes int, uint, superint, superuint, float, double, or quadruple.
+±(u+00b1) - Negates value of int, superint, float, or double. Reverses str and array.
+²(u+00b2) - Squares int, uint, superint, superuint, float, or double.
+³(u+00b3) - Cubes int, uint, superint, superuint, float, or double.
 ¹(u+00b9) - Adds 1 to the input.
 º(u+00ba) - Subtracts 1 to the input.
 »(u+00bb) - Shifts right the value of the first input by second input.

@@ -25,7 +25,7 @@ The interpreter bundled can also import/export as Hex, which you may save any Ja
  .padlanghex
 
 Variables:
-There are infinite variables of type boolean, int, uint, superint, superuint, float, double, quadruple, str, array, function, object, and variable. These are called normal variables.
+There are infinite variables of type boolean, int, uint, superint, superuint, float, double, str, array, function, object, and variable. These are called normal variables.
 There are one of each variable type pointer, direction, program, and stack. These are called special variables.
 boolean - Holds value boolean - Holds value of either true or false.
 int - A signed 32 bit integer.
@@ -34,7 +34,6 @@ superint - A signed integer of arbitrary size. More memory is given as the value
 superuint - An unsigned integer of arbitrary size. More memory is given as the value increases.
 float - A floating-point number according to IEEE 754.
 double - A double-precision floatong-point number according to IEEE 754 binary64.
-quadruple - A quadruple-precision floating-point number according to IEEE 754 binary128.
 str - A string of Unicode characters.
 array - An array of normal variables.
 function - Takes inputs and evaluates to an output.
