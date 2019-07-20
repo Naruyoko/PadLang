@@ -2,17 +2,6 @@
 function dg(s){
   return document.getElementById(s);
 }
-window.onload=function(){
-  //Check for API support
-  if (!(window.File&&window.FileReader&&window.FileList&&window.Blob)){
-    var error="File APIs are not fully supported in this browser!";
-    alert(error);
-    console.error(error);
-  }
-  changeRawProgram();
-  changeFileType();
-  generateFile();
-}
 
 var file=null;
 var reader=new FileReader();
@@ -20,6 +9,18 @@ var rawProgram="";
 var hexPorgram="";
 var rawExtentions=[".pdl",".padl",".padlang"];
 var hexExtentions=[".pdlh",".padlh",".padlangh",".padh",".padhex",".padlanghex"];
+window.onload=function(){
+  //Check for API support
+  if (!(window.File&&window.FileReader&&window.FileList&&window.Blob)){
+    var error="File APIs are not fully supported in this browser!";
+    alert(error);
+    console.error(error);
+  }
+  dg("upload").accept=rawExtentions+","+hexExtentions;
+  changeRawProgram();
+  changeFileType();
+  generateFile();
+}
 function onupload(){
   file=dg("upload").files[0];
 }
@@ -55,6 +56,22 @@ function changeHexProgram(){
   hexProgram=dg("hexview").value;
   dg("rawview").value=rawProgram=hexToRaw(hexProgram);
   displayProgram();
+}
+function removeViewColumnFix(){
+  dg("rawview").style.width=dg("rawview").offsetWidth-6+"px";
+  dg("hexview").style.width=dg("hexview").offsetWidth-6+"px";
+  dg("rawview").removeAttribute("cols");
+  dg("hexview").removeAttribute("cols");
+}
+function alignSizeToRawView(){
+  var x=dg("rawview").style.width;
+  dg("hexview").style.width=parseInt(x.substring(0,x.length-2))*5+"px";
+  dg("hexview").style.height=dg("rawview").style.height;
+}
+function alignSizeToHexView(){
+  var x=dg("hexview").style.width;
+  dg("rawview").style.width=parseInt(x.substring(0,x.length-2))/5+"px";
+  dg("rawview").style.height=dg("hexview").style.height;
 }
 
 function changeFileType(){
