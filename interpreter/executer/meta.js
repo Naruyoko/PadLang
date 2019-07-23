@@ -229,11 +229,11 @@ function convertToSuperint(value){
     return normalize(value);
   }else if (value.type=="float"){
     value.type="superint";
-    value.value=bigInt(value.value);
+    value.value=bigInt(Math.floor(value.value));
     return normalize(value);
   }else if (value.type=="double"){
     value.type="superint";
-    value.value=bigInt(value.value);
+    value.value=bigInt(Math.floor(value.value));
     return normalize(value);
   }else if (value.type=="string"){
     if (value.value.search(/[^0-9\-]/g)==-1&&value.value.substring(1).search(/[^0-9]/g)==-1){
@@ -253,6 +253,135 @@ function convertToSuperint(value){
     return create("superint",0);
   }else if (value.type=="variable"){
     return convertToSuperint(value.value);
+  }
+}
+
+function convertToSuperuint(value){
+  var value=clone(value);
+  if (value.type=="int"){
+    value.type="superuint";
+    value.value=bigInt(value.value);
+    return normalize(value);
+  }else if (value.type=="uint"){
+    value.type="superuint";
+    value.value=bigInt(value.value);
+    return normalize(value);
+  }else if (value.type=="superint"){
+    value.type="superuint";
+    return normalize(value);
+  }else if (value.type=="superuint"){
+    return value;
+  }else if (value.type=="float"){
+    value.type="superuint";
+    value.value=bigInt(Math.floor(value.value));
+    return normalize(value);
+  }else if (value.type=="double"){
+    value.type="superuint";
+    value.value=bigInt(Math.floor(value.value));
+    return normalize(value);
+  }else if (value.type=="string"){
+    if (value.value.search(/[^0-9\-]/g)==-1&&value.value.substring(1).search(/[^0-9]/g)==-1){
+      value.type="superuint";
+      value.value=bigInt(value.value);
+      return normalize(value);
+    }else{
+      return create("superuint",0);
+    } 
+  }else if (value.type=="array"){
+    if (equal(length(value),create("int",0)){
+      returrn create("superuint",0);
+    }else{
+      return convertToSuperuint(getAt(value,create("int",0)));
+    }
+  }else if (value.type=="object"){
+    return create("superuint",0);
+  }else if (value.type=="variable"){
+    return convertToSuperuint(value.value);
+  }
+}
+
+function convertToFloat(value){
+  var value=clone(value);
+  if (value.type=="int"){
+    value.type="float";
+    return normalize(value);
+  }else if (value.type=="uint"){
+    value.type="float";
+    return normalize(value);
+  }else if (value.type=="superint"){
+    value.type="float";
+    value.value=doubleToFloat(value.value.toNumber());
+    return normalize(value);
+  }else if (value.type=="superuint"){
+    value.type="float";
+    value.value=doubleToFloat(value.value.toNumber());
+    return normalize(value);
+  }else if (value.type=="float"){
+    return value;
+  }else if (value.type=="double"){
+    value.type="float";
+    value.value=doubleToFloat(value.value);
+    return normalize(value);
+  }else if (value.type=="string"){
+    if (value.value.search(/[^0-9\.\-]/g)==-1&&value.value.substring(1).search(/[^0-9\.]/g)==-1&&!value.value.match(/\./g)&&value.value.match(/\./g).length<2){
+      value.type="float";
+      value.value=doubleToFloat(parseFloat(value.value));
+      return normalize(value);
+    }else{
+      return create("float",0);
+    } 
+  }else if (value.type=="array"){
+    if (equal(length(value),create("int",0)){
+      returrn create("float",0);
+    }else{
+      return convertToFloat(getAt(value,create("int",0)));
+    }
+  }else if (value.type=="object"){
+    return create("float",0);
+  }else if (value.type=="variable"){
+    return convertToFloat(value.value);
+  }
+}
+
+function convertToDouble(value){
+  var value=clone(value);
+  if (value.type=="int"){
+    value.type="double";
+    return normalize(value);
+  }else if (value.type=="uint"){
+    value.type="double";
+    return normalize(value);
+  }else if (value.type=="superint"){
+    value.type="double";
+    value.value=value.value.toNumber();
+    return normalize(value);
+  }else if (value.type=="superuint"){
+    value.type="double";
+    value.value=value.value.toNumber();
+    return normalize(value);
+  }else if (value.type=="float"){
+    value.type="double";
+    return normalize(value);
+  }else if (value.type=="double"){
+    return value;
+  }else if (value.type=="string"){
+    if (value.value.search(/[^0-9\.\-]/g)==-1&&value.value.substring(1).search(/[^0-9\.]/g)==-1&&!value.value.match(/\./g)&&value.value.match(/\./g).length<2){
+      value.type="double";
+      value.value=parseFloat(value.value);
+      return normalize(value);
+    }else{
+      return create("double",0);
+    } 
+  }else if (value.type=="array"){
+    if (equal(length(value),create("int",0)){
+      returrn create("double",0);
+    }else{
+      return convertToDouble(getAt(value,create("int",0)));
+    }
+  }else if (value.type=="object"){
+    return create("double",0);
+  }else if (value.type=="variable"){
+    return convertToDouble(value.value);
   }
 }
 
