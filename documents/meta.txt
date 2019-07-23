@@ -3,6 +3,7 @@ The program is composed of strings of characters.
 Each character is a character from Unicode characters in range of 0000 to ffff.
 If a character is not defined, it is a no-op.
 The general syntax for operators are prefix form.
+If a command does not return anything and program is looking for inputs to a command, it will not be counted as an input. This also includes if a command is not defined for incompatible inputs.
 
 Execution:
 Starts the execution of the program from left to right.
