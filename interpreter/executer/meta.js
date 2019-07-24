@@ -385,6 +385,58 @@ function convertToDouble(value){
   }
 }
 
+function convertToString(value){
+  var value=clone(value);
+  if (value.type=="int"){
+    value.type="string";
+    value.value=String(value.value);
+    return normalize(value);
+  }else if (value.type=="uint"){
+    value.type="string";
+    value.value=String(value.value);
+    return normalize(value);
+  }else if (value.type=="superint"){
+    value.type="string";
+    value.value=value.value.toString();
+    return normalize(value);
+  }else if (value.type=="superuint"){
+    value.type="string";
+    value.value=value.value.toString();
+    return normalize(value);
+  }else if (value.type=="float"){
+    value.type="string";
+    value.value=String(value.value);
+    return normalize(value);
+  }else if (value.type=="double"){
+    value.type="string";
+    value.value=String(value.value);
+    return normalize(value);
+  }else if (value.type=="string"){
+    return value;
+  }else if (value.type=="array"){
+    var s=create("string","");
+    for (var i=0;i<length(value).value;i++){
+      if (i!==0){
+        s=add(s,create("string",","));
+      }
+      s=add(s,convertToString(getAt(value,create("int",i))));
+    }
+    return add(create("string","[").add(s,create("string","]")));
+  }else if (value.type=="object"){
+    var s=create("string","");
+    for (var i=0;i<length(value).value;i++){
+      if (i!==0){
+        s=add(s,create("string",","));
+      }
+      var p=value.value[i];
+      s=add(s,add(convertToString(value,create("int",i)[0]),add(create("string",":"),convertToString(value,create("int",i)[1]))));
+    }
+    return add(create("string","{").add(s,create("string","}")));
+  }else if (value.type=="variable"){
+    return convertToString(value.value);
+  }
+}
+
 function normalize(value){
   var value=clone(value);
   if (value.type=="int"){
@@ -452,6 +504,16 @@ function binary(value){
 
 funciton invertBinary(binaryValue){
   return binaryValue.replace(/0/g,"a").replace(/1/g,"0").replace(/a/g,"1");
+}
+
+function length(value){
+  if (["string","array","object"].includes(value.type)){
+    return create("int",value.value.length);
+  }
+  return create("int",0);
+}
+
+function getAt(value){
 }
 
 //function from https://stackoverflow.com/a/4460624

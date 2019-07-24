@@ -15,7 +15,7 @@
  (u+0020) - No-op
 !(u+0021) - If the input is int, uint, superint, superuint, float, double, or quadruple, it will return the factorial. If the input is a str, it will return an array of permutation of the characters. If the input is an array, it will return an array of permutation of elements.
 "(u+0022) - Initializes a str with content between this u+0022 and the next u+0022(except escaped, meaning it is leaded with an odd number of u+005c). The content will not be executed. Standard escape sequence applies inside of it.
-#(u+0023) - Returns the length if the variable is str or array.
+#(u+0023) - Returns the length if the variable is str or array. Returns number of attributes if the variable is an object.
 $(u+0024) - Assigns the first value after to the second and returns the value. If the second is not a type variable, it is implicitly converted.
 %(u+0025) - Takes modulo of two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible.
 &(u+0026) - Performs logical "and" on two inputs.
