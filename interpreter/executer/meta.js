@@ -513,7 +513,21 @@ function length(value){
   return create("int",0);
 }
 
-function getAt(value){
+function getAt(value,index){
+  var value=clone(value);
+  if (value.type=="string"){
+    return create("string",value.value[index.value]);
+  }else if (value.type=="array"){
+    return value.value[index.value];
+  }else if (value.type=="object"){
+    for (var i=0;i<length(value).value;i++){
+      if (equal(index,value.value[i][0])){
+        return value.value[i][1];
+      }
+    }
+    return create("int",0);
+  }
+  return create("int",0);
 }
 
 //function from https://stackoverflow.com/a/4460624
