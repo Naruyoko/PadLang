@@ -22,5 +22,5 @@ function mod(a,b){
 
 function power(a,b){}
 function pow(a,b){
-  reutrn power(a,b);
+  return power(a,b);
 }
