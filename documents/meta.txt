@@ -1,3 +1,6 @@
+Note:
+This esoteric programming language "PadLang" is in no way affiliated, associated, or related in other way to PADLang by zaklaus, Padlangs (restraunt), or any other similarly named things, or any other things unless specified.
+
 Syntax:
 The program is composed of strings of characters.
 Each character is a character from Unicode characters in range of 0000 to ffff.
