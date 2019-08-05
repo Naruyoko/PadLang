@@ -51,11 +51,13 @@ function changeRawProgram(){
   rawProgram=dg("rawview").value;
   dg("hexview").value=hexProgram=rawToHex(rawProgram);
   displayProgram();
+  generateFile();
 }
 function changeHexProgram(){
   hexProgram=dg("hexview").value;
   dg("rawview").value=rawProgram=hexToRaw(hexProgram);
   displayProgram();
+  generateFile();
 }
 function removeViewColumnFix(){
   dg("rawview").style.width=dg("rawview").offsetWidth-6+"px";
