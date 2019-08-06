@@ -80,8 +80,10 @@ function changeFileType(){
   var extentions;
   if (dg("fileType").value=="Raw"){
     extentions=rawExtentions;
+    dg("fileEncode").style.display="";
   }else{
     extentions=hexExtentions;
+    dg("fileEncode").style.display="none";
   }
   var s="";
   for (var i=0;i<extentions.length;i++){
@@ -89,17 +91,60 @@ function changeFileType(){
   }
   dg("fileExtention").innerHTML=s;
 }
+
+//function from https://stackoverflow.com/a/29339233
+function generateUtf8(str){
+  var file = new Blob([str], {type: "text/plain;charset=UTF-8;"});
+  return file;
+}
+//function from https://stackoverflow.com/a/43099608
+function generateUtf16(str) {
+
+	// ref: https://stackoverflow.com/q/6226189
+	var charCode, byteArray = [];
+
+  if (dg("fileEncode")=="UTF-16BE"){
+	// BE BOM
+  byteArray.push(254, 255);
+  }else{
+	// LE BOM
+  byteArray.push(255, 254);
+  }
+
+  for (var i = 0; i < str.length; ++i) {
+  
+    charCode = str.charCodeAt(i);
+    if (dg("fileEncode")=="UTF-16BE"){
+    // BE Bytes
+    byteArray.push((charCode & 0xFF00) >>> 8);
+    byteArray.push(charCode & 0xFF);
+    }else{    
+    // LE Bytes
+    byteArray.push(charCode & 0xff);
+    byteArray.push(charCode / 256 >>> 0);
+    }
+  }
+  
+  var blob = new Blob([new Uint8Array(byteArray)], {type:'text/plain;charset=UTF-16BE;'});
+  return blob;
+}
+
 //function from https://stackoverflow.com/a/29339233
 function download(text, name, type) {
   var a = document.getElementById("saveLink");
-  var file = new Blob([text], {type: type});
+  var file;
+  if (dg("fileType").value=="Hex"||dg("fileEncode").value=="UTF-8"){
+    file=generateUtf8(text);
+  }else{
+    file=generateUtf16(text);
+  }
   a.href = URL.createObjectURL(file);
   a.download = name;
 }
 function generateFile(){
   if (dg("fileType").value=="Raw"){
-    download(rawProgram,dg("fileName").value+dg("fileExtention").value,"text/plain");
+    download(rawProgram,dg("fileName").value+dg("fileExtention").value);
   }else{
-    download(hexProgram,dg("fileName").value+dg("fileExtention").value,"text/plain");
+    download(hexProgram,dg("fileName").value+dg("fileExtention").value);
   }
 }
