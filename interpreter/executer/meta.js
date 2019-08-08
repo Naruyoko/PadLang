@@ -113,6 +113,8 @@ function normalize(value){
     return value;
   }else if (value.type=="double"){
     return value;
+  }else if (value.type=="boolean"){
+    return value;
   }else if (value.type=="string"){
     return value;
   }else if (value.type=="array"){
@@ -132,7 +134,7 @@ function binary(value){
     }
     return s;
   }else if (["float","double"].includes(value.type)){
-    
+    //TODO:
   }
 }
 

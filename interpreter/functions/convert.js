@@ -14,6 +14,10 @@ function convert(type,value){
     convertToFloat(value);
   }else if (type=="double"){
     convertToDouble(value);
+  }else if (type=="boolean"){
+    convertToBoolean(value);
+  }else if (type=="str"){
+    convertToStr(value);
   }else if (type=="array"){
     convertToArray(value);
   }else if (type=="object"){
@@ -52,7 +56,14 @@ function convertToInt(value){
   }else if (value.type=="double"){
     value.type="int";
     return normalize(value);
-  }else if (value.type=="string"){
+  }else if (value.type=="boolean"){
+    if (value.value){
+      value=create("int",1);
+    }else{
+      value=create("int",0);
+    }
+    return normalize(value);
+  }else if (value.type=="str"){
     if (value.value.search(/[^0-9\-]/g)==-1&&value.value.substring(1).search(/[^0-9]/g)==-1){
       value.type="superint";
       value.value=bigInt(value.value);
@@ -102,7 +113,14 @@ function convertToUint(value){
   }else if (value.type=="double"){
     value.type="uint";
     return normalize(value);
-  }else if (value.type=="string"){
+  }else if (value.type=="boolean"){
+    if (value.value){
+      value=create("uint",1);
+    }else{
+      value=create("uint",0);
+    }
+    return normalize(value);
+  }else if (value.type=="str"){
     if (value.value.search(/[^0-9\-]/g)==-1&&value.value.substring(1).search(/[^0-9]/g)==-1){
       value.type="superint";
       value.value=bigInt(value.value);
@@ -146,7 +164,14 @@ function convertToSuperint(value){
     value.type="superint";
     value.value=bigInt(Math.floor(value.value));
     return normalize(value);
-  }else if (value.type=="string"){
+  }else if (value.type=="boolean"){
+    if (value.value){
+      value=create("superint",new bigInt(1));
+    }else{
+      value=create("superint",new bigInt(0));
+    }
+    return normalize(value);
+  }else if (value.type=="str"){
     if (value.value.search(/[^0-9\-]/g)==-1&&value.value.substring(1).search(/[^0-9]/g)==-1){
       value.type="superint";
       value.value=bigInt(value.value);
@@ -190,7 +215,14 @@ function convertToSuperuint(value){
     value.type="superuint";
     value.value=bigInt(Math.floor(value.value));
     return normalize(value);
-  }else if (value.type=="string"){
+  }else if (value.type=="boolean"){
+    if (value.value){
+      value=create("superuint",new bigInt(1));
+    }else{
+      value=create("superuint",new bigInt(0));
+    }
+    return normalize(value);
+  }else if (value.type=="str"){
     if (value.value.search(/[^0-9\-]/g)==-1&&value.value.substring(1).search(/[^0-9]/g)==-1){
       value.type="superuint";
       value.value=bigInt(value.value);
@@ -233,7 +265,14 @@ function convertToFloat(value){
     value.type="float";
     value.value=doubleToFloat(value.value);
     return normalize(value);
-  }else if (value.type=="string"){
+  }else if (value.type=="boolean"){
+    if (value.value){
+      value=create("float",1);
+    }else{
+      value=create("float",0);
+    }
+    return normalize(value);
+  }else if (value.type=="str"){
     if (value.value.search(/[^0-9\.\-]/g)==-1&&value.value.substring(1).search(/[^0-9\.]/g)==-1&&!value.value.match(/\./g)&&value.value.match(/\./g).length<2){
       value.type="float";
       value.value=doubleToFloat(parseFloat(value.value));
@@ -275,7 +314,14 @@ function convertToDouble(value){
     return normalize(value);
   }else if (value.type=="double"){
     return value;
-  }else if (value.type=="string"){
+  }else if (value.type=="boolean"){
+    if (value.value){
+      value=create("double",1);
+    }else{
+      value=create("double",0);
+    }
+    return normalize(value);
+  }else if (value.type=="str"){
     if (value.value.search(/[^0-9\.\-]/g)==-1&&value.value.substring(1).search(/[^0-9\.]/g)==-1&&!value.value.match(/\./g)&&value.value.match(/\./g).length<2){
       value.type="double";
       value.value=parseFloat(value.value);
@@ -296,53 +342,109 @@ function convertToDouble(value){
   }
 }
 
-function convertToString(value){
+function convertToBoolean(value){
   var value=clone(value);
   if (value.type=="int"){
-    value.type="string";
+    value.type="boolean";
+    value.value=value.value!=0;
+    return normalize(value);
+  }else if (value.type=="uint"){
+    value.type="boolean";
+    value.value=value.value!=0;
+    return normalize(value);
+  }else if (value.type=="superint"){
+    value.type="boolean";
+    value.value=!value.value.eq(0);
+    return normalize(value);
+  }else if (value.type=="superuint"){
+    value.type="boolean";
+    value.value=!value.value.eq(0);
+    return normalize(value);
+  }else if (value.type=="float"){
+    value.type="boolean";
+    value.value=value.value!=0;
+    return normalize(value);
+  }else if (value.type=="double"){
+    value.type="boolean";
+    value.value=value.value!=0;
+    return normalize(value);
+  }else if (value.type=="boolean"){
+    return value;
+  }else if (value.type=="str"){
+    if (value.value=="false"){
+      return create("boolean",false);
+    }else if (value.value=="true"){
+      return create("boolean",true);
+    }else{
+      return convertToBoolean(convertToDouble(value));
+    }
+  }else if (value.type=="array"){
+    value.type="boolean";
+    value.value=value.value.length==0;
+    return normalize(value);
+  }else if (value.type=="object"){
+    value.type="boolean";
+    value.value=value.value.length==0;
+    return normalize(value);
+  }else if (value.type=="variable"){
+    return convertToBoolean(value.value);
+  }
+}
+
+function convertToStr(value){
+  var value=clone(value);
+  if (value.type=="int"){
+    value.type="str";
     value.value=String(value.value);
     return normalize(value);
   }else if (value.type=="uint"){
-    value.type="string";
+    value.type="str";
     value.value=String(value.value);
     return normalize(value);
   }else if (value.type=="superint"){
-    value.type="string";
+    value.type="str";
     value.value=value.value.toString();
     return normalize(value);
   }else if (value.type=="superuint"){
-    value.type="string";
+    value.type="str";
     value.value=value.value.toString();
     return normalize(value);
   }else if (value.type=="float"){
-    value.type="string";
+    value.type="str";
     value.value=String(value.value);
     return normalize(value);
   }else if (value.type=="double"){
-    value.type="string";
+    value.type="str";
     value.value=String(value.value);
     return normalize(value);
-  }else if (value.type=="string"){
+  }else if (value.type=="boolean"){
+    if (value.value){
+      value=create("str","true");
+    }else{
+      value=create("str","false");
+    }
+    return normalize(value);
+  }else if (value.type=="str"){
     return value;
   }else if (value.type=="array"){
-    var s=create("string","");
+    var s=create("str","");
     for (var i=0;i<length(value).value;i++){
       if (i!==0){
-        s=add(s,create("string",","));
+        s=add(s,create("str",","));
       }
       s=add(s,convertToString(getAt(value,create("int",i))));
     }
-    return add(create("string","[").add(s,create("string","]")));
+    return add(create("str","[").add(s,create("str","]")));
   }else if (value.type=="object"){
-    var s=create("string","");
+    var s=create("str","");
     for (var i=0;i<length(value).value;i++){
       if (i!==0){
-        s=add(s,create("string",","));
+        s=add(s,create("str",","));
       }
       var p=value.value[i];
-      s=add(s,add(convertToString(value,create("int",i)[0]),add(create("string",":"),convertToString(value,create("int",i)[1]))));
+      s=add(s,add(convertToString(value,create("int",i)[0]),add(create("str",":"),convertToString(value,create("int",i)[1]))));
     }
-    return add(create("string","{").add(s,create("string","}")));
+    return add(create("str","{").add(s,create("str","}")));
   }else if (value.type=="variable"){
     return convertToString(value.value);
   }
@@ -375,7 +477,7 @@ function convertToArray(value){
     value.type="array";
     value.value=[cvalue];
     return normalize(value);
-  }else if (value.type=="string"){
+  }else if (value.type=="str"){
     value.type="array";
     value.value=[cvalue];
     return normalize(value);
@@ -419,7 +521,7 @@ function convertToObject(value){
     value.type="object";
     value.value=[[create("int",0),cvalue]];
     return normalize(value);
-  }else if (value.type=="string"){
+  }else if (value.type=="str"){
     value.type="object";
     value.value=[[create("int",0),cvalue]];
     return normalize(value);
@@ -462,7 +564,7 @@ function convertToVariable(value){
     value.type="variable";
     value.value=value;
     return normalize(value);
-  }else if (value.type=="string"){
+  }else if (value.type=="str"){
     value.type="variable";
     value.value=value;
     return normalize(value);
