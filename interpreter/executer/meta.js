@@ -1,5 +1,5 @@
 var memory;
-var commands=[];
+var commandList=[];
 var commandQueue=[];
 function runProgram(){
   memory=[];
@@ -25,23 +25,47 @@ function runProgram(){
   });
   //exit when pointer is out of bounds
   while (!(lessThan(read("pointer"),create("int",0))||greaterThan(read("pointer"),length(read("program"))))){
-    var command=charCodeAt(read("program"),read("pointer"));
+    var command=charCodeOfProgram().value;
     if (commands[command]){
       queueCommand(command);
     }
     handleQueuedCommands();
-    write("pointer",add(read("pointer"),read("direction")));
+    stepPointer();
   }
+}
+function charCodeOfProgram(){
+  return charCodeAt(read("program"),read("pointer"));
 }
 function queueCommand(command){
   commandStack.push({
-    commandHex:command,
-    arity:commands[command].arity,
+    commandCode:command,
+    arity:commandList[command].arity,
     inputs:[]
   });
 }
 function handleQueuedCommands(){
-  
+  for (var i=commandStack.length-1;i>=0;i--){
+    var command=commandStack[i];
+    var arity;
+    if (typeof command.arity=="function"){
+      arity=command.arity();
+    }else{
+      arity=command.arity;
+    }
+    if (command.inputs.length>=arity){
+      var x=runCommand(command);
+      if (x!==undefined){
+        commandStack[i-1].inputs.push(x);
+      }
+      commandStack.pop();
+    }
+  }
+}
+function runCommand(command){
+  return commandList[command.commandCode](inputs);
+}
+function stepPointer(){
+  write("pointer",add(read("pointer"),read("direction")));
 }
 
 function read(name){
