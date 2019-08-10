@@ -12,13 +12,16 @@
     <script src="./executer/0000-01ff.js"></script>
     <meta charset="unicode">
     <style>
-       * {
-         font-family: "Arial";
-       }
+      * {
+        font-family: "Arial";
+      }
+      .program {
+        font-family: "Consolas", "Courier New", "Courier", monospace;
+        overflow:auto;
+      }
       textarea.program {
         font-family: "Consolas", "Courier New", "Courier", monospace;
-        float:left;
-        height:320px;
+        height:240px;
         overflow:auto;
       }
     </style>
@@ -53,9 +56,14 @@
     <p>
       <div id="fileInfo">&lt;No file&gt;</div>
     </p>
-    <textarea id="rawview" class="program" style="word-break:break-all;" cols=10 onclick="removeViewColumnFix()" onmouseup="alignSizeToRawView()" onchange="changeRawProgram()">H</textarea>
-    <textarea id="hexview" class="program" cols=50 onclick="removeViewColumnFix()" onmouseup="alignSizeToHexView()" onchange="changeHexProgram()"></textarea>
-    <p style="clear:both">
+    <p>
+      <textarea id="rawview" class="program" style="word-break:break-all;float:left;" cols=10 onclick="removeViewColumnFix()" onmouseup="alignSizeToRawView()" onchange="changeRawProgram()">H</textarea>
+      <textarea id="hexview" class="program" cols=50 onclick="removeViewColumnFix()" onmouseup="alignSizeToHexView()" onchange="changeHexProgram()"></textarea><br>
+    </p>
+    <button onclick="runProgram()" style="clear:both">Run</button><br>
+    <textarea id="STDOUT" class="program" readonly></textarea>
+    <input id="STDIN" class="program" type="text" readonly><br>
+    <p style="clear:both;color:#888;">
       See <a href="https://github.com/Naruyoko/PadLang/issues">here</a> for possible fixes. If you can't find any to match your's, <a href="https://github.com/Naruyoko/PadLang/issues/new">create an issue</a> to let me know what is wrong!
     </p>
   </body>

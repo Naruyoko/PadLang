@@ -177,16 +177,16 @@ function convertToSuperint(value){
       value.value=bigInt(value.value);
       return normalize(value);
     }else{
-      return create("superint",0);
+      return create("superint",new bigInt(0));
     } 
   }else if (value.type=="array"){
     if (equal(length(value),create("int",0))){
-      return create("superint",0);
+      return create("superint",new bigInt(0));
     }else{
       return convertToSuperint(getAt(value,create("int",0)));
     }
   }else if (value.type=="object"){
-    return create("superint",0);
+    return create("superint",new bigInt(0));
   }else if (value.type=="variable"){
     return convertToSuperint(value.value);
   }
@@ -228,11 +228,11 @@ function convertToSuperuint(value){
       value.value=bigInt(value.value);
       return normalize(value);
     }else{
-      return create("superuint",0);
+      return create("superuint",new bigInt(0));
     } 
   }else if (value.type=="array"){
     if (equal(length(value),create("int",0))){
-      return create("superuint",0);
+      return create("superuint",new bigInt(0));
     }else{
       return convertToSuperuint(getAt(value,create("int",0)));
     }

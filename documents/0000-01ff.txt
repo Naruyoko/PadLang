@@ -1,4 +1,4 @@
-﻿(u+0000) - All variables are reset, except program and pointer.
+﻿ (u+0000) - All variables are reset, except program and pointer.
 (u+0003) - It will pop from the stack, and sets the pointer to it.
 (u+0005) - Returns the pointer variable.
 (u+0006) - Returns the direction variable.
@@ -7,9 +7,8 @@
 
 (u+000a) - Force separates commands.
 (u+000c) - Interrupts program and wait for user input. Returns the input as a str.
-
-(u+000d) - Outputs the input. If not an str, then it is implicitly converted to str.
-(u+0017) - Outputs the input and u+0020. If not an str, then it is implicitly converted to str.
+(u+000d) - Outputs the input. If not an str, then it is implicitly converted to str.
+(u+0017) - Outputs the input and u+000a. If not an str, then it is implicitly converted to str.
 (u+001a) - Returns the current value of the variable. If it is not a type variable, it is implicitly converted.
 (u+001b) - Forcefully exit the program.
  (u+0020) - No-op

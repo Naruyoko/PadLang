@@ -1,7 +1,13 @@
 var memory;
 var commandList=[];
 var commandQueue=[];
+var hasPointerModified;
+var forceExitProgram;
 function runProgram(){
+  //Let user copy program
+  while (hexProgram!=window.prompt("Copy to clipboard: Ctrl+C, Enter",hexProgram)){continue;}
+
+  //execution
   memory=[];
   memory.push({
     name:"pointer",
@@ -23,18 +29,25 @@ function runProgram(){
     special:true,
     value:create("array",[])
   });
+  var forceExitProgram=false;
   //exit when pointer is out of bounds
-  while (!(lessThan(read("pointer"),create("int",0))||greaterThan(read("pointer"),length(read("program"))))){
+  while (!forceExitProgram&&!isPointerOutsideRange()){
+    hasPointerModified=false;
     var command=charCodeOfProgram().value;
     if (commands[command]){
       queueCommand(command);
     }
     handleQueuedCommands();
-    stepPointer();
+    if (!hasPointerModified){
+     stepPointer();
+    }
   }
 }
 function charCodeOfProgram(){
   return charCodeAt(read("program"),read("pointer"));
+}
+function charOfProgram(){
+  return charAt(read("program"),read("pointer"));
 }
 function queueCommand(command){
   commandStack.push({
@@ -62,24 +75,37 @@ function handleQueuedCommands(){
   }
 }
 function runCommand(command){
-  return commandList[command.commandCode](inputs);
+  return commandList[command.commandCode].function(inputs);
 }
 function stepPointer(){
   write("pointer",add(read("pointer"),read("direction")));
 }
+function isPointerOutsideRange(){
+  return lessThan(read("pointer"),create("int",0))||greaterThan(read("pointer"),length(read("program")));
+}
 
 function read(name){
+  if (name.type=="variable"){
+    name=name.value;
+  }
   for (var i=0;i<memory.length;i++){
     if (equal(memory[i].name,name)){
-      return clone(memory.value);
+      return clone(memory[i].value);
     }
   }
   return create("int",0);
 }
 function write(name,value){
+  if (name=="pointer"){
+    hasPointerModified=true;
+  }
+  if (name.type=="variable"){
+    name=name.value;
+  }
   for (var i=0;i<memory.length;i++){
     if (equal(memory[i].name,name)){
       memory[i].value=clone(value);
+      return;
     }
   }
   memory.push({
