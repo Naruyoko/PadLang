@@ -7,7 +7,8 @@
 
 (u+000a) - Force separates commands.
 (u+000c) - Interrupts program and wait for user input. Returns the input as a str.
-(u+000d) - Outputs the input. If not an str, then it is implicitly converted to str.
+
+(u+000d) - Outputs the input. If not an str, then it is implicitly converted to str.
 (u+0017) - Outputs the input and u+000a. If not an str, then it is implicitly converted to str.
 (u+001a) - Returns the current value of the variable. If it is not a type variable, it is implicitly converted.
 (u+001b) - Forcefully exit the program.
@@ -37,7 +38,7 @@ $(u+0024) - Assigns the first value after to the second and returns the value. I
 8(u+0038) - Initializes an int with itself then rest of consecutive decimal digits. Prevents the latter digits from creating more int.
 9(u+0039) - Initializes an int with itself then rest of consecutive decimal digits. Prevents the latter digits from creating more int.
 :(u+003a) - If it is inside an object literal, it will separate label and value. Else, force separates command.
-;(u+003b) - Commands until next u+000a, u+003b, or u+003c are not executed.
+;(u+003b) - Commands until next u+000a, u+003a, or u+003b are not executed.
 <(u+003c) - Returns boolean of whether if the first input is less than the second input.
 =(u+003d) - Returns boolean of whether if the first input is equal to the second input.
 >(u+003e) - Returns boolean of whether if the first input is greater than the second input.

@@ -22,21 +22,34 @@ function alignType(a,b){
   object - 9
   */
   var convtable=[
-    [ 0,  ,  ,  ,  ,  ,  ,  ,  ,  ],
-    [  , 1,  ,  ,  ,  ,  ,  ,  ,  ],
-    [  ,  , 2,  ,  ,  ,  ,  ,  ,  ],
-    [  ,  ,  , 3,  ,  ,  ,  ,  ,  ],
-    [  ,  ,  ,  , 4,  ,  ,  ,  ,  ],
+    //second
+    [ 0, 0,  ,  ,  ,  ,  ,  ,  ,  ], //f
+    [  , 1,  ,  ,  ,  ,  ,  ,  ,  ], //i
+    [  ,  , 2,  ,  ,  ,  ,  ,  ,  ], //r
+    [  ,  ,  , 3,  ,  ,  ,  ,  ,  ], //s
+    [  ,  ,  ,  , 4,  ,  ,  ,  ,  ], //t
     [  ,  ,  ,  ,  , 5,  ,  ,  ,  ],
     [  ,  ,  ,  ,  ,  , 6,  ,  ,  ],
     [  ,  ,  ,  ,  ,  ,  , 7,  ,  ],
     [  ,  ,  ,  ,  ,  ,  ,  , 8,  ],
     [  ,  ,  ,  ,  ,  ,  ,  ,  , 9]
   ];
+  var t=types[convtable[types.indexOf(a.type)][types.indexOf(b.type)]];
+  return [convert(t,a),convert(t,b)];
 }
 
 function lessThan(a,b){
   var x=alignType(a,b);
+}
+function lessThanOrEqual(a,b){
+  return equal(a,b)||lessThan(a,b);
+}
+
+function greaterThan(a,b){
+  var x=alignType(a,b);
+}
+function greaterThanOrEqual(a,b){
+  return equal(a,b)||greaterThan(a,b);
 }
 
 function equal(a,b){

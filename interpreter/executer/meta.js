@@ -1,44 +1,60 @@
 var memory;
 var commandList=[];
 var commandQueue=[];
-var hasPointerModified;
+var preventPointerUpdate;
 var forceExitProgram;
-function runProgram(){
-  //Let user copy program
-  while (hexProgram!=window.prompt("Copy to clipboard: Ctrl+C, Enter",hexProgram)){continue;}
+var isExecutionBeingPaused;
+function runProgram(resumeMode=false){
+  if (resumeMode){
 
-  //execution
-  memory=[];
-  memory.push({
-    name:"pointer",
-    special:true,
-    value:create("int",0)
-  });
-  memory.push({
-    name:"direction",
-    special:true,
-    value:create("int",1)
-  });
-  memory.push({
-    name:"program",
-    special:true,
-    value:create("str",rawProgram)
-  });
-  memory.push({
-    name:"stack",
-    special:true,
-    value:create("array",[])
-  });
-  var forceExitProgram=false;
+  }else{
+    //Let user copy program
+    var x=hexProgram;
+    do{
+      var x=window.prompt("Copy to clipboard: Ctrl+C, Enter",hexProgram);
+      if (x===null){
+        return;
+      }
+    }while (hexProgram!=x);
+    dg("STDOUT").value="";
+
+    //execution
+    memory=[];
+    memory.push({
+      name:"pointer",
+      special:true,
+      value:create("int",0)
+    });
+    memory.push({
+      name:"direction",
+      special:true,
+      value:create("int",1)
+    });
+    memory.push({
+      name:"program",
+      special:true,
+      value:create("str",rawProgram)
+    });
+    memory.push({
+      name:"stack",
+      special:true,
+      value:create("array",[])
+    });
+    var forceExitProgram=false;
+  }
+  var isExecutionBeingPaused=true;
   //exit when pointer is out of bounds
   while (!forceExitProgram&&!isPointerOutsideRange()){
-    hasPointerModified=false;
+    preventPointerUpdate=false;
     var command=charCodeOfProgram().value;
-    if (commands[command]){
+    if (commandList[command]){
       queueCommand(command);
     }
     handleQueuedCommands();
-    if (!hasPointerModified){
+    if (isExecutionBeingPaused){
+      return;
+    }
+    if (!preventPointerUpdate){
      stepPointer();
     }
   }
@@ -50,15 +66,15 @@ function charOfProgram(){
   return charAt(read("program"),read("pointer"));
 }
 function queueCommand(command){
-  commandStack.push({
+  commandQueue.push({
     commandCode:command,
     arity:commandList[command].arity,
     inputs:[]
   });
 }
 function handleQueuedCommands(){
-  for (var i=commandStack.length-1;i>=0;i--){
-    var command=commandStack[i];
+  for (var i=commandQueue.length-1;i>=0;i--){
+    var command=commandQueue[i];
     var arity;
     if (typeof command.arity=="function"){
       arity=command.arity();
@@ -66,16 +82,26 @@ function handleQueuedCommands(){
       arity=command.arity;
     }
     if (command.inputs.length>=arity){
-      var x=runCommand(command);
-      if (x!==undefined){
-        commandStack[i-1].inputs.push(x);
+      var result=runCommand(command,command.inputs);
+      if (isExecutionBeingPaused){
+        return;
       }
-      commandStack.pop();
+      afterCommandHasRun(result);
     }
   }
 }
-function runCommand(command){
+function runCommand(command,inputs){
   return commandList[command.commandCode].function(inputs);
+}
+function afterCommandHasRun(result){
+  if (result!==undefined){
+    if (commandQueue.length<=1){
+      STDOUT(result);
+    }else{
+      commandQueue[i-1].inputs.push(result);
+    }
+  }
+  commandQueue.pop();
 }
 function stepPointer(){
   write("pointer",add(read("pointer"),read("direction")));
@@ -84,94 +110,37 @@ function isPointerOutsideRange(){
   return lessThan(read("pointer"),create("int",0))||greaterThan(read("pointer"),length(read("program")));
 }
 
-function read(name){
-  if (name.type=="variable"){
-    name=name.value;
-  }
-  for (var i=0;i<memory.length;i++){
-    if (equal(memory[i].name,name)){
-      return clone(memory[i].value);
-    }
-  }
-  return create("int",0);
+function pauseExecution(){
+  isExecutionBeingPaused=true;
 }
-function write(name,value){
-  if (name=="pointer"){
-    hasPointerModified=true;
-  }
-  if (name.type=="variable"){
-    name=name.value;
-  }
-  for (var i=0;i<memory.length;i++){
-    if (equal(memory[i].name,name)){
-      memory[i].value=clone(value);
-      return;
-    }
-  }
-  memory.push({
-    name:clone(name),
-    special:false,
-    value:[]
-  });
-}
-function create(type,value){
-  return {
-    type:type,
-    value:clone(value)
-  };
+function resumeExecution(){
+  isExecutionBeingPaused=false;
+  stepPointer();
+  preventPointerUpdate=true;
+  runProgram(true);
 }
 
-function normalize(value){
-  var value=clone(value);
-  if (value.type=="int"){
-    value.value=Math.floor(value.value);
-    value.value=value.value%4294967296+4294967296;
-    if (value.value>=2147483648){
-       value.value-=4294967296;
-    }else if (value.value<-2147483649){
-       value.value+=4294967296;
+function STDIN(callback){
+  dg("STDIN").value="";
+  dg("STDIN").readOnly=false;
+  pauseExecution();
+  dg("STDIN").onkeyup=function (event){
+    if (event.key==="Enter"){
+      var result=callback(dg("STDIN").value);
+      afterCommandHasRun(result);
+      dg("STDIN").readOnly=true;
+      dg("STDIN").onkeyup=null;
+      resumeExecution();
     }
-    if (!isFinite(value.value)||isNaN(value.value)){
-      value.value=0;
-    }
-    return value;
-  }else if (value.type=="uint"){
-    value.value=Math.floor(value.value);
-    value.value=value.value%4294967296+4294967296;
-    if (value.value>=4294967296){
-      value.value-=4294967296;
-    }else if (value.value<0){
-      value.value+=4294967296;
-    }
-    if (!isFinite(value.value)||isNaN(value.value)){
-      value.value=0;
-    }
-    return value;
-  }else if (value.type=="superint"){
-    return value;
-  }else if (value.type=="superuint"){
-    var offset=bigInt.pow(2,value.value.bitLength());
-    value.value=value.value.mod(offset).add(offset);
-    if (value.value.gte(offset)){
-      value.value=value.value.sub(offset);
-    }else if (value.value.lt(offset)){
-      value.value=value.value.plus(offset);
-    }
-    return value;
-  }else if (value.type=="float"){
-    value.value=doubleToFloat(value.value);
-    return value;
-  }else if (value.type=="double"){
-    return value;
-  }else if (value.type=="boolean"){
-    return value;
-  }else if (value.type=="string"){
-    return value;
-  }else if (value.type=="array"){
-    return value;
-  }else if (value.type=="object"){
-    return value;
   }
+}
+function STDOUT(s){
+  if (typeof s=="string"){
+    dg("STDOUT").value+=s;
+  }else{
+    dg("STDOUT").value+=s.value;
+  }
+  return s;
 }
 
 function binary(value){
