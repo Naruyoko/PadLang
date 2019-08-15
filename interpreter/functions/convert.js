@@ -523,11 +523,17 @@ function convertToObject(value){
     return normalize(value);
   }else if (value.type=="str"){
     value.type="object";
-    value.value=[[create("int",0),cvalue]];
+    value.value=[];
+    for (var i=0;i<value.value,length;i++){
+      value.value.push[create("int",i),cvalue.value.charAt(i)];
+    }
     return normalize(value);
   }else if (value.type=="array"){
     value.type="object";
-    value.value=[[create("int",0),cvalue]];
+    value.value=[];
+    for (var i=0;i<value.value,length;i++){
+      value.value.push[create("int",i),cvalue.value[i]];
+    }
     return normalize(value);
   }else if (value.type=="object"){
     return value;
