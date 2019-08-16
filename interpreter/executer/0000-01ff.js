@@ -144,7 +144,15 @@ commandList[0x0022]={
         stepPointer();
       }
     }
-    return create("string",a);
+    return create("str",a);
+  }
+}
+commandList[0x0023]={
+  arity:1,
+  function:function(inputs){
+    if (["str","array","object"].includes(inputs[0].type)){
+      return length(inputs[0]);
+    }
   }
 }
 commandList[0x0024]={
@@ -152,6 +160,36 @@ commandList[0x0024]={
   function:function(inputs){
     write(convertToVariable(inputs[1]),inputs[0]);
     return inputs[0];
+  }
+}
+commandList[0x0025]={
+  arity:2,
+  function:function(inputs){
+    return mod(inputs[0],inputs[1]);
+  }
+}
+commandList[0x002a]={
+  arity:2,
+  function:function(inputs){
+    return mul(inputs[0],inputs[1]);
+  }
+}
+commandList[0x002b]={
+  arity:2,
+  function:function(inputs){
+    return add(inputs[0],inputs[1]);
+  }
+}
+commandList[0x002d]={
+  arity:2,
+  function:function(inputs){
+    return sub(inputs[0],inputs[1]);
+  }
+}
+commandList[0x002f]={
+  arity:2,
+  function:function(inputs){
+    return div(inputs[0],inputs[1]);
   }
 }
 commandList[0x0030]={
@@ -182,6 +220,24 @@ commandList[0x003b]={
     }
   }
 }
+commandList[0x003c]={
+  arity:2,
+  function:function(inputs){
+    return lt(inputs[0],inputs[1]);
+  }
+}
+commandList[0x003d]={
+  arity:2,
+  function:function(inputs){
+    return eq(inputs[0],inputs[1]);
+  }
+}
+commandList[0x003e]={
+  arity:2,
+  function:function(inputs){
+    return gt(inputs[0],inputs[1]);
+  }
+}
 commandList[0x0041]={
   arity:2,
   function:function(inputs){
@@ -194,5 +250,23 @@ commandList[0x0048]={
   arity:0,
   function:function(inputs){
     STDOUT(create("str","Hello, World!"));
+  }
+}
+commandList[0x0060]={
+  arity:0,
+  function:function(inputs){
+    return create("str","");
+  }
+}
+commandList[0x00d8]={
+  arity:0,
+  function:function(inputs){
+    return create("array",[]);
+  }
+}
+commandList[0x00f8]={
+  arity:0,
+  function:function(inputs){
+    return create("object",[]);
   }
 }
