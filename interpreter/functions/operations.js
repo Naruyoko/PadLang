@@ -208,6 +208,48 @@ function pow(a,b){
   return power(a,b);
 }
 
+var factorialCache=[new bigInt(1)];
+function factorial(a){
+  a=clone(a);
+  var t=a.type;
+  if (["int","uint"].includes(t)){
+    var b=a.value;
+    if (b<0){
+      return normalize(create(t,0));
+    }
+    while (factorialCache.length<=b){
+      factorialCache.push(factorialCache[factorialCache.length-1].mul(factorialCache.length));
+    }
+    return normalize(create(t,factorialCache[b].mod(4294967296).toNumber()));
+  }else if (["float","double"].includes(t)){
+    var b=Math.floor(a.value);
+    if (b<0){
+      return normalize(create(t,0));
+    }
+    while (factorialCache.length<=Math.min(b,172)){
+      factorialCache.push(factorialCache[factorialCache.length-1].mul(factorialCache.length));
+    }
+    if (b>=172){
+      return normalize(create(t,Infinity));
+    }
+    return normalize(create(t,factorialCache[b].toNumber()));
+  }else if (["superint","superuint"].includes(t)){
+    var b=a.value;
+    if (b.lt(0)){
+      return normalize(create(t,0));
+    }
+    while (b.gte(factorialCache.length)){
+      factorialCache.push(factorialCache[factorialCache.length-1].mul(factorialCache.length));
+    }
+    return normalize(create(t,factorialCache[b]));
+  }else if (t=="variable"){
+    return create(t,factorial(a.value));
+  }
+}
+function fac(a){
+  return factorial(a);
+}
+
 function binary(value){
   var value=clone(value);
   if (["int","uint","superint","superuint"].includes(value.type)){

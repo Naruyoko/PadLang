@@ -56,7 +56,7 @@ commandList[0x000a]={
 commandList[0x000c]={
   arity:0,
   function:function(inputs){
-    STDIN(function (input){
+    STDIN(function(input){
       return input;
     });
   }
@@ -89,6 +89,12 @@ commandList[0x0020]={
   arity:0,
   function:function(inputs){
     //no-op
+  }
+}
+commandList[0x0021]={
+  arity:1,
+  function:function(inputs){
+    return fac(inputs[0]);
   }
 }
 commandList[0x0022]={
@@ -168,6 +174,14 @@ commandList[0x0025]={
     return mod(inputs[0],inputs[1]);
   }
 }
+commandList[0x0026]={
+  arity:2,
+  function:function(inputs){
+    var a=convertToRawBoolean(inputs[0]);
+    var b=convertToRawBoolean(inputs[1]);
+    return create("boolean",a&&b);
+  }
+}
 commandList[0x002a]={
   arity:2,
   function:function(inputs){
@@ -212,6 +226,12 @@ for (var i=1;i<=9;i++){
     }
   }
 }
+commandList[0x003a]={
+  arity:0,
+  function:function(inputs){
+    commandStack=[];
+  }
+}
 commandList[0x003b]={
   arity:0,
   function:function(inputs){
@@ -246,16 +266,307 @@ commandList[0x0041]={
     return o;
   }
 }
+commandList[0x0044]={
+  arity:1,
+  function:function(inputs){
+  }
+}
+commandList[0x0045]={
+  arity:2,
+  function:function(inputs){
+    var a=convertToRawBoolean(inputs[0]);
+    var b=convertToRawBoolean(inputs[1]);
+    return create("boolean",a+b==1);
+  }
+}
 commandList[0x0048]={
   arity:0,
   function:function(inputs){
     STDOUT(create("str","Hello, World!"));
   }
 }
+commandList[0x0049]={
+  arity:0,
+  function:function(inputs){
+    var a="";
+    while ("0123456789".includes(charOfProgram().value)&&!isPointerOutsideRange()){
+      a+=charOfProgram().value;
+      stepPointer();
+    }
+    return create("superint",new bigInt(a));
+  }
+}
+commandList[0x004f]={
+  arity:2,
+  function:function(inputs){
+    write(convertToVariable(inputs[1]),inputs[0]);
+  }
+}
+commandList[0x0054]={
+  arity:0,
+  function:function(inputs){
+    return create("boolean",true);
+  }
+}
+commandList[0x0055]={
+  arity:0,
+  function:function(inputs){
+    var a="";
+    while ("0123456789".includes(charOfProgram().value)&&!isPointerOutsideRange()){
+      a+=charOfProgram().value;
+      stepPointer();
+    }
+    return normalize(create("superuint",new bigInt(a)));
+  }
+}
+commandList[0x0056]={
+  arity:2,
+  function:function(inputs){
+    var a=inputs[0].value;
+    if (inputs[0].type=="str"){
+      var b=convert("str",inputs[1]).value;
+      for (var i=0;i<=a.length-b.length;i++){
+        if (a.substring(i,i+b.length)==b){
+          return create("boolean",true);
+        }
+      }
+      return create("boolean",false);
+    }else if (inputs[0].type=="array"){
+      for (var i=0;i<a.length;i++){
+        var b=inputs[1];
+        if (equal(a[i],b)){
+          return create("boolean",true);
+        }
+      }
+      return create("boolean",false);
+    }
+  }
+}
+commandList[0x005e]={
+  arity:2,
+  function:function(inputs){
+    return pow(inputs[0],inputs[1]);
+  }
+}
 commandList[0x0060]={
   arity:0,
   function:function(inputs){
     return create("str","");
+  }
+}
+commandList[0x0068]={
+  arity:0,
+  function:function(inputs){
+    return create("str","Hello, World!");
+  }
+}
+commandList[0x006a]={
+  arity:1,
+  function:function(inputs){
+    return convertToFloat(inputs[0]);
+  }
+}
+commandList[0x006b]={
+  arity:1,
+  function:function(inputs){
+    return convertToDouble(inputs[0]);
+  }
+}
+commandList[0x006e]={
+  arity:2,
+  function:function(inputs){
+    var a=convertToRawBoolean(inputs[0]);
+    var b=convertToRawBoolean(inputs[1]);
+    if (a){
+      return inputs[1];
+    }else{
+      return inputs[0];
+    }
+  }
+}
+commandList[0x006f]={
+  arity:2,
+  function:function(inputs){
+    var a=convertToRawBoolean(inputs[0]);
+    var b=convertToRawBoolean(inputs[1]);
+    if (a){
+      return inputs[0];
+    }else{
+      return inputs[1];
+    }
+  }
+}
+commandList[0x0074]={
+  arity:0,
+  function:function(inputs){
+    return create("boolean",false);
+  }
+}
+commandList[0x0075]={
+  arity:0,
+  function:function(inputs){
+    var a="";
+    while ("0123456789".includes(charOfProgram().value)&&!isPointerOutsideRange()){
+      a+=charOfProgram().value;
+      stepPointer();
+    }
+    return normalize(create("uint",new bigInt(a).mod(4294967296)));
+  }
+}
+commandList[0x0076]={
+  arity:1,
+  function:function(inputs){
+    return create("variable",inputs[0]);
+  }
+}
+commandList[0x0077]={
+  arity:2,
+  function:function(inputs){
+    var a=[];
+    var x=convert("int",inputs[0]);
+    var y=convert("int",inputs[1]);
+    if (x<y){
+      for (var i=x;i<=y;i++){
+        a.push(create("int",i));
+      }
+    }else{
+      for (var i=y;i>=x;i--){
+        a.push(create("int",i));
+      }
+    }
+    return create("array",a);
+  }
+}
+commandList[0x0078]={
+  arity:1,
+  function:function(inputs){
+    var a=[];
+    var x=convert("int",inputs[0]);
+    if (x>0){
+      for (var i=0;i<=x;i++){
+        a.push(create("int",i));
+      }
+    }else{
+      for (var i=0;i>=x;i--){
+        a.push(create("int",i));
+      }
+    }
+    return create("array",a);
+  }
+}
+commandList[0x007c]={
+  arity:2,
+  function:function(inputs){
+    var a=convertToRawBoolean(inputs[0]);
+    var b=convertToRawBoolean(inputs[1]);
+    return create("boolean",a||b);
+  }
+}
+commandList[0x00a6]={
+  arity:0,
+  function:function(inputs){
+  }
+}
+commandList[0x00aa]={
+  arity:1,
+  function:function(inputs){
+    if (inputs[0].type=="str"){
+      var a=[];
+      for (var i=0;i<inputs[0].length;i++){
+        a.push(charAt(inputs[0],i));
+      }
+      return create("array",a);
+    }
+  }
+}
+commandList[0x00b1]={
+  arity:1,
+  function:function(inputs){
+    var a=inputs[0];
+    if (["int","superint","float","double"].includes(a.type)){
+      return mul(a,create("int",-1));
+    }
+  }
+}
+commandList[0x00b2]={
+  arity:1,
+  function:function(inputs){
+    var a=inputs[0];
+    if (["int","uint","superint","superuint","float","double"].includes(a.type)){
+      return pow(a,create("int",2));
+    }
+  }
+}
+commandList[0x00b3]={
+  arity:1,
+  function:function(inputs){
+    var a=inputs[0];
+    if (["int","uint","superint","superuint","float","double"].includes(a.type)){
+      return pow(a,create("int",3));
+    }
+  }
+}
+commandList[0x00b9]={
+  arity:1,
+  function:function(inputs){
+    var a=inputs[0];
+    if (["int","uint","superint","superuint","float","double"].includes(a.type)){
+      return add(a,create("int",1));
+    }
+  }
+}
+commandList[0x00ba]={
+  arity:1,
+  function:function(inputs){
+    var a=inputs[0];
+    if (["int","uint","superint","superuint","float","double"].includes(a.type)){
+      return sub(a,create("int",1));
+    }
+  }
+}
+commandList[0x00bf]={
+  arity:0,
+  function:function(inputs){
+  }
+}
+commandList[0x00cc]={
+  arity:1,
+  function:function(inputs){
+    return create("int",inputs[0]);
+  }
+}
+commandList[0x00cd]={
+  arity:1,
+  function:function(inputs){
+    return create("uint",inputs[0]);
+  }
+}
+commandList[0x00ce]={
+  arity:1,
+  function:function(inputs){
+    return create("superint",inputs[0]);
+  }
+}
+commandList[0x00cf]={
+  arity:1,
+  function:function(inputs){
+    return create("superuint",inputs[0]);
+  }
+}
+commandList[0x00d0]={
+  arity:1,
+  function:function(inputs){
+    var a=convert("str",inputs[0]).value;
+    var b=new bigInt(0);
+    var c="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    var d;
+    for (var i=a.length-4;i<a.length;i++){
+
+    }
+    if (a.substring(0,a.indexOf("=")).search("[^"+c+"]")&&)
+    for (var i=0;i<a.length;i++){
+      b=b.mul(64).add(c.indexOf(a[i]));
+    }
   }
 }
 commandList[0x00d8]={

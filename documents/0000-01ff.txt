@@ -19,7 +19,7 @@
 $(u+0024) - Assigns the first value after to the second and returns the value. If the second is not a type variable, it is implicitly converted.
 %(u+0025) - Takes modulo of two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible.
 &(u+0026) - Performs logical "and" on two inputs.
-'(u+0027) - If first value is a str, it will return the str with the second value-th character. If first value is an array, it will get the value of the second value-th element. If first value is an object, it returns the value of the label of second. If first value is an array, it will 
+'(u+0027) - If first value is a str, it will return the str with the second value-th character. If first value is an array, it will get the value of the second value-th element. If first value is an object, it returns the value of the label of second.
 ((u+0028) - Starts grouping of expressions.
 )(u+0029) - Ends grouping of expressions. The group evaluates to the last expression's value.
 *(u+002a) - Multiplies two of int, uint, superint, superuint, float, double, or quadruple, and returns in the data type of two that are more expressible. If the first input is str and the second is either int, uint, superint, superuint, float, double, or quadruple, it will repeat the first input max(0,floor(second input)) times. If the first input is array and the second is either int, uint, superint, superuint, float, double, or quadruple, it will repeat the first input max(0,floor(second input)) times.
@@ -50,7 +50,7 @@ D(u+0044) - Dumps the value.
 E(u+0045) - Performs logical "xor" on two inputs.
 F(u+0045) - Initializes a function with first onput arguments, then that many variables after, then expression. The parameters are not accessible outside of the function call. The variable variables are actually overwritten by the variable of fuction itself followed by the name. The expression continues until u+0003.
 H(u+0048) - Outputs "Hello, World!".
-I(u+0049) - Initializes an superint, with decimal number after it.
+I(u+0049) - Initializes an superint, with decimal number after it. If the next character is not a decimal digit, it will return 0. If the next character is u+0030, it will return 0.
 L(u+004c) - "do". Pushes to stack.
 M(u+004d) - "do...while". If the input is truly, it will pop and jump.
 N(u+004e) - "do...until". If the input is falsy, it will pop and jump.
@@ -78,8 +78,8 @@ h(u+0068) - Returns str with value "Hello, World!"
 i(u+0069) - Initializes an int, with decimal number after it.
 j(u+006a) - Convert to float.
 k(u+006b) - Convert to double.
-l(u+006c) - Performs short-circuit "xor" on two inputs.
-n(u+006d) - Performs short-circuit "and" on two inputs.
+m(u+006d) - Performs short-circuit "xor" on two inputs.
+n(u+006e) - Performs short-circuit "and" on two inputs.
 o(u+006f) - Performs short-circuit "or" on two inputs.
 p(u+0070) - If the inputs are int, uint, superint, superuint, float, or double, it will return first input permulation second input. If the first input is a str, it will return an array of permutation of the second input many characters from the first input and same characters are not differentiated. If the first input is an array, it will return an array of permutation of the second input many elements from the first input and same elements are not differentiated.
 q(u+0071) - "for". Runs first expression. Then, if second expression is truly. push to stack, and skip third expression. If second expression is false, pop the stack, and jump after the corresponding u+0072. If jumped from a u+0003, it will execute the third ones, then check for the second expression again.

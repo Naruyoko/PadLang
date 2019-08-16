@@ -627,3 +627,7 @@ function alignType(a,b){
   var t=types[convtable[types.indexOf(a.type)][types.indexOf(b.type)]];
   return [convert(t,a),convert(t,b),t];
 }
+
+function convertToRawBoolean(a){
+  return convertToBoolean(a).value;
+}
