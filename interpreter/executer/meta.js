@@ -135,7 +135,7 @@ function STDIN(callback){
   }
 }
 function STDOUT(s){
-  if (typeof s=="string"){
+  if (typeof s=="str"){
     dg("STDOUT").value+=s;
   }else{
     dg("STDOUT").value+=s.value;
@@ -152,8 +152,8 @@ function length(value){
 
 function getAt(value,index){
   var value=clone(value);
-  if (value.type=="string"){
-    return create("string",value.value[index.value]);
+  if (value.type=="str"){
+    return create("str",value.value[index.value]);
   }else if (value.type=="array"){
     return value.value[index.value];
   }else if (value.type=="object"){

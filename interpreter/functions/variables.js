@@ -79,7 +79,7 @@ function normalize(value){
     return value;
   }else if (value.type=="boolean"){
     return value;
-  }else if (value.type=="string"){
+  }else if (value.type=="str"){
     return value;
   }else if (value.type=="array"){
     return value;
