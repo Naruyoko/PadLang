@@ -143,26 +143,8 @@ function STDOUT(s){
   return s;
 }
 
-function binary(value){
-  var value=clone(value);
-  if (["int","uint","superint","superuint"].includes(value.type)){
-    var s="";
-    while(greaterThan(value,create("int",2))){
-      s=modulo(value,2).value+s;
-      value=divide(value,2);
-    }
-    return s;
-  }else if (["float","double"].includes(value.type)){
-    //TODO:
-  }
-}
-
-function invertBinary(binaryValue){
-  return binaryValue.replace(/0/g,"a").replace(/1/g,"0").replace(/a/g,"1");
-}
-
 function length(value){
-  if (["string","array","object"].includes(value.type)){
+  if (["str","array","object"].includes(value.type)){
     return create("int",value.value.length);
   }
   return create("int",0);
