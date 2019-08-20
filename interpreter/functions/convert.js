@@ -3,27 +3,27 @@ function convert(type,value){
   if (type==value.type){
     return clone(value);
   }else if (type=="int"){
-    convertToInt(value);
+    return convertToInt(value);
   }else if (type=="uint"){
-    convertToUint(value);
+    return convertToUint(value);
   }else if (type=="superint"){
-    convertToSuperint(value);
+    return convertToSuperint(value);
   }else if (type=="superuint"){
-    convertToSuperuint(value);
+    return convertToSuperuint(value);
   }else if (type=="float"){
-    convertToFloat(value);
+    return convertToFloat(value);
   }else if (type=="double"){
-    convertToDouble(value);
+    return convertToDouble(value);
   }else if (type=="boolean"){
-    convertToBoolean(value);
+    return convertToBoolean(value);
   }else if (type=="str"){
-    convertToStr(value);
+    return convertToStr(value);
   }else if (type=="array"){
-    convertToArray(value);
+    return convertToArray(value);
   }else if (type=="object"){
-    convertToObject(value);
+    return convertToObject(value);
   }else if (type=="variable"){
-    convertToVariable(value);
+    return convertToVariable(value);
   }
 }
 
@@ -37,18 +37,18 @@ function convertToInt(value){
   }else if (value.type=="superint"){
     value.type="int";
     value.value=value.value.mod(4294967296);
-    if (value.value.gte(2147483648)){
-      value.value=value.value.sub(4294967296);
+    if (value.value.geq(2147483648)){
+      value.value=value.value.minus(4294967296);
     }
-    value.value=value.value.toNumber();
+    value.value=value.value.toJSNumber();
     return normalize(value);
   }else if (value.type=="superuint"){
     value.type="int";
     value.value=value.value.mod(4294967296);
-    if (value.value.gte(2147483648)){
-      value.value=value.value.sub(4294967296);
+    if (value.value.geq(2147483648)){
+      value.value=value.value.minus(4294967296);
     }
-    value.value=value.value.toNumber();
+    value.value=value.value.toJSNumber();
     return normalize(value);
   }else if (value.type=="float"){
     value.type="int";
@@ -94,18 +94,18 @@ function convertToUint(value){
   }else if (value.type=="superint"){
     value.type="uint";
     value.value=value.value.mod(4294967296);
-    if (value.value.gte(4294967296)){
-      value.value=value.value.sub(4294967296);
+    if (value.value.geq(4294967296)){
+      value.value=value.value.minus(4294967296);
     }
-    value.value=value.value.toNumber();
+    value.value=value.value.toJSNumber();
     return normalize(value);
   }else if (value.type=="superuint"){
     value.type="uint";
     value.value=value.value.mod(4294967296);
-    if (value.value.gte(4294967296)){
-      value.value=value.value.sub(4294967296);
+    if (value.value.geq(4294967296)){
+      value.value=value.value.minus(4294967296);
     }
-    value.value=value.value.toNumber();
+    value.value=value.value.toJSNumber();
     return normalize(value);
   }else if (value.type=="float"){
     value.type="uint";
@@ -253,11 +253,11 @@ function convertToFloat(value){
     return normalize(value);
   }else if (value.type=="superint"){
     value.type="float";
-    value.value=doubleToFloat(value.value.toNumber());
+    value.value=doubleToFloat(value.value.toJSNumber());
     return normalize(value);
   }else if (value.type=="superuint"){
     value.type="float";
-    value.value=doubleToFloat(value.value.toNumber());
+    value.value=doubleToFloat(value.value.toJSNumber());
     return normalize(value);
   }else if (value.type=="float"){
     return value;
@@ -303,11 +303,11 @@ function convertToDouble(value){
     return normalize(value);
   }else if (value.type=="superint"){
     value.type="double";
-    value.value=value.value.toNumber();
+    value.value=value.value.toJSNumber();
     return normalize(value);
   }else if (value.type=="superuint"){
     value.type="double";
-    value.value=value.value.toNumber();
+    value.value=value.value.toJSNumber();
     return normalize(value);
   }else if (value.type=="float"){
     value.type="double";
@@ -434,7 +434,7 @@ function convertToStr(value){
       }
       s=add(s,convertToString(getAt(value,create("int",i))));
     }
-    return add(create("str","[").add(s,create("str","]")));
+    return add(create("str","[").plus(s,create("str","]")));
   }else if (value.type=="object"){
     var s=create("str","");
     for (var i=0;i<length(value).value;i++){
@@ -444,7 +444,7 @@ function convertToStr(value){
       var p=value.value[i];
       s=add(s,add(convertToString(value,create("int",i)[0]),add(create("str",":"),convertToString(value,create("int",i)[1]))));
     }
-    return add(create("str","{").add(s,create("str","}")));
+    return add(create("str","{").plus(s,create("str","}")));
   }else if (value.type=="variable"){
     return convertToString(value.value);
   }

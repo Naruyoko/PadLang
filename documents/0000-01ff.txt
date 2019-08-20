@@ -128,7 +128,7 @@ x(u+0078) - Returns an array of ints in range from from 0 to the input. If the i
 Î(u+00ce) - Convert to superint.
 Ï(u+00cf) - Convert to superuint.
 Ð(u+00d0) - Returns superint with value of the input str as Base64.
-Ñ(u+00d1) - Returns superint with value of the input str as following bases: Prefix "0b" is binary; Prefix "0" is octal; Prefix "0x" is hexadecimal; and no prefix is decimal.
+Ñ(u+00d1) - Returns superint with value of the input str as following bases: Prefix "0b" is binary, "0t" is ternary, "0q" is quaternary, "0p" is quinary, "0s" is senary, "0h" is septenary, "0"(that is not other prefix) or "0o" is octal, "0n" is nonary, no prefix or "0d" is decimal, "0U" is undecimal, "0D" is duodecimal, "0T" is tridecimal, "0R" is tetradecimal, "0P" is pentadecimal, "0x" or  is hexadecimal, "0H" is heptadecimal, "0O" is octodecimal, "0E" is enneadecimal, "0v" is vigesimal, "0S" is sexagesimal. Digits are decimal digits, then capital alphabet, then small alphabet. If base is less than or equal to 36, the cases are ignored.
 Ò(u+00d2) - Returns str that expresses the input as Base64.
 Ó(u+00d3) - Returns str that expresses the input as Base256.
 Ô(u+00d4) - Returns str that expresses the input as Base65536.

@@ -8,7 +8,7 @@ function add(a,b){
   if (["int","uint","float","double"].includes(t)){
     return normalize(create(t,a.value+b.value));
   }else if (["superint","superuint"].includes(t)){
-    return normalize(create(t,a.value.add(b.value)));
+    return normalize(create(t,a.value.plus(b.value)));
   }else if (t=="boolean"){
     return normalize(create(t,a.value||b.value));
   }else if (t=="str"){
@@ -59,7 +59,7 @@ function subtract(a,b){
   if (["int","uint","float","double"].includes(t)){
     return normalize(create(t,a.value-b.value));
   }else if (["superint","superuint"].includes(t)){
-    return normalize(create(t,a.value.sub(b.value)));
+    return normalize(create(t,a.value.minus(b.value)));
   }else if (t=="boolean"){
     return normalize(create(t,a.value&&!b.value));
   }else if (t=="str"){
@@ -123,7 +123,7 @@ function multiply(a,b){
   if (["int","uint","float","double"].includes(t)){
     return normalize(create(t,a.value*b.value));
   }else if (["superint","superuint"].includes(t)){
-    return normalize(create(t,a.value.mul(b.value)));
+    return normalize(create(t,a.value.times(b.value)));
   }else if (t=="boolean"){
     return normalize(create(t,a.value&&b.value));
   }else if (ca.type=="str"){
@@ -161,7 +161,7 @@ function divide(a,b){
   if (["int","uint","float","double"].includes(t)){
     return normalize(create(t,a.value/b.value));
   }else if (["superint","superuint"].includes(t)){
-    return normalize(create(t,a.value.div(b.value)));
+    return normalize(create(t,a.value.divide(b.value)));
   }else if (t=="variable"){
     return create(t,divide(a.value,b.value));
   }
@@ -197,7 +197,7 @@ function power(a,b){
   b=x[1];
   var t=x[2];
   if (["int","uint","superint","superuint"].includes(t)){
-    return normalize(create(t,bigInt.pow(a.value,b.value)));
+    return normalize(create(t,new bigInt(a.value).pow(b.value)));
   }else if (["float","double"].includes(t)){
     return normalize(create(t,Math.pow(a.value,b.value)));
   }else if (t=="variable"){
@@ -218,28 +218,28 @@ function factorial(a){
       return normalize(create(t,0));
     }
     while (factorialCache.length<=b){
-      factorialCache.push(factorialCache[factorialCache.length-1].mul(factorialCache.length));
+      factorialCache.push(factorialCache[factorialCache.length-1].times(factorialCache.length));
     }
-    return normalize(create(t,factorialCache[b].mod(4294967296).toNumber()));
+    return normalize(create(t,factorialCache[b].mod(4294967296).toJSNumber()));
   }else if (["float","double"].includes(t)){
     var b=Math.floor(a.value);
     if (b<0){
       return normalize(create(t,0));
     }
     while (factorialCache.length<=Math.min(b,172)){
-      factorialCache.push(factorialCache[factorialCache.length-1].mul(factorialCache.length));
+      factorialCache.push(factorialCache[factorialCache.length-1].times(factorialCache.length));
     }
     if (b>=172){
       return normalize(create(t,Infinity));
     }
-    return normalize(create(t,factorialCache[b].toNumber()));
+    return normalize(create(t,factorialCache[b].toJSNumber()));
   }else if (["superint","superuint"].includes(t)){
     var b=a.value;
     if (b.lt(0)){
       return normalize(create(t,0));
     }
-    while (b.gte(factorialCache.length)){
-      factorialCache.push(factorialCache[factorialCache.length-1].mul(factorialCache.length));
+    while (b.geq(factorialCache.length)){
+      factorialCache.push(factorialCache[factorialCache.length-1].times(factorialCache.length));
     }
     return normalize(create(t,factorialCache[b]));
   }else if (t=="variable"){

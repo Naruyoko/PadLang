@@ -64,10 +64,10 @@ function normalize(value){
   }else if (value.type=="superint"){
     return value;
   }else if (value.type=="superuint"){
-    var offset=bigInt.pow(2,value.value.bitLength());
-    value.value=value.value.mod(offset).add(offset);
-    if (value.value.gte(offset)){
-      value.value=value.value.sub(offset);
+    var offset=new bigInt(2).pow(value.value.bitLength());
+    value.value=value.value.mod(offset).plus(offset);
+    if (value.value.geq(offset)){
+      value.value=value.value.minus(offset);
     }else if (value.value.lt(offset)){
       value.value=value.value.plus(offset);
     }
