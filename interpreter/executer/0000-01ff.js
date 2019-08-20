@@ -552,13 +552,13 @@ commandList[0x00c1]={
     var a;
     if (inputs[0].type=="variable"){
       var a=convert("array",read(inputs[0])).value;
-      a.pop();
+      var b~a.pop();
       write(inputs[1],create("array",a));
-      return a;
+      return b;
     }else{
       var a=convert("array",inputs[0]);
-      a.pop();
-      return a;
+      var b=a.pop();
+      return b;
     }
   }
 }
@@ -585,13 +585,13 @@ commandList[0x00c3]={
     var a;
     if (inputs[0].type=="variable"){
       var a=convert("array",read(inputs[0])).value;
-      a.shift();
+      var b=a.shift();
       write(inputs[1],create("array",a));
-      return a;
+      return b;
     }else{
       var a=convert("array",inputs[0]);
-      a.shift();
-      return a;
+      var b=a.shift();
+      return b;
     }
   }
 }
@@ -867,12 +867,12 @@ commandList[0x00e9]={
     var b=clone(inputs[1]);
     if (inputs[0].type=="variable"){
       var a=convert("array",read(inputs[0])).value;
-      a.pop();
-      return a;
+      var b=a.pop();
+      return b;
     }else{
       var a=convert("array",inputs[0]);
-      a.pop();
-      return a;
+      var b=a.pop();
+      return b;
     }
   }
 }
@@ -899,12 +899,12 @@ commandList[0x00eb]={
     var b=clone(inputs[1]);
     if (inputs[0].type=="variable"){
       var a=convert("array",read(inputs[0])).value;
-      a.shift();
-      return a;
+      var b=a.shift();
+      return b;
     }else{
       var a=convert("array",inputs[0]);
-      a.shift();
-      return a;
+      var b=a.shift();
+      return b;
     }
   }
 }
