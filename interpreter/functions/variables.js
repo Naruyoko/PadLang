@@ -10,6 +10,7 @@ function read(name){
   return create("int",0);
 }
 function write(name,value){
+  value=clone(value);
   if (name=="pointer"){
     preventPointerUpdate=true;
   }
@@ -29,6 +30,7 @@ function write(name,value){
   });
 }
 function create(type,value){
+  value=clone(value);
   return {
     type:type,
     value:clone(value)

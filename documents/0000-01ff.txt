@@ -52,8 +52,8 @@ F(u+0045) - Initializes a function with first onput arguments, then that many va
 H(u+0048) - Outputs "Hello, World!".
 I(u+0049) - Initializes an superint, with decimal number after it. If the next character is not a decimal digit, it will return 0. If the next character is u+0030, it will return 0.
 L(u+004c) - "do". Pushes to stack.
-M(u+004d) - "do...while". If the input is truly, it will pop and jump.
-N(u+004e) - "do...until". If the input is falsy, it will pop and jump.
+M(u+004d) - "do...while". If the input is truly, it will pop and jump. Else, it will pop.
+N(u+004e) - "do...until". If the input is falsy, it will pop and jump. Else, it will pop.
 O(u+004f) - Assigns the first value after to the second but does not return. If the second is not a type variable, it is implicitly converted.
 P(u+0050) - If the inputs are int, uint, superint, superuint, float, or double, it will return first input permulation second input. If the first input is a str, it will return an array of permutation of the second input many characters from the first input and same characters are differentiated. If the first input is an array, it will return an array of permutation of the second input many elements from the first input and same elements are differentiated.
 R(u+0052) - If the first variable is a function, it will run the function on the other inputs and return the function's return value. Else, it will return the first input as a unary command.

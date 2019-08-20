@@ -529,6 +529,39 @@ commandList[0x00bf]={
   function:function(inputs){
   }
 }
+commandList[0x00c0]={
+  arity:2,
+  function:function(inputs){
+    var a;
+    var b=clone(inputs[1]);
+    if (inputs[0].type=="variable"){
+      var a=convert("array",read(inputs[0])).value;
+      a.push(b);
+      write(inputs[1],create("array",a));
+      return a;
+    }else{
+      var a=convert("array",inputs[0]);
+      a.push(b);
+      return a;
+    }
+  }
+}
+commandList[0x00c1]={
+  arity:1,
+  function:function(inputs){
+    var a;
+    if (inputs[0].type=="variable"){
+      var a=convert("array",read(inputs[0])).value;
+      a.pop();
+      write(inputs[1],create("array",a));
+      return a;
+    }else{
+      var a=convert("array",inputs[0]);
+      a.pop();
+      return a;
+    }
+  }
+}
 commandList[0x00cc]={
   arity:1,
   function:function(inputs){
@@ -776,6 +809,38 @@ commandList[0x00e5]={
       }
     }
     return a;
+  }
+}
+commandList[0x00e8]={
+  arity:2,
+  function:function(inputs){
+    var a;
+    var b=clone(inputs[1]);
+    if (inputs[0].type=="variable"){
+      var a=convert("array",read(inputs[0])).value;
+      a.push(b);
+      return a;
+    }else{
+      var a=convert("array",inputs[0]);
+      a.push(b);
+      return a;
+    }
+  }
+}
+commandList[0x00e9]={
+  arity:1,
+  function:function(inputs){
+    var a;
+    var b=clone(inputs[1]);
+    if (inputs[0].type=="variable"){
+      var a=convert("array",read(inputs[0])).value;
+      a.pop();
+      return a;
+    }else{
+      var a=convert("array",inputs[0]);
+      a.pop();
+      return a;
+    }
   }
 }
 commandList[0x00f8]={
