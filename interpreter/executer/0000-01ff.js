@@ -537,7 +537,7 @@ commandList[0x00c0]={
     if (inputs[0].type=="variable"){
       var a=convert("array",read(inputs[0])).value;
       a.push(b);
-      write(inputs[1],create("array",a));
+      write(inputs[0],create("array",a));
       return create("array",a);
     }else{
       var a=convert("array",inputs[0]).value;
@@ -553,7 +553,7 @@ commandList[0x00c1]={
     if (inputs[0].type=="variable"){
       var a=convert("array",read(inputs[0])).value;
       var b=a.pop();
-      write(inputs[1],create("array",a));
+      write(inputs[0],create("array",a));
       return b;
     }else{
       var a=convert("array",inputs[0]).value;
@@ -570,7 +570,7 @@ commandList[0x00c2]={
     if (inputs[0].type=="variable"){
       var a=convert("array",read(inputs[0])).value;
       a.unshift(b);
-      write(inputs[1],create("array",a));
+      write(inputs[0],create("array",a));
       return create("array",a);
     }else{
       var a=convert("array",inputs[0]).value;
@@ -586,7 +586,7 @@ commandList[0x00c3]={
     if (inputs[0].type=="variable"){
       var a=convert("array",read(inputs[0])).value;
       var b=a.shift();
-      write(inputs[1],create("array",a));
+      write(inputs[0],create("array",a));
       return b;
     }else{
       var a=convert("array",inputs[0]).value;
@@ -609,7 +609,7 @@ commandList[0x00c4]={
           a[i]=create("int",0);
         }
       }
-      write(inputs[1],create("array",a));
+      write(inputs[0],create("array",a));
       return create("array",a);
     }else{
       var a=convert("array",inputs[0]).value;
@@ -635,7 +635,7 @@ commandList[0x00c5]={
       }else{
         b=create("int",0);
       }
-      write(inputs[1],create("array",a));
+      write(inputs[0],create("array",a));
       return b;
     }else{
       var a=convert("array",inputs[0]).value;
@@ -664,7 +664,7 @@ commandList[0x00c6]={
           a[i]=create("int",0);
         }
       }
-      write(inputs[1],create("array",a));
+      write(inputs[0],create("array",a));
       return create("array",a);
     }else{
       var a=convert("array",inputs[0]).value;
@@ -696,7 +696,7 @@ commandList[0x00c7]={
           d.push(create("int",0));
         }
       }
-      write(inputs[1],create("array",a));
+      write(inputs[0],create("array",a));
       return create("array",d);
     }else{
       var a=convert("array",inputs[0]).value;
@@ -745,7 +745,7 @@ commandList[0x00c9]={
         a+="\u0000".repeat(c-a.length);
       }
       a=a.substring(0,c)+b+a.substring(c);
-      write(inputs[1],create("str",a));
+      write(inputs[0],create("str",a));
       return create("str",a);
     }else{
       var a=convert("str",inputs[0]).value;
@@ -1244,6 +1244,54 @@ commandList[0x00ef]={
       }
       return create("array",d);
     }
+  }
+}
+commandList[0x00f1]={
+  arity:3,
+  function:function(inputs){
+    var a;
+    var b=inputs[1];
+    var c=inputs[2];
+    var d;
+    var r;
+    if (inputs[0].type=="variable"){
+      var a=read(inputs[0]);
+    }else{
+      var a=inputs[0];
+    }
+    if (a.type=="str"){
+      a=convert("str",a).value;
+      b=convert("str",b).value;
+      c=convert("str",c).value;
+      d="";
+      for (var i=0;i<a.length;){
+        if (a.substring(i,b.length)==b){
+          d+=c;
+          i+=Math.max(b.length,1);
+        }else{
+          d+=a[i];
+          i++;
+        }
+      }
+      r=create("str",d);
+    }else if (a.type=="array"){
+      a=convert("array",a).value;
+      d=[];
+      for (var i=0;i<a.length;i++){
+        if (equal(a[i],b)){
+          d.push(c);
+        }else{
+          d.push(a[i]);
+        }
+      }
+      r=create("array",d);
+    }else{
+      r=clone(a);
+    }
+    if (inputs[0].type=="variable"){
+      write(inputs[0],r);
+    }
+    return r;
   }
 }
 commandList[0x00f8]={
