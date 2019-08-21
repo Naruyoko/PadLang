@@ -1024,13 +1024,7 @@ commandList[0x00eb]={
     }
   }
 }
-commandList[0x00f8]={
-  arity:0,
-  function:function(inputs){
-    return create("object",[]);
-  }
-}
-commandList[0x00c4]={
+commandList[0x00ec]={
   arity:3,
   function:function(inputs){
     var a;
@@ -1057,7 +1051,7 @@ commandList[0x00c4]={
     }
   }
 }
-commandList[0x00c5]={
+commandList[0x00ed]={
   arity:2,
   function:function(inputs){
     var a;
@@ -1081,7 +1075,7 @@ commandList[0x00c5]={
     }
   }
 }
-commandList[0x00c6]={
+commandList[0x00ee]={
   arity:3,
   function:function(inputs){
     var a;
@@ -1112,7 +1106,7 @@ commandList[0x00c6]={
     }
   }
 }
-commandList[0x00c7]={
+commandList[0x00ef]={
   arity:3,
   function:function(inputs){
     var a;
@@ -1140,5 +1134,11 @@ commandList[0x00c7]={
       }
       return d;
     }
+  }
+}
+commandList[0x00f8]={
+  arity:0,
+  function:function(inputs){
+    return create("object",[]);
   }
 }
