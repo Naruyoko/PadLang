@@ -1325,9 +1325,85 @@ commandList[0x00f3]={
     return r;
   }
 }
+commandList[0x00f4]={
+  arity:2,
+  function:function(inputs){
+    var a=read(inputs[0]);
+    var b=inputs[1];
+    var r=add(a,b);
+    write(convertToVariable(inputs[0]),r);
+    return r;
+  }
+}
+commandList[0x00f5]={
+  arity:2,
+  function:function(inputs){
+    var a=read(inputs[0]);
+    var b=inputs[1];
+    var r=sub(a,b);
+    write(convertToVariable(inputs[0]),r);
+    return r;
+  }
+}
 commandList[0x00f8]={
   arity:0,
   function:function(inputs){
     return create("object",[]);
+  }
+}
+commandList[0x00fa]={
+  arity:2,
+  function:function(inputs){
+    var a=read(inputs[0]);
+    var b=inputs[1];
+    var r=add(a,b);
+    write(convertToVariable(inputs[0]),r);
+  }
+}
+commandList[0x00fb]={
+  arity:2,
+  function:function(inputs){
+    var a=read(inputs[0]);
+    var b=inputs[1];
+    var r=sub(a,b);
+    write(convertToVariable(inputs[0]),r);
+  }
+}
+commandList[0x00fc]={
+  arity:2,
+  function:function(inputs){
+    var a=read(inputs[0]);
+    var b=inputs[1];
+    var r=add(b,a);
+    write(convertToVariable(inputs[0]),r);
+    return r;
+  }
+}
+commandList[0x00fd]={
+  arity:2,
+  function:function(inputs){
+    var a=read(inputs[0]);
+    var b=inputs[1];
+    var r=sub(b,a);
+    write(convertToVariable(inputs[0]),r);
+    return r;
+  }
+}
+commandList[0x00fe]={
+  arity:2,
+  function:function(inputs){
+    var a=read(inputs[0]);
+    var b=inputs[1];
+    var r=add(b,a);
+    write(convertToVariable(inputs[0]),r);
+  }
+}
+commandList[0x00ff]={
+  arity:2,
+  function:function(inputs){
+    var a=read(inputs[0]);
+    var b=inputs[1];
+    var r=sub(b,a);
+    write(convertToVariable(inputs[0]),r);
   }
 }

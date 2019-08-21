@@ -59,7 +59,7 @@ P(u+0050) - If the inputs are int, uint, superint, superuint, float, or double, 
 R(u+0052) - If the first variable is a function, it will run the function on the other inputs and return the function's return value. Else, it will return the first input as a unary command.
 S(u+0053) - If the first variable is a function, it will run the function on the elements of the second input as an array and return the function's return value. Else, it will return the first input as a binary command.
 T(u+0054) - Returns boolean of value True.
-U(u+0055) - Initializes an superuint, with a decimal number after it.
+U(u+0055) - Initializes a superuint, with a decimal number after it.
 V(u+0056) - If the first input is a string, returns boolean of whether the second input is a substring of the first input. If the first input is an array, return boolean of whether the second input is an element of the first input.
 W(u+0057) - If the first input is a string, remove all matches of the second input in the first input and return it. If the first input is an array, remove all matches of the second input in the first input and return it. If the first input is a variable, do it to the value, and modify it.
 X(u+0058) - If the first input is a string, remove all matches of the second input in the first input but don't return. If the first input is an array, remove all matches of the second input in the first input but don't return. If the first input is a variable, do it to the value, and modify it.
@@ -155,12 +155,12 @@ x(u+0078) - Returns an array of ints in the range from 0 to the input. If the in
 ñ(u+00f1) - If the first input is a string, replace all matches of the second input in the first input with the third input and return it. If the first input is an array, replace all matches of the second input in the first input with the third input and return it. If the first input is a variable, do it to the value, and modify it.
 ò(u+00f2) - If the first input is a string, replace all matches of the second input in the first input with the third input but don't return. If the first input is an array, replace all matches of the second input in the first input with the third input but don't return. If the first input is a variable, do it to the value, and modify it.
 ó(u+00f3) - If the first input is a string, replace all matches of the second input in the first input with the third input and return it. If the first input is an array, replace all matches of the second input in the first input with the third input and return it. If the first input is a variable, do it to the value, but don't modify it.
-ô(u+00f4) - Add the second input from right to the first input as variable and return.
-õ(u+00f5) - Subtract the second input from right to the first input as variable and return.
+ô(u+00f4) - Add the second input from right to the first input as variable and return. This modifies the variable.
+õ(u+00f5) - Subtract the second input from right to the first input as variable and return. This modifies the variable.
 ø(u+00f8) - Returns an empty object.
-ú(u+00fa) - Add the second input from right to the first input as a variable but don't return.
-û(u+00fb) - Subtract the second input from right to the first input as a variable but don't return.
-ü(u+00fc) - Add the second input from left to the first input as variable and return.
-ý(u+00fd) - Subtract the second input from left to the first input as variable and return.
-þ(u+00fe) - Add the second input from left to the first input as a variable but don't return.
-ÿ(u+00ff) - Subtract the second input from left to the first input as variable but don't return.
+ú(u+00fa) - Add the second input from right to the first input as a variable but don't return. This modifies the variable.
+û(u+00fb) - Subtract the second input from right to the first input as a variable but don't return. This modifies the variable.
+ü(u+00fc) - Add the second input from left to the first input as variable and return. This modifies the variable.
+ý(u+00fd) - Subtract the second input from left to the first input as variable and return. This modifies the variable.
+þ(u+00fe) - Add the second input from left to the first input as a variable but don't return. This modifies the variable.
+ÿ(u+00ff) - Subtract the second input from left to the first input as variable but don't return. This modifies the variable.
