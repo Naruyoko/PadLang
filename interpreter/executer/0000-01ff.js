@@ -1237,6 +1237,94 @@ commandList[0x00f1]={
     return r;
   }
 }
+commandList[0x00f2]={
+  arity:3,
+  function:function(inputs){
+    var a=inputs[0];
+    var b=inputs[1];
+    var c=inputs[2];
+    var d;
+    var r;
+    if (inputs[0].type=="variable"){
+      var a=read(a);
+    }
+    if (a.type=="str"){
+      a=convert("str",a).value;
+      b=convert("str",b).value;
+      c=convert("str",c).value;
+      d="";
+      for (var i=0;i<a.length;){
+        if (a.substring(i,b.length)==b){
+          d+=c;
+          i+=Math.max(b.length,1);
+        }else{
+          d+=a[i];
+          i++;
+        }
+      }
+      r=create("str",d);
+    }else if (a.type=="array"){
+      a=convert("array",a).value;
+      d=[];
+      for (var i=0;i<a.length;i++){
+        if (equal(a[i],b)){
+          d.push(c);
+        }else{
+          d.push(a[i]);
+        }
+      }
+      r=create("array",d);
+    }else{
+      r=clone(a);
+    }
+    if (inputs[0].type=="variable"){
+      write(inputs[0],r);
+    }
+  }
+}
+commandList[0x00f3]={
+  arity:3,
+  function:function(inputs){
+    var a=inputs[0];
+    var b=inputs[1];
+    var c=inputs[2];
+    var d;
+    var r;
+    if (inputs[0].type=="variable"){
+      var a=read(a);
+    }
+    if (a.type=="str"){
+      a=convert("str",a).value;
+      b=convert("str",b).value;
+      c=convert("str",c).value;
+      d="";
+      for (var i=0;i<a.length;){
+        if (a.substring(i,b.length)==b){
+          d+=c;
+          i+=Math.max(b.length,1);
+        }else{
+          d+=a[i];
+          i++;
+        }
+      }
+      r=create("str",d);
+    }else if (a.type=="array"){
+      a=convert("array",a).value;
+      d=[];
+      for (var i=0;i<a.length;i++){
+        if (equal(a[i],b)){
+          d.push(c);
+        }else{
+          d.push(a[i]);
+        }
+      }
+      r=create("array",d);
+    }else{
+      r=clone(a);
+    }
+    return r;
+  }
+}
 commandList[0x00f8]={
   arity:0,
   function:function(inputs){
