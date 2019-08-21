@@ -532,189 +532,178 @@ commandList[0x00bf]={
 commandList[0x00c0]={
   arity:2,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=clone(inputs[1]);
+    var r;
     if (inputs[0].type=="variable"){
-      var a=convert("array",read(inputs[0])).value;
-      a.push(b);
-      write(inputs[0],create("array",a));
-      return create("array",a);
+      a=convert("array",read(a)).value;
     }else{
-      var a=convert("array",inputs[0]).value;
-      a.push(b);
-      return create("array",a);
+      a=convert("array",a).value;
     }
+    a.push(b);
+    r=create("array",a);
+    if (inputs[0].type=="variable"){
+      write(inputs[0],r);
+    }
+    return r;
   }
 }
 commandList[0x00c1]={
   arity:1,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
+    var r;
     if (inputs[0].type=="variable"){
-      var a=convert("array",read(inputs[0])).value;
-      var b=a.pop();
-      write(inputs[0],create("array",a));
-      return b;
+      a=convert("array",read(a)).value;
     }else{
-      var a=convert("array",inputs[0]).value;
-      var b=a.pop();
-      return b;
+      a=convert("array",a).value;
     }
+    b=a.pop();
+    r=create("array",a);
+    if (inputs[0].type=="variable"){
+      write(inputs[0],r);
+    }
+    return r;
   }
 }
 commandList[0x00c2]={
   arity:2,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=clone(inputs[1]);
+    var r;
     if (inputs[0].type=="variable"){
-      var a=convert("array",read(inputs[0])).value;
-      a.unshift(b);
-      write(inputs[0],create("array",a));
-      return create("array",a);
+      a=convert("array",read(a)).value;
     }else{
-      var a=convert("array",inputs[0]).value;
-      a.unshift(b);
-      return create("array",a);
+      a=convert("array",a).value;
     }
+    a.unshift(b);
+    r=create("array",a);
+    if (inputs[0].type=="variable"){
+      write(inputs[0],r);
+    }
+    return r;
   }
 }
 commandList[0x00c3]={
   arity:1,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
+    var r;
     if (inputs[0].type=="variable"){
-      var a=convert("array",read(inputs[0])).value;
-      var b=a.shift();
-      write(inputs[0],create("array",a));
-      return b;
+      a=convert("array",read(a)).value;
     }else{
-      var a=convert("array",inputs[0]).value;
-      var b=a.shift();
-      return b;
+      a=convert("array",a).value;
     }
+    b=a.shift();
+    if (inputs[0].type=="variable"){
+      write(inputs[0],create("array",a));
+    }
+    return b;
   }
 }
 commandList[0x00c4]={
   arity:3,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=clone(inputs[1]);
     var c=convert("uint",inputs[2]).value;
+    var r;
     if (inputs[0].type=="variable"){
-      var a=convert("array",read(inputs[0])).value;
-      a.splice(c,0,b);
-      for (var i=0;i<a.length;i++){
-        if (a[i]===null){
-          a[i]=create("int",0);
-        }
-      }
-      write(inputs[0],create("array",a));
-      return create("array",a);
+      a=convert("array",read(a)).value;
     }else{
-      var a=convert("array",inputs[0]).value;
-      a.splice(c,0,b);
-      for (var i=0;i<a.length;i++){
-        if (a[i]===null){
-          a[i]=create("int",0);
-        }
-      }
-      return create("array",a);
+      a=convert("array",a).value;
     }
+    a.splice(c,0,b);
+    for (var i=0;i<a.length;i++){
+      if (a[i]===null){
+        a[i]=create("int",0);
+      }
+    }
+    r=create("array",a);
+    if (inputs[0].type=="variable"){
+      write(inputs[0],r);
+    }
+    return r;
   }
 }
 commandList[0x00c5]={
   arity:2,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=convert("uint",inputs[1]).value;
     if (inputs[0].type=="variable"){
-      var a=convert("array",read(inputs[0])).value;
-      if (b<a.length){
-        b=a.splice(b,1)[0];
-      }else{
-        b=create("int",0);
-      }
-      write(inputs[0],create("array",a));
-      return b;
+      a=convert("array",read(a)).value;
     }else{
-      var a=convert("array",inputs[0]).value;
-      if (b<a.length){
-        b=a.splice(b,1)[0];
-      }else{
-        b=create("int",0);
-      }
-      return b;
+      a=convert("array",a).value;
     }
+    if (b<a.length){
+      b=a.splice(b,1)[0];
+    }else{
+      b=create("int",0);
+    }
+    if (inputs[0].type=="variable"){
+      write(inputs[0],create("array",a));
+    }
+    return b;
   }
 }
 commandList[0x00c6]={
   arity:3,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=convert("array",inputs[1]).value;
     var c=convert("uint",inputs[2]).value;
+    var r;
     if (inputs[0].type=="variable"){
-      var a=convert("array",read(inputs[0])).value;
-      for (var i=0;i<b.length;i++){
-        a.splice(c+i,0,b[i]);
-      }
-      for (var i=0;i<a.length;i++){
-        if (a[i]===null){
-          a[i]=create("int",0);
-        }
-      }
-      write(inputs[0],create("array",a));
-      return create("array",a);
+      a=convert("array",read(a)).value;
     }else{
-      var a=convert("array",inputs[0]).value;
-      for (var i=0;i<b.length;i++){
-        a.splice(c+i,0,b[i]);
-      }
-      for (var i=0;i<a.length;i++){
-        if (a[i]===null){
-          a[i]=create("int",0);
-        }
-      }
-      return create("array",a);
+      a=convert("array",a).value;
     }
+    for (var i=0;i<b.length;i++){
+      a.splice(c+i,0,b[i]);
+    }
+    for (var i=0;i<a.length;i++){
+      if (a[i]===null){
+        a[i]=create("int",0);
+      }
+    }
+    var r~create("array",a);
+    if (inputs[0].type=="variable"){
+      write(inputs[0],r);
+    }
+    return r;
   }
 }
 commandList[0x00c7]={
   arity:3,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=convert("uint",inputs[1]).value;
     var c=convert("uint",inputs[2]).value;
     var d=[];
     if (inputs[0].type=="variable"){
-      var a=convert("array",read(inputs[0])).value;
-      for (var i=0;i<b;i++){
-        if (c<a.length){
-          d.push(a.splice(b,1)[0]);
-        }else{
-          d.push(create("int",0));
-        }
-      }
-      write(inputs[0],create("array",a));
-      return create("array",d);
+      a=convert("array",read(a)).value;
     }else{
-      var a=convert("array",inputs[0]).value;
-      for (var i=0;i<b;i++){
-        if (c<a.length){
-          d.push(a.splice(b,1)[0]);
-        }else{
-          d.push(create("int",0));
-        }
-      }
-      return create("array",d);
+      a=convert("array",a).value;
     }
+    for (var i=0;i<b;i++){
+      if (c<a.length){
+        d.push(a.splice(b,1)[0]);
+      }else{
+        d.push(create("int",0));
+      }
+    }
+    if (inputs[0].type=="variable"){
+      write(inputs[0],create("array",a));
+    }
+    return create("array",d);
   }
 }
 commandList[0x00c8]={
   arity:3,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=convert("uint",inputs[1]).value;
     var c=convert("uint",inputs[2]).value;
     var d=[];
@@ -736,37 +725,35 @@ commandList[0x00c8]={
 commandList[0x00c9]={
   arity:3,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=convert("str",inputs[1]).value;
     var c=convert("uint",inputs[2]).value;
     if (inputs[0].type=="variable"){
-      var a=convert("str",read(inputs[0])).value;
-      if (c>a.length){
-        a+="\u0000".repeat(c-a.length);
-      }
-      a=a.substring(0,c)+b+a.substring(c);
-      write(inputs[0],create("str",a));
-      return create("str",a);
+      a=convert("str",read(a)).value;
     }else{
-      var a=convert("str",inputs[0]).value;
-      if (c>a.length){
-        a+="\u0000".repeat(c-a.length);
-      }
-      a=a.substring(0,c)+b+a.substring(c);
-      return create("str",a);
+      a=convert("str",a).value;
     }
+    if (c>a.length){
+      a+="\u0000".repeat(c-a.length);
+    }
+    a=a.substring(0,c)+b+a.substring(c);
+    r=create("str",a);
+    if (inputs[0].type=="variable"){
+      write(inputs[0],r);
+    }
+    return r;
   }
 }
 commandList[0x00ca]={
   arity:3,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=convert("uint",inputs[1]).value;
     var c=convert("uint",inputs[2]).value;
     if (inputs[0].type=="variable"){
-      a=convert("str",read(inputs[0])).value;
+      a=convert("str",read(a)).value;
     }else{
-      a=convert("str",inputs[0]).value;
+      a=convert("str",a).value;
     }
     if (b+c<=a.length){
       a=a.substring(b,b+c);
@@ -779,13 +766,13 @@ commandList[0x00ca]={
 commandList[0x00cb]={
   arity:3,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=convert("uint",inputs[1]).value;
     var c=convert("uint",inputs[2]).value;
     if (inputs[0].type=="variable"){
-      a=convert("str",read(inputs[0])).value;
+      a=convert("str",read(a)).value;
     }else{
-      a=convert("str",inputs[0]).value;
+      a=convert("str",a).value;
     }
     if (c<=b){
       return create("str","");
@@ -922,24 +909,20 @@ commandList[0x00d8]={
 commandList[0x00d9]={
   arity:3,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=convert("str",inputs[1]).value;
     var c=convert("uint",inputs[2]).value;
+    var r;
     if (inputs[0].type=="variable"){
-      var a=convert("str",read(inputs[0])).value;
-      if (c>a.length){
-        a+="\u0000".repeat(c-a.length);
-      }
-      a=a.substring(0,c)+b+a.substring(c);
-      return create("str",a);
+      a=convert("str",read(a)).value;
     }else{
-      var a=convert("str",inputs[0]).value;
-      if (c>a.length){
-        a+="\u0000".repeat(c-a.length);
-      }
-      a=a.substring(0,c)+b+a.substring(c);
-      return create("str",a);
+      a=convert("str",a).value;
     }
+    if (c>a.length){
+      a+="\u0000".repeat(c-a.length);
+    }
+    a=a.substring(0,c)+b+a.substring(c);
+    return create("str",r);
   }
 }
 commandList[0x00dd]={
@@ -1073,191 +1056,151 @@ commandList[0x00e5]={
 commandList[0x00e8]={
   arity:2,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=clone(inputs[1]);
     if (inputs[0].type=="variable"){
-      var a=convert("array",read(inputs[0])).value;
-      a.push(b);
-      return create("array",a);
+      a=convert("array",read(a)).value;
     }else{
-      var a=convert("array",inputs[0]).value;
-      a.push(b);
-      return create("array",a);
+      a=convert("array",a).value;
     }
+    a.push(b);
+    return create("array",a);
   }
 }
 commandList[0x00e9]={
   arity:1,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=clone(inputs[1]);
     if (inputs[0].type=="variable"){
-      var a=convert("array",read(inputs[0])).value;
-      var b=a.pop();
-      return b;
+      a=convert("array",read(a)).value;
     }else{
-      var a=convert("array",inputs[0]).value;
-      var b=a.pop();
-      return b;
+      a=convert("array",a).value;
     }
+    var b=a.pop();
+    return b;
   }
 }
 commandList[0x00ea]={
   arity:2,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=clone(inputs[1]);
     if (inputs[0].type=="variable"){
-      var a=convert("array",read(inputs[0])).value;
-      a.unshift(b);
-      return create("array",a);
+      a=convert("array",read(a)).value;
     }else{
-      var a=convert("array",inputs[0]).value;
-      a.unshift(b);
-      return create("array",a);
+      a=convert("array",a).value;
     }
+    a.unshift(b);
+    return create("array",a);
   }
 }
 commandList[0x00eb]={
   arity:1,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=clone(inputs[1]);
     if (inputs[0].type=="variable"){
-      var a=convert("array",read(inputs[0])).value;
-      var b=a.shift();
-      return b;
+      a=convert("array",read(a)).value;
     }else{
-      var a=convert("array",inputs[0]).value;
-      var b=a.shift();
-      return b;
+      a=convert("array",a).value;
     }
+    var b=a.shift();
+    return b;
   }
 }
 commandList[0x00ec]={
   arity:3,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=clone(inputs[1]);
     var c=convert("uint",inputs[2]).value;
     if (inputs[0].type=="variable"){
-      var a=convert("array",read(inputs[0])).value;
-      a.splice(c,0,b);
-      for (var i=0;i<a.length;i++){
-        if (a[i]===null){
-          a[i]=create("int",0);
-        }
-      }
-      return create("array",a);
+      a=convert("array",read(a)).value;
     }else{
-      var a=convert("array",inputs[0]).value;
-      a.splice(c,0,b);
-      for (var i=0;i<a.length;i++){
-        if (a[i]===null){
-          a[i]=create("int",0);
-        }
-      }
-      return create("array",a);
+      a=convert("array",a).value;
     }
+    a.splice(c,0,b);
+    for (var i=0;i<a.length;i++){
+      if (a[i]===null){
+        a[i]=create("int",0);
+      }
+    }
+    return create("array",a);
   }
 }
 commandList[0x00ed]={
   arity:2,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=convert("uint",inputs[1]).value;
     if (inputs[0].type=="variable"){
-      var a=convert("array",read(inputs[0])).value;
-      if (b<a.length){
-        b=a.splice(b,1)[0];
-      }else{
-        b=create("int",0);
-      }
-      return b;
+      a=convert("array",read(a)).value;
     }else{
-      var a=convert("array",inputs[0]).value;
-      if (b<a.length){
-        b=a.splice(b,1)[0];
-      }else{
-        b=create("int",0);
-      }
-      return b;
+      a=convert("array",a).value;
     }
+    if (b<a.length){
+      b=a.splice(b,1)[0];
+    }else{
+      b=create("int",0);
+    }
+    return b;
   }
 }
 commandList[0x00ee]={
   arity:3,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=convert("array",inputs[1]).value;
     var c=convert("uint",inputs[2]).value;
     if (inputs[0].type=="variable"){
-      var a=convert("array",read(inputs[0])).value;
-      for (var i=0;i<b.length;i++){
-        a.splice(c+i,0,b[i]);
-      }
-      for (var i=0;i<a.length;i++){
-        if (a[i]===null){
-          a[i]=create("int",0);
-        }
-      }
-      return create("array",a);
+      a=convert("array",read(a)).value;
     }else{
-      var a=convert("array",inputs[0]).value;
-      for (var i=0;i<b.length;i++){
-        a.splice(c+i,0,b[i]);
-      }
-      for (var i=0;i<a.length;i++){
-        if (a[i]===null){
-          a[i]=create("int",0);
-        }
-      }
-      return create("array",a);
+      a=convert("array",a).value;
     }
+    for (var i=0;i<b.length;i++){
+      a.splice(c+i,0,b[i]);
+    }
+    for (var i=0;i<a.length;i++){
+      if (a[i]===null){
+        a[i]=create("int",0);
+      }
+    }
+    return create("array",a);
   }
 }
 commandList[0x00ef]={
   arity:3,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=convert("uint",inputs[1]).value;
     var c=convert("uint",inputs[2]).value;
     var d=[];
     if (inputs[0].type=="variable"){
-      var a=convert("array",read(inputs[0])).value;
-      for (var i=0;i<b;i++){
-        if (c<a.length){
-          d.push(a.splice(b,1)[0]);
-        }else{
-          d.push(create("int",0));
-        }
-      }
-      return create("array",d);
+      a=convert("array",read(a)).value;
     }else{
-      var a=convert("array",inputs[0]).value;
-      for (var i=0;i<b;i++){
-        if (c<a.length){
-          d.push(a.splice(b,1)[0]);
-        }else{
-          d.push(create("int",0));
-        }
-      }
-      return create("array",d);
+      a=convert("array",a).value;
     }
+    for (var i=0;i<b;i++){
+      if (c<a.length){
+        d.push(a.splice(b,1)[0]);
+      }else{
+        d.push(create("int",0));
+      }
+    }
+    return create("array",d);
   }
 }
 commandList[0x00f1]={
   arity:3,
   function:function(inputs){
-    var a;
+    var a=inputs[0];
     var b=inputs[1];
     var c=inputs[2];
     var d;
     var r;
     if (inputs[0].type=="variable"){
-      var a=read(inputs[0]);
-    }else{
-      var a=inputs[0];
+      var a=read(a);
     }
     if (a.type=="str"){
       a=convert("str",a).value;
