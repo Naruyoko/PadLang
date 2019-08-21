@@ -919,6 +919,29 @@ commandList[0x00d8]={
     return create("array",[]);
   }
 }
+commandList[0x00d9]={
+  arity:3,
+  function:function(inputs){
+    var a;
+    var b=convert("str",inputs[1]).value;
+    var c=convert("uint",inputs[2]).value;
+    if (inputs[0].type=="variable"){
+      var a=convert("str",read(inputs[0])).value;
+      if (c>a.length){
+        a+="\u0000".repeat(c-a.length);
+      }
+      a=a.substring(0,c)+b+a.substring(c);
+      return create("str",a);
+    }else{
+      var a=convert("str",inputs[0]).value;
+      if (c>a.length){
+        a+="\u0000".repeat(c-a.length);
+      }
+      a=a.substring(0,c)+b+a.substring(c);
+      return create("str",a);
+    }
+  }
+}
 commandList[0x00dd]={
   arity:2,
   function:function(inputs){
