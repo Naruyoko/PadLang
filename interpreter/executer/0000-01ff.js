@@ -538,11 +538,11 @@ commandList[0x00c0]={
       var a=convert("array",read(inputs[0])).value;
       a.push(b);
       write(inputs[1],create("array",a));
-      return a;
+      return create("array",a);
     }else{
-      var a=convert("array",inputs[0]);
+      var a=convert("array",inputs[0]).value;
       a.push(b);
-      return a;
+      return create("array",a);
     }
   }
 }
@@ -556,7 +556,7 @@ commandList[0x00c1]={
       write(inputs[1],create("array",a));
       return b;
     }else{
-      var a=convert("array",inputs[0]);
+      var a=convert("array",inputs[0]).value;
       var b=a.pop();
       return b;
     }
@@ -571,11 +571,11 @@ commandList[0x00c2]={
       var a=convert("array",read(inputs[0])).value;
       a.unshift(b);
       write(inputs[1],create("array",a));
-      return a;
+      return create("array",a);
     }else{
-      var a=convert("array",inputs[0]);
+      var a=convert("array",inputs[0]).value;
       a.unshift(b);
-      return a;
+      return create("array",a);
     }
   }
 }
@@ -589,7 +589,7 @@ commandList[0x00c3]={
       write(inputs[1],create("array",a));
       return b;
     }else{
-      var a=convert("array",inputs[0]);
+      var a=convert("array",inputs[0]).value;
       var b=a.shift();
       return b;
     }
@@ -610,16 +610,16 @@ commandList[0x00c4]={
         }
       }
       write(inputs[1],create("array",a));
-      return a;
+      return create("array",a);
     }else{
-      var a=convert("array",inputs[0]);
+      var a=convert("array",inputs[0]).value;
       a.splice(c,0,b);
       for (var i=0;i<a.length;i++){
         if (a[i]===null){
           a[i]=create("int",0);
         }
       }
-      return a;
+      return create("array",a);
     }
   }
 }
@@ -638,7 +638,7 @@ commandList[0x00c5]={
       write(inputs[1],create("array",a));
       return b;
     }else{
-      var a=convert("array",inputs[0]);
+      var a=convert("array",inputs[0]).value;
       if (b<a.length){
         b=a.splice(b,1)[0];
       }else{
@@ -665,9 +665,9 @@ commandList[0x00c6]={
         }
       }
       write(inputs[1],create("array",a));
-      return a;
+      return create("array",a);
     }else{
-      var a=convert("array",inputs[0]);
+      var a=convert("array",inputs[0]).value;
       for (var i=0;i<b.length;i++){
         a.splice(c+i,0,b[i]);
       }
@@ -676,7 +676,7 @@ commandList[0x00c6]={
           a[i]=create("int",0);
         }
       }
-      return a;
+      return create("array",a);
     }
   }
 }
@@ -697,9 +697,9 @@ commandList[0x00c7]={
         }
       }
       write(inputs[1],create("array",a));
-      return d;
+      return create("array",d);
     }else{
-      var a=convert("array",inputs[0]);
+      var a=convert("array",inputs[0]).value;
       for (var i=0;i<b;i++){
         if (c<a.length){
           d.push(a.splice(b,1)[0]);
@@ -707,8 +707,95 @@ commandList[0x00c7]={
           d.push(create("int",0));
         }
       }
-      return d;
+      return create("array",d);
     }
+  }
+}
+commandList[0x00c8]={
+  arity:3,
+  function:function(inputs){
+    var a;
+    var b=convert("uint",inputs[1]).value;
+    var c=convert("uint",inputs[2]).value;
+    var d=[];
+    if (inputs[0].type=="variable"){
+      a=convert("array",read(inputs[0])).value;
+    }else{
+      a=convert("array",inputs[0]).value;
+    }
+    for (var i=0;i<b;i++){
+      if (c+i<a.length){
+        d.push(clone(a[c+i]));
+      }else{
+        d.push(create("int",0));
+      }
+    }
+    return create("array",d);
+  }
+}
+commandList[0x00c9]={
+  arity:3,
+  function:function(inputs){
+    var a;
+    var b=convert("str",inputs[1]).value;
+    var c=convert("uint",inputs[2]).value;
+    if (inputs[0].type=="variable"){
+      var a=convert("str",read(inputs[0])).value;
+      if (c>a.length){
+        a+="\u0000".repeat(c-a.length);
+      }
+      a=a.substring(0,c)+b+a.substring(c);
+      write(inputs[1],create("str",a));
+      return create("str",a);
+    }else{
+      var a=convert("str",inputs[0]).value;
+      if (c>a.length){
+        a+="\u0000".repeat(c-a.length);
+      }
+      a=a.substring(0,c)+b+a.substring(c);
+      return create("str",a);
+    }
+  }
+}
+commandList[0x00ca]={
+  arity:3,
+  function:function(inputs){
+    var a;
+    var b=convert("uint",inputs[1]).value;
+    var c=convert("uint",inputs[2]).value;
+    if (inputs[0].type=="variable"){
+      a=convert("str",read(inputs[0])).value;
+    }else{
+      a=convert("str",inputs[0]).value;
+    }
+    if (b+c<=a.length){
+      a=a.substring(b,b+c);
+    }else{
+      a=a.substring(b)+"\u0000".repeat(b+c-a.length);
+    }
+    return create("str",a);
+  }
+}
+commandList[0x00cb]={
+  arity:3,
+  function:function(inputs){
+    var a;
+    var b=convert("uint",inputs[1]).value;
+    var c=convert("uint",inputs[2]).value;
+    if (inputs[0].type=="variable"){
+      a=convert("str",read(inputs[0])).value;
+    }else{
+      a=convert("str",inputs[0]).value;
+    }
+    if (c<=b){
+      return create("str","");
+    }
+    if (c<=a.length){
+      a=a.substring(b,c);
+    }else{
+      a=a.substring(b)+"\u0000".repeat(c-a.length);
+    }
+    return create("str",a);
   }
 }
 commandList[0x00cc]={
@@ -968,11 +1055,11 @@ commandList[0x00e8]={
     if (inputs[0].type=="variable"){
       var a=convert("array",read(inputs[0])).value;
       a.push(b);
-      return a;
+      return create("array",a);
     }else{
-      var a=convert("array",inputs[0]);
+      var a=convert("array",inputs[0]).value;
       a.push(b);
-      return a;
+      return create("array",a);
     }
   }
 }
@@ -986,7 +1073,7 @@ commandList[0x00e9]={
       var b=a.pop();
       return b;
     }else{
-      var a=convert("array",inputs[0]);
+      var a=convert("array",inputs[0]).value;
       var b=a.pop();
       return b;
     }
@@ -1000,11 +1087,11 @@ commandList[0x00ea]={
     if (inputs[0].type=="variable"){
       var a=convert("array",read(inputs[0])).value;
       a.unshift(b);
-      return a;
+      return create("array",a);
     }else{
-      var a=convert("array",inputs[0]);
+      var a=convert("array",inputs[0]).value;
       a.unshift(b);
-      return a;
+      return create("array",a);
     }
   }
 }
@@ -1018,7 +1105,7 @@ commandList[0x00eb]={
       var b=a.shift();
       return b;
     }else{
-      var a=convert("array",inputs[0]);
+      var a=convert("array",inputs[0]).value;
       var b=a.shift();
       return b;
     }
@@ -1038,16 +1125,16 @@ commandList[0x00ec]={
           a[i]=create("int",0);
         }
       }
-      return a;
+      return create("array",a);
     }else{
-      var a=convert("array",inputs[0]);
+      var a=convert("array",inputs[0]).value;
       a.splice(c,0,b);
       for (var i=0;i<a.length;i++){
         if (a[i]===null){
           a[i]=create("int",0);
         }
       }
-      return a;
+      return create("array",a);
     }
   }
 }
@@ -1065,7 +1152,7 @@ commandList[0x00ed]={
       }
       return b;
     }else{
-      var a=convert("array",inputs[0]);
+      var a=convert("array",inputs[0]).value;
       if (b<a.length){
         b=a.splice(b,1)[0];
       }else{
@@ -1091,9 +1178,9 @@ commandList[0x00ee]={
           a[i]=create("int",0);
         }
       }
-      return a;
+      return create("array",a);
     }else{
-      var a=convert("array",inputs[0]);
+      var a=convert("array",inputs[0]).value;
       for (var i=0;i<b.length;i++){
         a.splice(c+i,0,b[i]);
       }
@@ -1102,7 +1189,7 @@ commandList[0x00ee]={
           a[i]=create("int",0);
         }
       }
-      return a;
+      return create("array",a);
     }
   }
 }
@@ -1122,9 +1209,9 @@ commandList[0x00ef]={
           d.push(create("int",0));
         }
       }
-      return d;
+      return create("array",d);
     }else{
-      var a=convert("array",inputs[0]);
+      var a=convert("array",inputs[0]).value;
       for (var i=0;i<b;i++){
         if (c<a.length){
           d.push(a.splice(b,1)[0]);
@@ -1132,7 +1219,7 @@ commandList[0x00ef]={
           d.push(create("int",0));
         }
       }
-      return d;
+      return create("array",d);
     }
   }
 }
