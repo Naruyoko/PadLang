@@ -4,4 +4,4 @@ An esolang that intends to be very expressible, using full potential of the Unic
 
 ## Note
 
-This esoteric programming language "PadLang" is in no way affiliated, associated, or related in other way to PADLang by zaklaus, Padlangs (restraunt), or any other similarly named things, or any other things unless specified.
+This esoteric programming language "PadLang" is in no way affiliated, associated, or related in any other way to PADLang by zaklaus, Padlangs (restaurant), or any other similarly named things, or any other things unless specified.

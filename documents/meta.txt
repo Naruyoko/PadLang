@@ -1,26 +1,26 @@
 Note:
-This esoteric programming language "PadLang" is in no way affiliated, associated, or related in other way to PADLang by zaklaus, Padlangs (restraunt), or any other similarly named things, or any other things unless specified.
+This esoteric programming language "PadLang" is in no way affiliated, associated, or related in any other way to PADLang by zaklaus, Padlangs (restaurant), or any other similarly named things, or any other things unless specified.
 
 Syntax:
 The program is composed of strings of characters.
-Each character is a character from Unicode characters in range of 0000 to ffff.
+Each character is a character from Unicode characters in the range of 0000 to ffff.
 If a character is not defined, it is a no-op.
-The general syntax for operators are prefix form.
-If a command does not return anything and program is looking for inputs to a command, it will not be counted as an input. This also includes if a command is not defined for incompatible inputs.
+The general syntax for operators is in prefix form.
+If a command does not return anything and the program is looking for inputs to a command, it will not be counted as an input. This also includes if a command is not defined for incompatible inputs.
 
 Execution:
 Starts the execution of the program from left to right.
-Reaching an either end of the program will stop execution.
-A value which are not used or dumped will be implicitly outputted.
-If pointer is moved manually, it will not advance next(it will execute the command it landed on).
+Reaching either end of the program will stop the execution.
+A value which is not used or dumped will be implicitly outputted.
+If the pointer is moved manually, it will not advance next(it will execute the command it landed on).
 
 File:
-The file extention is one of the following:
+The file extension is one of the following:
  .pdl
  .padl
  .padlang
 //When the file is edited as a text file, it should be saved as a UTF-16 file(Do not use UTF-8, ANSI, UTF-32, and others).
-^Update: The file should be *defaulted* to UTF-16, either LE or BE.
+^Update: The file should be *defaulted* to UTF-16, either LE or BE. However, it necessarily doesn't have to be.
 The interpreter bundled can also import/export as Hex, which you may save any JavaScript readable format. It will accept following:
  .pdlh
  .padlh
@@ -33,12 +33,12 @@ Variables:
 There are infinite variables of type boolean, int, uint, superint, superuint, float, double, str, array, function, object, and variable. These are called normal variables.
 There are one of each variable type pointer, direction, program, and stack. These are called special variables.
 boolean - Holds value boolean - Holds value of either true or false.
-int - A signed 32 bit integer.
-uint - An unsigned 32 bit integer.
+int - A signed 32-bit integer.
+uint - An unsigned-32 bit integer.
 superint - A signed integer of arbitrary size. More memory is given as the value increases.
 superuint - An unsigned integer of arbitrary size. More memory is given as the value increases.
 float - A floating-point number according to IEEE 754.
-double - A double-precision floatong-point number according to IEEE 754 binary64.
+double - A double-precision floating-point number according to IEEE 754 binary64.
 str - A string of Unicode characters.
 array - An array of normal variables.
 function - Takes inputs and evaluates to an output.
