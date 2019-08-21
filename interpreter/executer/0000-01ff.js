@@ -631,7 +631,7 @@ commandList[0x00c5]={
     if (inputs[0].type=="variable"){
       var a=convert("array",read(inputs[0])).value;
       if (b<a.length){
-        b=a.splice(b,1);
+        b=a.splice(b,1)[0];
       }else{
         b=create("int",0);
       }
@@ -640,7 +640,7 @@ commandList[0x00c5]={
     }else{
       var a=convert("array",inputs[0]);
       if (b<a.length){
-        b=a.splice(b,1);
+        b=a.splice(b,1)[0];
       }else{
         b=create("int",0);
       }
@@ -691,7 +691,7 @@ commandList[0x00c7]={
       var a=convert("array",read(inputs[0])).value;
       for (var i=0;i<b;i++){
         if (c<a.length){
-          d.push(a.splice(b,1));
+          d.push(a.splice(b,1)[0]);
         }else{
           d.push(create("int",0));
         }
@@ -702,7 +702,7 @@ commandList[0x00c7]={
       var a=convert("array",inputs[0]);
       for (var i=0;i<b;i++){
         if (c<a.length){
-          d.push(a.splice(b,1));
+          d.push(a.splice(b,1)[0]);
         }else{
           d.push(create("int",0));
         }
@@ -1059,7 +1059,7 @@ commandList[0x00ed]={
     if (inputs[0].type=="variable"){
       var a=convert("array",read(inputs[0])).value;
       if (b<a.length){
-        b=a.splice(b,1);
+        b=a.splice(b,1)[0];
       }else{
         b=create("int",0);
       }
@@ -1067,7 +1067,7 @@ commandList[0x00ed]={
     }else{
       var a=convert("array",inputs[0]);
       if (b<a.length){
-        b=a.splice(b,1);
+        b=a.splice(b,1)[0];
       }else{
         b=create("int",0);
       }
@@ -1117,7 +1117,7 @@ commandList[0x00ef]={
       var a=convert("array",read(inputs[0])).value;
       for (var i=0;i<b;i++){
         if (c<a.length){
-          d.push(a.splice(b,1));
+          d.push(a.splice(b,1)[0]);
         }else{
           d.push(create("int",0));
         }
@@ -1127,7 +1127,7 @@ commandList[0x00ef]={
       var a=convert("array",inputs[0]);
       for (var i=0;i<b;i++){
         if (c<a.length){
-          d.push(a.splice(b,1));
+          d.push(a.splice(b,1)[0]);
         }else{
           d.push(create("int",0));
         }
