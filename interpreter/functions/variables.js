@@ -26,15 +26,15 @@ function write(name,value){
   memory.push({
     name:clone(name),
     special:false,
-    value:[]
+    value:clone(value)
   });
 }
 function create(type,value){
   value=clone(value);
-  return {
+  return normalize({
     type:type,
     value:clone(value)
-  };
+  });
 }
 
 function normalize(value){

@@ -182,6 +182,38 @@ commandList[0x0026]={
     return create("boolean",a&&b);
   }
 }
+commandList[0x0027]={
+  arity:2,
+  function:function(inputs){
+    var a=inputs[0];
+    var b=inputs[1];
+    if (a.type=="str"){
+      a=a.value;
+      b=convert("uint",b).value;
+      if (b>=a.length){
+        return create("str","");
+      }else{
+        return create("str",a[b]);
+      }
+    }else if (a.type=="array"){
+      a=a.value;
+      b=convert("uint",b).value;
+      if (b>=a.length){
+        return create("int",0);
+      }else{
+        return clone(a[b]);
+      }
+    }else if (a.type=="object"){
+      a=a.value;
+      for (var i=0;i<a.length;i++){
+        if (equal(a[i][0],b)){
+          return clone(a[i][1]);
+        }
+      }
+      return create("int",0);
+    }
+  }
+}
 commandList[0x002a]={
   arity:2,
   function:function(inputs){
@@ -258,6 +290,16 @@ commandList[0x003e]={
     return gt(inputs[0],inputs[1]);
   }
 }
+commandList[0x003f]={
+  arity:3,
+  function:function(inputs){
+    if (convert("boolean",inputs[0]).value){
+      return inputs[1];
+    }else{
+      return inputs[2];
+    }
+  }
+}
 commandList[0x0041]={
   arity:2,
   function:function(inputs){
@@ -294,6 +336,24 @@ commandList[0x0049]={
       stepPointer();
     }
     return create("superint",new bigInt(a));
+  }
+}
+commandList[0x004c]={
+  arity:0,
+  function:function(inputs){
+    pushStack();
+  }
+}
+commandList[0x004d]={
+  arity:1,
+  function:function(inputs){
+    popStack(convert("boolean",inputs[0]).value);
+  }
+}
+commandList[0x004e]={
+  arity:1,
+  function:function(inputs){
+    popStack(!convert("boolean",inputs[0]).value);
   }
 }
 commandList[0x004f]={
@@ -342,6 +402,125 @@ commandList[0x0056]={
     }
   }
 }
+commandList[0x0057]={
+  arity:2,
+  function:function(inputs){
+    var a=inputs[0];
+    var b=inputs[1];
+    var c;
+    var r;
+    if (inputs[0].type=="variable"){
+      var a=read(a);
+    }
+    if (a.type=="str"){
+      a=convert("str",a).value;
+      b=convert("str",b).value;
+      c="";
+      for (var i=0;i<a.length;){
+        if (a.substring(i,b.length)==b){
+          i+=Math.max(b.length,1);
+        }else{
+          c+=a[i];
+          i++;
+        }
+      }
+      r=create("str",c);
+    }else if (a.type=="array"){
+      a=convert("array",a).value;
+      c=[];
+      for (var i=0;i<a.length;i++){
+        if (!equal(a[i],b)){
+          c.push(a[i]);
+        }
+      }
+      r=create("array",c);
+    }else{
+      r=clone(a);
+    }
+    if (inputs[0].type=="variable"){
+      write(inputs[0],r);
+    }
+    return r;
+  }
+}
+commandList[0x0058]={
+  arity:2,
+  function:function(inputs){
+    var a=inputs[0];
+    var b=inputs[1];
+    var c;
+    var r;
+    if (inputs[0].type=="variable"){
+      var a=read(a);
+    }
+    if (a.type=="str"){
+      a=convert("str",a).value;
+      b=convert("str",b).value;
+      c="";
+      for (var i=0;i<a.length;){
+        if (a.substring(i,b.length)==b){
+          i+=Math.max(b.length,1);
+        }else{
+          c+=a[i];
+          i++;
+        }
+      }
+      r=create("str",c);
+    }else if (a.type=="array"){
+      a=convert("array",a).value;
+      c=[];
+      for (var i=0;i<a.length;i++){
+        if (!equal(a[i],b)){
+          c.push(a[i]);
+        }
+      }
+      r=create("array",c);
+    }else{
+      r=clone(a);
+    }
+    if (inputs[0].type=="variable"){
+      write(inputs[0],r);
+    }
+  }
+}
+commandList[0x0057]={
+  arity:2,
+  function:function(inputs){
+    var a=inputs[0];
+    var b=inputs[1];
+    var c;
+    var r;
+    if (inputs[0].type=="variable"){
+      var a=read(a);
+    }
+    if (a.type=="str"){
+      a=convert("str",a).value;
+      b=convert("str",b).value;
+      c="";
+      for (var i=0;i<a.length;){
+        if (a.substring(i,b.length)==b){
+          i+=Math.max(b.length,1);
+        }else{
+          c+=a[i];
+          i++;
+        }
+      }
+      r=create("str",c);
+    }else if (a.type=="array"){
+      a=convert("array",a).value;
+      c=[];
+      for (var i=0;i<a.length;i++){
+        if (!equal(a[i],b)){
+          c.push(a[i]);
+        }
+      }
+      r=create("array",c);
+    }else{
+      r=clone(a);
+    }
+    return r;
+  }
+}
 commandList[0x005e]={
   arity:2,
   function:function(inputs){
@@ -354,10 +533,28 @@ commandList[0x0060]={
     return create("str","");
   }
 }
+commandList[0x0061]={
+  arity:1,
+  function:function(inputs){
+    return create("array",[clone(inputs[0])]);
+  }
+}
 commandList[0x0068]={
   arity:0,
   function:function(inputs){
     return create("str","Hello, World!");
+  }
+}
+commandList[0x0069]={
+  arity:0,
+  function:function(inputs){
+    var a="";
+    stepPointer();
+    while ("0123456789".includes(charOfProgram().value)&&!isPointerOutsideRange()){
+      a+=charOfProgram().value;
+      stepPointer();
+    }
+    return create("int",new bigInt(a).mod(4294967296));
   }
 }
 commandList[0x006a]={
@@ -462,6 +659,36 @@ commandList[0x007c]={
     return create("boolean",a||b);
   }
 }
+commandList[0x00a2]={
+  arity:1,
+  function:function(inputs){
+    var a=read(inputs[0]);
+    write(inputs[0],add(a,1));
+    return a;
+  }
+}
+commandList[0x00a3]={
+  arity:1,
+  function:function(inputs){
+    var a=read(inputs[0]);
+    write(inputs[0],sub(a,1));
+    return a;
+  }
+}
+commandList[0x00a4]={
+  arity:1,
+  function:function(inputs){
+    var a=read(inputs[0]);
+    write(inputs[0],add(a,1));
+  }
+}
+commandList[0x00a5]={
+  arity:1,
+  function:function(inputs){
+    var a=read(inputs[0]);
+    write(inputs[0],sub(a,1));
+  }
+}
 commandList[0x00a6]={
   arity:0,
   function:function(inputs){
@@ -477,6 +704,24 @@ commandList[0x00aa]={
       }
       return create("array",a);
     }
+  }
+}
+commandList[0x00af]={
+  arity:1,
+  function:function(inputs){
+    var a=read(inputs[0]);
+    a=add(a,1);
+    write(inputs[0],a);
+    return a;
+  }
+}
+commandList[0x00b0]={
+  arity:1,
+  function:function(inputs){
+    var a=read(inputs[0]);
+    a=sub(a,1);
+    write(inputs[0],a);
+    return a;
   }
 }
 commandList[0x00b1]={

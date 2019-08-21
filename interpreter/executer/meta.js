@@ -143,6 +143,27 @@ function STDOUT(s){
   return s;
 }
 
+function pushStack(pointer){
+  if (pointer===undefined){
+    pointer=read("pointer");
+  }
+  pointer=convert("uint",pointer);
+  var a=read("stack").value;
+  a.push(pointer);
+  write("stack",a);
+}
+function popStack(assignToPointer){
+  if (assignToPointer===undefined){
+    console.warn("Popped from stack without specifying if assigning to pointer!");
+  }
+  var a=read("stack").value;
+  var b=a.pop(n);
+  if (assignToPointer){
+    write("pointer",b);
+  }
+  write("stack",a);
+}
+
 function length(value){
   if (["str","array","object"].includes(value.type)){
     return create("int",value.value.length);
