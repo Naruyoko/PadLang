@@ -117,7 +117,7 @@ x(u+0078) - Returns an array of ints in range from from 0 to the input. If the i
 Ã(u+00c3) - Shifts the input and return the shifted element. If the first input is variable value, and alter the variable, do it to the variable. Else, do it to the conversion to array.
 Ä(u+00c4) - Inserts the second input at the index third input to the first input array. Alters the variable if it is a variable. Returns the final array.
 Å(u+00c5) - Remove the index second input from the first input. Alters the variable if it is a variable. Returns the removed variable.
-Æ(u+00c6) - Inserts multiple variables as elements of the second input at the index third input to the first input. Alters the variable if it is a variable. Returns the final array.
+Æ(u+00c6) - Inserts multiple variables taking as an array as elements of the second input at the index third input to the first input. Alters the variable if it is a variable. Returns the final array.
 Ç(u+00c7) - Removes as array the second input amount of elements at the index third input from the first input. Alters the variable if it is a variable. Returns the array of removed variables.
 È(u+00c8) - Returns subarray of the second input amount of elements at the index third input from the first input.
 É(u+00c9) - Inserts second inputs at third input to first input str. Alters the variable if it is a variable. Returns the final str.
@@ -146,10 +146,10 @@ x(u+0078) - Returns an array of ints in range from from 0 to the input. If the i
 è(u+00e8) - Pushes second input to the first input and return new array. If the first input is variable, do it to the variable value, but does not alter the variable. Else, do it to the conversion to array.
 é(u+00e9) - Pops the input and return the popped element. If the first input is variable, do it to the variable value, but does not alter the variable. Else, do it to the conversion to array.
 ê(u+00ea) - Unshifts second input to the first input and return new array. If the first input is variable, do it to the variable value, but does not alter the variable. Else, do it to the conversion to array.
-ë(u+00eb) - Shifts the input and return the shifted element. Even if the first input is variable value, it does not alter the variable, do it to the variable. Else, do it to the conversion to array.
+ë(u+00eb) - Shifts the input and return the shifted element. Even if the first input is variable value, it does not alter the variable, do it to the value. Else, do it to the conversion to array.
 ì(u+00ec) - Inserts the second input at the index third input to the first input array. Does not alter the variable if it is a variable. Returns the final array.
 í(u+00ed) - Removes the index second input from the first input. Does not alter the variable if it is a variable. Returns the removed variable.
-î(u+00ee) - Inserts multiple variables as elements of the second input at the index third input to the first input. Does not alter the variable if it is a variable. Return the final array.
+î(u+00ee) - Inserts multiple variables taking as an array as elements of the second input at the index third input to the first input. Does not alter the variable if it is a variable. Return the final array.
 ï(u+00ef) - Removes as array the second input amount of elements at the index third input from the first input. Does not alter the variable if it is a variable. Returns the array of removed variable.
 ð(u+00f0) - If the first input is an array, return an array where each element is value of each element of the first input inputted into the second input. If the first input is an object, return an object where each property value is value of each value of properties of the first input inputted into the second input.
 ñ(u+00f1) - If the first input is a string, replace all matches of the second input in first input with the third input and return it. If the first input is an array, replace all matches of the second input in first input with the third input and return it. If the first input is a variable, do it to the value, and modify it.
