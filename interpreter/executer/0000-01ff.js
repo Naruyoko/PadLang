@@ -20,7 +20,7 @@ commandList[0x0000]={
 commandList[0x0003]={
   arity:0,
   function:function(inputs){
-    write("pointer",pop("stack"));
+    popStack(true);
   }
 }
 commandList[0x0005]={
@@ -206,7 +206,7 @@ commandList[0x0027]={
     }else if (a.type=="object"){
       a=a.value;
       for (var i=0;i<a.length;i++){
-        if (equal(a[i][0],b)){
+        if (equal(a[i][0],b).value){
           return clone(a[i][1]);
         }
       }
@@ -394,7 +394,7 @@ commandList[0x0056]={
     }else if (inputs[0].type=="array"){
       for (var i=0;i<a.length;i++){
         var b=inputs[1];
-        if (equal(a[i],b)){
+        if (equal(a[i],b).value){
           return create("boolean",true);
         }
       }
@@ -429,7 +429,7 @@ commandList[0x0057]={
       a=convert("array",a).value;
       c=[];
       for (var i=0;i<a.length;i++){
-        if (!equal(a[i],b)){
+        if (!equal(a[i],b).value){
           c.push(a[i]);
         }
       }
@@ -470,7 +470,7 @@ commandList[0x0058]={
       a=convert("array",a).value;
       c=[];
       for (var i=0;i<a.length;i++){
-        if (!equal(a[i],b)){
+        if (!equal(a[i],b).value){
           c.push(a[i]);
         }
       }
@@ -510,7 +510,7 @@ commandList[0x0057]={
       a=convert("array",a).value;
       c=[];
       for (var i=0;i<a.length;i++){
-        if (!equal(a[i],b)){
+        if (!equal(a[i],b).value){
           c.push(a[i]);
         }
       }
@@ -1466,7 +1466,7 @@ commandList[0x00f1]={
       a=convert("array",a).value;
       d=[];
       for (var i=0;i<a.length;i++){
-        if (equal(a[i],b)){
+        if (equal(a[i],b).value){
           d.push(c);
         }else{
           d.push(a[i]);
@@ -1512,7 +1512,7 @@ commandList[0x00f2]={
       a=convert("array",a).value;
       d=[];
       for (var i=0;i<a.length;i++){
-        if (equal(a[i],b)){
+        if (equal(a[i],b).value){
           d.push(c);
         }else{
           d.push(a[i]);
@@ -1557,7 +1557,7 @@ commandList[0x00f3]={
       a=convert("array",a).value;
       d=[];
       for (var i=0;i<a.length;i++){
-        if (equal(a[i],b)){
+        if (equal(a[i],b).value){
           d.push(c);
         }else{
           d.push(a[i]);

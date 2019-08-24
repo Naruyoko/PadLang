@@ -43,7 +43,7 @@ function lt(a,b){
   return lessThan(a,b);
 }
 function lessThanOrEqual(a,b){
-  return equal(a,b)||lessThan(a,b);
+  return create("boolean",equal(a,b).value||lessThan(a,b).value);
 }
 function lte(a,b){
   return lessThanOrEqual(a,b);
@@ -94,7 +94,7 @@ function gt(a,b){
   return greaterThan(a,b);
 }
 function greaterThanOrEqual(a,b){
-  return equal(a,b)||greaterThan(a,b);
+  return create("boolean",equal(a,b).value||greaterThan(a,b).value);
 }
 function gte(a,b){
   return greaterThanOrEqual(a,b);
@@ -102,16 +102,19 @@ function gte(a,b){
 
 function equal(a,b){
   if (a.special!=b.special){
-    return false;
+    return create("boolean",false);
   }
-  if ((typeof a=="str"||typeof b=="str")&&a!=b){
-    return false;
+  if (typeof a!=typeof b){
+    return create("boolean",false);
+  }
+  if (["number","string"].includes(typeof a)&&a!=b){
+    return create("boolean",false);
   }
   if (a==b){
-    return true;
+    return create("boolean",true);
   }
-  if (!equal(a.name,b.name)){
-    return false;
+  if (!equal(a.type,b.type)){
+    return create("boolean",false);
   }
   return equal(a.value,b.value);
 }

@@ -72,7 +72,7 @@ function convertToInt(value){
       return create("int",0);
     } 
   }else if (value.type=="array"){
-    if (equal(length(value),create("int",0))){
+    if (equal(length(value),create("int",0)).value){
       return create("int",0);
     }else{
       return convertToInt(getAt(value,create("int",0)));
@@ -129,7 +129,7 @@ function convertToUint(value){
       return create("superint",0);
     } 
   }else if (value.type=="array"){
-    if (equal(length(value),create("int",0))){
+    if (equal(length(value),create("int",0)).value){
       return create("uint",0);
     }else{
       return convertToUint(getAt(value,create("int",0)));
@@ -180,7 +180,7 @@ function convertToSuperint(value){
       return create("superint",new bigInt(0));
     } 
   }else if (value.type=="array"){
-    if (equal(length(value),create("int",0))){
+    if (equal(length(value),create("int",0)).value){
       return create("superint",new bigInt(0));
     }else{
       return convertToSuperint(getAt(value,create("int",0)));
@@ -231,7 +231,7 @@ function convertToSuperuint(value){
       return create("superuint",new bigInt(0));
     } 
   }else if (value.type=="array"){
-    if (equal(length(value),create("int",0))){
+    if (equal(length(value),create("int",0)).value){
       return create("superuint",new bigInt(0));
     }else{
       return convertToSuperuint(getAt(value,create("int",0)));
@@ -281,7 +281,7 @@ function convertToFloat(value){
       return create("float",0);
     } 
   }else if (value.type=="array"){
-    if (equal(length(value),create("int",0))){
+    if (equal(length(value),create("int",0)).value){
       return create("float",0);
     }else{
       return convertToFloat(getAt(value,create("int",0)));
@@ -330,7 +330,7 @@ function convertToDouble(value){
       return create("double",0);
     } 
   }else if (value.type=="array"){
-    if (equal(length(value),create("int",0))){
+    if (equal(length(value),create("int",0)).value){
       return create("double",0);
     }else{
       return convertToDouble(getAt(value,create("int",0)));

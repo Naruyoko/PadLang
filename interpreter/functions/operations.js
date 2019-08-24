@@ -33,7 +33,7 @@ function add(a,b){
       var d=b.value[i];
       var x=true;
       for (var j=0;j<a.value.length;j++){
-        if (equal(d,a.value[j][0])){
+        if (equal(d,a.value[j][0]).value){
           a.value[j][1]=d[1];
           x=false;
           break;
@@ -76,7 +76,7 @@ function subtract(a,b){
   }else if (ca.type=="array"&&cb.type!="array"){
     var c=a.value.slice(0);
     for (var i=c.length-1;i>=0;i--){
-      if (equal(c[i],cb)){
+      if (equal(c[i],cb).value){
         c.splice(i,1);
         break;
       }
@@ -86,7 +86,7 @@ function subtract(a,b){
     var c=a.value.slice(0);
     for (var i=0;i<b.value.length;i++){
       for (var j=c.length-1;j>=0;j--){
-        if (equal(c[j],b.value[i])){
+        if (equal(c[j],b.value[i]).value){
           c.splice(i,1);
           break;
         }
@@ -98,7 +98,7 @@ function subtract(a,b){
     for (var i=0;i<b.value.length;i++){
       var d=b.value[i];
       for (var j=c.length-1;j>=0;j--){
-        if (equal(c[j],b.value[i])){
+        if (equal(c[j],b.value[i]).value){
           c.splice(i,1);
           break;
         }

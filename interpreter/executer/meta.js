@@ -42,7 +42,7 @@ function runProgram(resumeMode=false){
     });
     var forceExitProgram=false;
   }
-  var isExecutionBeingPaused=true;
+  var isExecutionBeingPaused=false;
   //exit when pointer is out of bounds
   while (!forceExitProgram&&!isPointerOutsideRange()){
     preventPointerUpdate=false;
@@ -77,7 +77,7 @@ function handleQueuedCommands(){
     var command=commandQueue[i];
     var arity;
     if (typeof command.arity=="function"){
-      arity=command.arity();
+      arity=command.arity(i);
     }else{
       arity=command.arity;
     }
@@ -86,19 +86,19 @@ function handleQueuedCommands(){
       if (isExecutionBeingPaused){
         return;
       }
-      afterCommandHasRun(result);
+      afterCommandHasRun(result,i);
     }
   }
 }
 function runCommand(command,inputs){
   return commandList[command.commandCode].function(inputs);
 }
-function afterCommandHasRun(result){
+function afterCommandHasRun(result,index){
   if (result!==undefined){
     if (commandQueue.length<=1){
       STDOUT(result);
     }else{
-      commandQueue[i-1].inputs.push(result);
+      commandQueue[index-1].inputs.push(result);
     }
   }
   commandQueue.pop();
@@ -107,7 +107,7 @@ function stepPointer(){
   write("pointer",add(read("pointer"),read("direction")));
 }
 function isPointerOutsideRange(){
-  return lessThan(read("pointer"),create("int",0))||greaterThan(read("pointer"),length(read("program")));
+  return lessThan(read("pointer"),create("int",0)).value||gte(read("pointer"),length(read("program"))).value;
 }
 
 function pauseExecution(){
@@ -179,7 +179,7 @@ function getAt(value,index){
     return value.value[index.value];
   }else if (value.type=="object"){
     for (var i=0;i<length(value).value;i++){
-      if (equal(index,value.value[i][0])){
+      if (equal(index,value.value[i][0]).value){
         return value.value[i][1];
       }
     }

@@ -3,7 +3,7 @@ function read(name){
     name=name.value;
   }
   for (var i=0;i<memory.length;i++){
-    if (equal(memory[i].name,name)){
+    if (equal(memory[i].name,name).value){
       return clone(memory[i].value);
     }
   }
@@ -18,7 +18,7 @@ function write(name,value){
     name=name.value;
   }
   for (var i=0;i<memory.length;i++){
-    if (equal(memory[i].name,name)){
+    if (equal(memory[i].name,name).value){
       memory[i].value=clone(value);
       return;
     }
