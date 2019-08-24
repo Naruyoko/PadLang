@@ -85,7 +85,6 @@ o(u+006f) - Performs short-circuit "or" on two inputs.
 p(u+0070) - If the inputs are int, uint, superint, superuint, float, or double, it will return the first input permulation second input. If the first input is a str, it will return an array of permutation of the second input many characters from the first input and the same characters are not differentiated. If the first input is an array, it will return an array of permutating of the second input many elements from the first input and the same elements are not differentiated.
 q(u+0071) - "for". Runs the first expression. Then, if the second expression is truly. push to stack, and skip the third expression. If the second expression is false, pop the stack, and jump after the corresponding u+0051. If jumped from a u+0051, it will execute the third ones, then check for the second expression again.
 r(u+0072) - "while". If the input expression is truly, it will push to the stack. If it is falsy, it will jump after the corresponding u+004b.
-s(u+0073) - Initializes a str, with length as int, uint, superint, or superuint and then the content. The content will not be executed.
 t(u+0074) - Returns boolean of value False.
 u(u+0075) - Initializes a uint, with a decimal number after it.
 v(u+0076) - Initializes a variable with label the value following.
