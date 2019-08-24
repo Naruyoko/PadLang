@@ -80,7 +80,6 @@ h(u+0068) - Returns str with value "Hello, World!"
 i(u+0069) - Initializes an int, with a decimal number after it.
 j(u+006a) - Convert to float.
 k(u+006b) - Convert to double.
-m(u+006d) - Performs short-circuit "xor" on two inputs.
 n(u+006e) - Performs short-circuit "and" on two inputs.
 o(u+006f) - Performs short-circuit "or" on two inputs.
 p(u+0070) - If the inputs are int, uint, superint, superuint, float, or double, it will return the first input permulation second input. If the first input is a str, it will return an array of permutation of the second input many characters from the first input and the same characters are not differentiated. If the first input is an array, it will return an array of permutating of the second input many elements from the first input and the same elements are not differentiated.
