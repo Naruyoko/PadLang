@@ -71,7 +71,7 @@ Y(u+0059) - If the first input is a str, remove all matches of the second input 
 a(u+0061) - Converts variable to an array with one element which value is the input.
 b(u+0062) - If the inputs are int, uint, superint, superuint, float, or double, it will return the first input combination second input. If the first input is a str, it will return an array of combination of the second input many characters from the first input such that the order is not changed and the same characters are not differentiated. If the first input is an array, it will return an array of permutation of the second input many elements from the first input such that the order is not changed and the same elements are not differentiated.
 c(u+0063) - "if". If not immediately followed by u+0064, it will execute the next command if and only if the input was truly. If followed by u+0064, if the input was truly, it will jump after the u+0064. If it was falsy, it will jump after the corresponding u+0065 or u+0066.
-d(u+0064) - "then".
+d(u+0064) - "then". No-op.
 e(u+0065) - "else". Jump to the corresponding u+0066.
 f(u+0066) - "end if". No-op.
 h(u+0068) - Returns str with value "Hello, World!"

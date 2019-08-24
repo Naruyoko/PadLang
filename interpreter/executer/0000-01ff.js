@@ -539,6 +539,55 @@ commandList[0x0061]={
     return create("array",[clone(inputs[0])]);
   }
 }
+commandList[0x0063]={
+  arity:1,
+  function:function(inputs){
+    if (convert("boolean",inputs[0]).value){
+    }else{
+      var a=1;
+      var s=read("program").value;
+      for (var i=read("pointer").value;a>0&&!isPointerOutsideRange();stepPointer()){
+        if (s[i]=="\u0063"){
+          if (s[i+1]=="\u0064"){
+            a++;
+          }
+        }else if (s[i]=="\u0066"){
+          a--;
+        }else if (a==1&&s[i]=="\u0065"){
+          a--;
+        }
+      }
+    }
+  }
+}
+commandList[0x0064]={
+  arity:0,
+  function:function(inputs){
+    //no-op
+  }
+}
+commandList[0x0065]={
+  arity:1,
+  function:function(inputs){
+    var a=1;
+    var s=read("program").value;
+    for (var i=read("pointer").value;a>0&&!isPointerOutsideRange();stepPointer()){
+      if (s[i]=="\u0063"){
+        if (s[i+1]=="\u0064"){
+          a++;
+        }
+      }else if (s[i]=="\u0066"){
+        a--;
+      }
+    }
+  }
+}
+commandList[0x0066]={
+  arity:0,
+  function:function(inputs){
+    //no-op
+  }
+}
 commandList[0x0068]={
   arity:0,
   function:function(inputs){
