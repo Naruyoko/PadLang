@@ -56,6 +56,7 @@ M(u+004d) - "do...while". If the input is truly, it will pop and jump. Else, it 
 N(u+004e) - "do...until". If the input is falsy, it will pop and jump. Else, it will pop.
 O(u+004f) - Assigns the first value after to the second but does not return. If the second is not a type variable, it is implicitly converted.
 P(u+0050) - If the inputs are int, uint, superint, superuint, float, or double, it will return the first input permutate the second input. If the first input is a str, it will return an array of permutation of the second input many characters from the first input and the same characters are differentiated. If the first input is an array, it will return an array of permutation of the second input many elements from the first input and the same elements are differentiated.
+Q(u+0051) - "end-for". No-op.
 R(u+0052) - If the first variable is a function, it will run the function on the other inputs and return the function's return value. Else, it will return the first input as a unary command.
 S(u+0053) - If the first variable is a function, it will run the function on the elements of the second input as an array and return the function's return value. Else, it will return the first input as a binary command.
 T(u+0054) - Returns boolean of value True.
@@ -82,7 +83,7 @@ m(u+006d) - Performs short-circuit "xor" on two inputs.
 n(u+006e) - Performs short-circuit "and" on two inputs.
 o(u+006f) - Performs short-circuit "or" on two inputs.
 p(u+0070) - If the inputs are int, uint, superint, superuint, float, or double, it will return the first input permulation second input. If the first input is a str, it will return an array of permutation of the second input many characters from the first input and the same characters are not differentiated. If the first input is an array, it will return an array of permutating of the second input many elements from the first input and the same elements are not differentiated.
-q(u+0071) - "for". Runs the first expression. Then, if the second expression is truly. push to stack, and skip the third expression. If the second expression is false, pop the stack, and jump after the corresponding u+0072. If jumped from a u+0003, it will execute the third ones, then check for the second expression again.
+q(u+0071) - "for". Runs the first expression. Then, if the second expression is truly. push to stack, and skip the third expression. If the second expression is false, pop the stack, and jump after the corresponding u+0051. If jumped from a u+0051, it will execute the third ones, then check for the second expression again.
 r(u+0072) - "while". If the input expression is truly, it will push to the stack. If it is falsy, it will jump after the corresponding u+0003.
 s(u+0073) - Initializes a str, with length as int, uint, superint, or superuint and then the content. The content will not be executed.
 t(u+0074) - Returns boolean of value False.
