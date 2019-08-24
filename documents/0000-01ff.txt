@@ -51,6 +51,7 @@ E(u+0045) - Performs logical "xor" on two inputs.
 F(u+0045) - Initializes a function with the first input arguments, then that many variables after, then expression. The parameters are not accessible outside of the function call. The variable variables are actually overwritten by the variable of the function itself followed by the name. The expression continues until u+0003.
 H(u+0048) - Outputs "Hello, World!".
 I(u+0049) - Initializes a superint, with a decimal number after it. If the next character is not a decimal digit, it will return 0. If the next character is u+0030, it will return 0.
+J(u+004b) - "end-while". No-op.
 L(u+004c) - "do". Pushes to stack.
 M(u+004d) - "do...while". If the input is truly, it will pop and jump. Else, it will pop.
 N(u+004e) - "do...until". If the input is falsy, it will pop and jump. Else, it will pop.
@@ -84,7 +85,7 @@ n(u+006e) - Performs short-circuit "and" on two inputs.
 o(u+006f) - Performs short-circuit "or" on two inputs.
 p(u+0070) - If the inputs are int, uint, superint, superuint, float, or double, it will return the first input permulation second input. If the first input is a str, it will return an array of permutation of the second input many characters from the first input and the same characters are not differentiated. If the first input is an array, it will return an array of permutating of the second input many elements from the first input and the same elements are not differentiated.
 q(u+0071) - "for". Runs the first expression. Then, if the second expression is truly. push to stack, and skip the third expression. If the second expression is false, pop the stack, and jump after the corresponding u+0051. If jumped from a u+0051, it will execute the third ones, then check for the second expression again.
-r(u+0072) - "while". If the input expression is truly, it will push to the stack. If it is falsy, it will jump after the corresponding u+0003.
+r(u+0072) - "while". If the input expression is truly, it will push to the stack. If it is falsy, it will jump after the corresponding u+004b.
 s(u+0073) - Initializes a str, with length as int, uint, superint, or superuint and then the content. The content will not be executed.
 t(u+0074) - Returns boolean of value False.
 u(u+0075) - Initializes a uint, with a decimal number after it.
