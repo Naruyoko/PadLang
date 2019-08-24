@@ -31,13 +31,19 @@
     <p>
       <label for="upload">Upload a file</label>
       <input type="file" id="upload" accept=".pdl,.padl,.padlang,.pdlh,.padlh,.padlangh,.padh,.padhex,.padlanghex" onchange="onupload()"><br>
-      <select id="encode">
+      <select id="encode" onchange="onimportencodechanged()">
+        <option value="7-bit ASCII">7-bit ASCII</option>
+        <option value="Windows-1252">Windows-1252</option>
         <option value="UTF-8">UTF-8</option>
-        <option value="UTF-16">UTF-16</option>
-        <option value="UTF-8">UTF-32</option>
-        <option value="Unicode">Unicode</option>
-        <option value="ANSI">ANSI</option>
+        <option value="UTF-16" selected>UTF-16</option>
       </select>
+      <span id="utf16encodeoptions">
+        <select id="utf16encode">
+          <option value="assume">Assume</option>
+          <option value="BE">Big endian</option>
+          <option value="LE">Little endian</option>
+        </select>
+      </span>
       <button onclick="readFile()">Read file</button>
     </p>
     <p>

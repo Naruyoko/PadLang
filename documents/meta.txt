@@ -20,7 +20,7 @@ The file extension is one of the following:
  .padl
  .padlang
 //When the file is edited as a text file, it should be saved as a UTF-16 file(Do not use UTF-8, ANSI, UTF-32, and others).
-^Update: The file should be *defaulted* to UTF-16, either LE or BE. However, it necessarily doesn't have to be.
+^Update: The file should be *defaulted* to UTF-16, either LE or BE, preffered be BE. However, the interpreter can read other encodings.
 The interpreter bundled can also import/export as Hex, which you may save any JavaScript readable format. It will accept following:
  .pdlh
  .padlh

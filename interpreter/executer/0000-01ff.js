@@ -913,7 +913,7 @@ commandList[0x00c6]={
         a[i]=create("int",0);
       }
     }
-    var r~create("array",a);
+    var r=create("array",a);
     if (inputs[0].type=="variable"){
       write(inputs[0],r);
     }

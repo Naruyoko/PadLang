@@ -21,27 +21,6 @@ window.onload=function(){
   changeFileType();
   generateFile();
 }
-function onupload(){
-  file=dg("upload").files[0];
-}
-function readFile(){
-  if (!file){
-    return "File not selected!";
-  }
-  dg("fileInfo").innerHTML="<strong>"+file.name+"</strong> - "+file.size+" bytes, last modified: "+(file.lastModifiedDate?file.lastModifiedDate.toLocaleDateString():"n/a");
-  reader.readAsText(file,dg("encode").value);
-}
-reader.onload=function(e){
-  var extention=file.name.substring(file.name.lastIndexOf("."));
-  if (!hexExtentions.includes(extention)){
-    rawProgram=reader.result;
-    hexProgram=rawToHex(rawProgram);
-  }else{
-    hexProgram=reader.result;
-    rawProgram=hexToRaw(hexProgram);
-  }
-  displayProgram();
-}
 function displayProgram(){
   dg("rawview").value=rawProgram;
   dg("hexview").value=hexProgram;
@@ -76,6 +55,7 @@ function alignSizeToHexView(){
   dg("rawview").style.height=dg("hexview").style.height;
 }
 
+//file export
 function changeFileType(){
   var extentions;
   if (dg("fileType").value=="Raw"){
@@ -146,5 +126,168 @@ function generateFile(){
     download(rawProgram,dg("fileName").value+dg("fileExtention").value);
   }else{
     download(hexProgram,dg("fileName").value+dg("fileExtention").value);
+  }
+}
+
+//file import
+function onimportencodechanged(){
+  if (dg("encode").value=="UTF-16"){
+    dg("utf16encodeoptions").style.display="";
+  }else{
+    dg("utf16encodeoptions").style.display="none";
+  }
+}
+function onupload(){
+  file=dg("upload").files[0];
+}
+function readFile(){
+  if (!file){
+    return "File not selected!";
+  }
+  dg("fileInfo").innerHTML="<strong>"+file.name+
+  "</strong> - "+file.size+" bytes, last modified: "+
+  (file.lastModifiedDate?file.lastModifiedDate.toLocaleDateString():"n/a");
+  reader.readAsArrayBuffer(file,dg("encode").value);
+}
+reader.onload=function(e){
+  var t=new Date();
+  var extention=file.name.substring(file.name.lastIndexOf("."));
+  if (!hexExtentions.includes(extention)){
+    rawProgram=arrayBufferToString(reader.result);
+    hexProgram=rawToHex(rawProgram);
+  }else{
+    hexProgram=arrayBufferToString(reader.result);
+    rawProgram=hexToRaw(hexProgram);
+  }
+  t=new Date()-t;
+  var q=reader.result.byteLength;
+  var d=q/t;
+  console.log("File imported");
+  console.log("Length: "+q+" bytes");
+  console.log("Load time: "+t+"ms");
+  console.log(d+" Bps");
+  displayProgram();
+}
+function getInformationOfTheLastLoadedFile(){
+  if (file){
+    console.log("Name: "+file.name);
+    console.log("Size: "+file.size);
+    console.log("Last modified: "+(file.lastModifiedDate?file.lastModifiedDate.toLocaleDateString():"n/a"));
+    console.log("File content: ");
+    if (reader.result){
+      return reader.result;
+    }else{
+      return null;
+    }
+  }else{
+    return null;
+  }
+}
+function arrayBufferToString(s){
+  if (dg("encode").value=="7-bit ASCII"){
+    var f=new Uint8Array(s);
+    var q="";
+    for (var i=0;i<f.length;i++){
+      var c=f[i].toString(2);
+      while (c.length<7){
+        c="0"+c;
+      }
+      q+=c;
+    }
+    if (q.length%7!=0){
+      q+="0".repeat(7-q.length%7);
+    }
+    var r="";
+    while (q.length>0){
+      r+=String.fromCharCode(parseInt(q.substring(0,7),2));
+      q=q.substring(7);
+    }
+    return r;
+  }else if (dg("encode").value=="Windows-1252"){
+    var f=new Uint8Array(s);
+    var r="";
+    for (var i=0;i<f.length;i++){
+      var c=String.fromCharCode(f[i]);
+      r+=c;
+    }
+    return r;
+  }else if (dg("encode").value=="UTF-8"){
+    var f=new Uint8Array(s);
+    var r="";
+    for (var i=0;i<f.length;i++){
+      var c=f[i];
+      if (!(c&128)){
+        c=c&127;
+      }else if (!(c&32)){
+        console.log(0);
+        c=c&31;
+        c<<=6;
+        i++;
+        c+=f[i]&63;
+      }else if (!(c&16)){
+        console.log(1);
+        c=c&15;
+        c<<=6;
+        i++;
+        c+=f[i]&63;
+        c<<=6;
+        i++;
+        c+=f[i]&63;
+      }else if (!(c&8)){
+        console.log(2);
+        c=c&7;
+        c<<=6;
+        i++;
+        c+=f[i]&63;
+        c<<=6;
+        i++;
+        c+=f[i]&63;
+        c<<=6;
+        i++;
+        c+=f[i]&63;
+      }
+      console.log(c);
+      r+=String.fromCharCode(c);
+    }
+    return r;
+  }else if (dg("encode").value=="UTF-16"){
+    var f=new Uint8Array(s);
+    var e=dg("utf16encode").value;
+    var r="";
+    var a=[];
+    for (var i=0;i+1<f.length;i+=2){
+      a.push((f[i]<<8)+f[i+1]);
+    }
+    if (f.length%2==1){
+      a.push(f[f.length-1]<<8);
+    }
+    f=new Uint16Array(a);
+    if (e=="assume"){
+      if (f[0]==0xfeff){
+        e="BE";
+      }else{
+        e="LE";
+      }
+    }
+    if ((e=="BE"&&f[0]==0xfeff)||(e=="LE"&&f[0]==0xfffe)){
+      f=f.slice(1);
+    }
+    if (e=="LE"){
+      a=[];
+      for (var i=0;i<f.length;i++){
+        a.push(((f[i]&0xff)<<8)+((f[i]&0xff00)>>8));
+      }
+      f=new Uint16Array(a);
+    }
+    for (var i=0;i<f.length;i++){
+      var c=f[i];
+      if ((f[i]>=0xd800)&&(f[i]<0xdc00)&&(f[i+1]&0xdc00)&&(f[i+1]&0xe000)){
+        c=(c-0xd800)<<10;
+        i++;
+        c+=f[i]-0xdc00
+      }
+      r+=String.fromCharCode(c);
+    }
+    return r;
   }
 }
