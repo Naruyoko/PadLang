@@ -4,6 +4,7 @@ var commandQueue=[];
 var preventPointerUpdate;
 var forceExitProgram;
 var isExecutionBeingPaused;
+var mainReadHistory;
 function runProgram(resumeMode=false){
   if (resumeMode){
 
@@ -40,13 +41,18 @@ function runProgram(resumeMode=false){
       special:true,
       value:create("array",[])
     });
-    var forceExitProgram=false;
+    forceExitProgram=false;
+    mainReadHistory=[];
   }
-  var isExecutionBeingPaused=false;
+  isExecutionBeingPaused=false;
   //exit when pointer is out of bounds
   while (!forceExitProgram&&!isPointerOutsideRange()){
     preventPointerUpdate=false;
     var command=charCodeOfProgram().value;
+    mainReadHistory.unshift(charOfProgram().value);
+    if (mainReadHistory.length>64){
+      mainReadHistory.pop();
+    }
     if (commandList[command]){
       queueCommand(command);
     }
@@ -147,7 +153,7 @@ function pushStack(pointer){
   if (pointer===undefined){
     pointer=read("pointer");
   }
-  pointer=convert("uint",pointer);
+  pointer=convert("int",pointer);
   var a=read("stack").value;
   a.push(pointer);
   write("stack",a);
@@ -157,6 +163,9 @@ function popStack(assignToPointer){
     console.warn("Popped from stack without specifying if assigning to pointer!");
   }
   var a=read("stack").value;
+  if (a.length==0){
+    return;
+  }
   var b=a.pop(n);
   if (assignToPointer){
     write("pointer",b);

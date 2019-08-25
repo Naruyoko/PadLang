@@ -338,6 +338,12 @@ commandList[0x0049]={
     return create("superint",new bigInt(a));
   }
 }
+commandList[0x004b]={
+  arity:0,
+  function:function(inputs){
+    popStack(true);
+  }
+}
 commandList[0x004c]={
   arity:0,
   function:function(inputs){
@@ -545,15 +551,32 @@ commandList[0x0063]={
     if (convert("boolean",inputs[0]).value){
     }else{
       var a=1;
-      var s=read("program").value;
-      for (var i=read("pointer").value;a>0&&!isPointerOutsideRange();stepPointer()){
-        if (s[i]=="\u0063"){
-          if (s[i+1]=="\u0064"){
+      stepPointer();
+      for (;a>0&&!isPointerOutsideRange();stepPointer()){
+        var c=charOfProgram().value;
+        if (c=="\u0022"){
+          var s=0;
+          do{
+            if (c!="\u005c"){
+              s=0;
+            }
+            stepPointer();
+            c=charOfProgram().value;
+            if (c=="\u005c"){
+              s++;
+              s=s&1;
+            }
+          }while(c!="\u0022"&&s==0)
+          stepPointer();
+          c=charOfProgram().value;
+        }
+        if (c=="\u0063"){
+          if (c=="\u0064"){
             a++;
           }
-        }else if (s[i]=="\u0066"){
+        }else if (c=="\u0066"){
           a--;
-        }else if (a==1&&s[i]=="\u0065"){
+        }else if (a==1&&c=="\u0065"){
           a--;
         }
       }
@@ -570,13 +593,30 @@ commandList[0x0065]={
   arity:1,
   function:function(inputs){
     var a=1;
-    var s=read("program").value;
-    for (var i=read("pointer").value;a>0&&!isPointerOutsideRange();stepPointer()){
-      if (s[i]=="\u0063"){
-        if (s[i+1]=="\u0064"){
+    stepPointer();
+    for (;a>0&&!isPointerOutsideRange();stepPointer()){
+      var c=charOfProgram().value;
+      if (c=="\u0022"){
+        var s=0;
+        do{
+          if (c!="\u005c"){
+            s=0;
+          }
+          stepPointer();
+          c=charOfProgram().value;
+          if (c=="\u005c"){
+            s++;
+            s=s&1;
+          }
+        }while(c!="\u0022"&&s==0)
+        stepPointer();
+        c=charOfProgram().value;
+      }
+      if (c=="\u0063"){
+        if (c=="\u0064"){
           a++;
         }
-      }else if (s[i]=="\u0066"){
+      }else if (c=="\u0066"){
         a--;
       }
     }
@@ -639,6 +679,41 @@ commandList[0x006f]={
       return inputs[0];
     }else{
       return inputs[1];
+    }
+  }
+}
+commandList[0x0072]={
+  arity:1,
+  function:function(inputs){
+    if (convert("boolean",inputs[0]).value){
+      pushStack();
+    }else{
+      var a=1;
+      stepPointer();
+      for (;a>0&&!isPointerOutsideRange();stepPointer()){
+        var c=charOfProgram().value;
+        if (c=="\u0022"){
+          var s=0;
+          do{
+            if (c!="\u005c"){
+              s=0;
+            }
+            stepPointer();
+            c=charOfProgram().value;
+            if (c=="\u005c"){
+              s++;
+              s=s&1;
+            }
+          }while(c!="\u0022"&&s==0)
+          stepPointer();
+          c=charOfProgram().value;
+        }
+        if (c=="\u0072"){
+          a++;
+        }else if (c=="\u004b"){
+          a--;
+        }
+      }
     }
   }
 }
