@@ -101,15 +101,17 @@ commandList[0x0022]={
   arity:0,
   function:function(inputs){
     var a="";
+    var sequenceChars="abefnrtv\\'\"?";
+    var escapedChars=[0x07,0x08,0x1b,0x0c,0x0a,0x0d,0x09,0x0b,0x5c,0x27,0x22,0x3f];
+    stepPointer();
     while (charOfProgram().value!="\""&&!isPointerOutsideRange()){
       var c=charOfProgram().value;
-      var sequenceChars="abefnrtv\\'\"?";
-      var escapedChars=[0x07,0x08,0x1b,0x0c,0x0a,0x0d,0x09,0x0b,0x5c,0x27,0x22,0x3f];
       if (c=="\\"){
         stepPointer();
         var d=charOfProgram().value;
         if (d=="x"){
           var e="";
+          stepPointer();
           while ("0123456789abcdefABCDEF".includes(charOfProgram().value)&&!isPointerOutsideRange()){
             e+=charOfProgram().value;
             stepPointer();
@@ -120,6 +122,7 @@ commandList[0x0022]={
           a+=String.fromCharCode(parseInt(e,16));
         }else if (d=="u"){
           var e="";
+          stepPointer();
           while ("0123456789abcdefABCDEF".includes(charOfProgram().value)&&!isPointerOutsideRange()){
             e+=charOfProgram().value;
             stepPointer();
@@ -130,6 +133,7 @@ commandList[0x0022]={
           a+=String.fromCharCode(parseInt(e,16));
         }else if ("01234567".includes(d)){
           var e="";
+          stepPointer();
           while ("01234567".includes(charOfProgram().value)&&!isPointerOutsideRange()){
             e+=charOfProgram().value;
             stepPointer();
@@ -267,6 +271,7 @@ commandList[0x003a]={
 commandList[0x003b]={
   arity:0,
   function:function(inputs){
+    stepPointer();
     while ("\u000a\u003a\u003b".includes(charOfProgram().value)&&!isPointerOutsideRange()){
       stepPointer();
     }
@@ -331,6 +336,7 @@ commandList[0x0049]={
   arity:0,
   function:function(inputs){
     var a="";
+    stepPointer();
     while ("0123456789".includes(charOfProgram().value)&&!isPointerOutsideRange()){
       a+=charOfProgram().value;
       stepPointer();
@@ -378,6 +384,7 @@ commandList[0x0055]={
   arity:0,
   function:function(inputs){
     var a="";
+    stepPointer();
     while ("0123456789".includes(charOfProgram().value)&&!isPointerOutsideRange()){
       a+=charOfProgram().value;
       stepPointer();
@@ -727,6 +734,7 @@ commandList[0x0075]={
   arity:0,
   function:function(inputs){
     var a="";
+    stepPointer();
     while ("0123456789".includes(charOfProgram().value)&&!isPointerOutsideRange()){
       a+=charOfProgram().value;
       stepPointer();
