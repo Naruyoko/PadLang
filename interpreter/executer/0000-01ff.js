@@ -154,6 +154,7 @@ commandList[0x0022]={
         stepPointer();
       }
     }
+    stepPointer();
     return create("str",a);
   }
 }
