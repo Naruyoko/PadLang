@@ -546,41 +546,42 @@ function convertToObject(value){
 
 function convertToVariable(value){
   var value=clone(value);
+  var cvalue=clone(value);
   if (value.type=="int"){
     value.type="variable";
-    value.value=value;
+    value.value=cvalue;
     return normalize(value);
   }else if (value.type=="uint"){
     value.type="variable";
-    value.value=value;
+    value.value=cvalue;
     return normalize(value);
   }else if (value.type=="superint"){
     value.type="variable";
-    value.value=value;
+    value.value=cvalue;
     return normalize(value);
   }else if (value.type=="superuint"){
     value.type="variable";
-    value.value=value;
+    value.value=cvalue;
     return normalize(value);
   }else if (value.type=="float"){
     value.type="variable";
-    value.value=value;
+    value.value=cvalue;
     return normalize(value);
   }else if (value.type=="double"){
     value.type="variable";
-    value.value=value;
+    value.value=cvalue;
     return normalize(value);
   }else if (value.type=="str"){
     value.type="variable";
-    value.value=value;
+    value.value=cvalue;
     return normalize(value);
   }else if (value.type=="array"){
     value.type="variable";
-    value.value=value;
+    value.value=cvalue;
     return normalize(value);
   }else if (value.type=="object"){
     value.type="variable";
-    value.value=value;
+    value.value=cvalue;
     return normalize(value);
   }else if (value.type=="variable"){
     return value;

@@ -87,5 +87,7 @@ function normalize(value){
     return value;
   }else if (value.type=="object"){
     return value;
+  }else if (value.type=="variable"){
+    return value;
   }
 }

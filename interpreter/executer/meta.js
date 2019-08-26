@@ -1,6 +1,6 @@
 var memory;
 var commandList=[];
-var commandQueue=[];
+var commandQueue;
 var preventPointerUpdate;
 var forceExitProgram;
 var isExecutionBeingPaused;
@@ -41,6 +41,7 @@ function runProgram(resumeMode=false){
       special:true,
       value:create("array",[])
     });
+    commandQueue=[];
     forceExitProgram=false;
     mainReadHistory=[];
   }
@@ -144,7 +145,7 @@ function STDOUT(s){
   if (typeof s=="str"){
     dg("STDOUT").value+=s;
   }else{
-    dg("STDOUT").value+=s.value;
+    dg("STDOUT").value+=convert("str",s).value;
   }
   return s;
 }
@@ -197,17 +198,18 @@ function getAt(value,index){
   return create("int",0);
 }
 
-//function from https://stackoverflow.com/a/4460624
+//modified function from https://stackoverflow.com/a/4460624
 function clone(item) {
     if (!item) { return item; } // null, undefined values check
 
-    var types = [ Number, String, Boolean ], 
+    var types = [ "number", "string", "boolean" ], 
+        constructors = [ Number, String, Boolean ], 
         result;
 
     // normalizing primitives if someone did new String('aaa'), or new Number('444');
-    types.forEach(function(type) {
-        if (item instanceof type) {
-            result = type( item );
+    types.forEach(function(type, index) {
+        if (typeof item == type) {
+            result = constructors[index] ( item );
         }
     });
 
