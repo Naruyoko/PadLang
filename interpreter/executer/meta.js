@@ -101,6 +101,9 @@ function runCommand(command,inputs){
   return commandList[command.commandCode].function(inputs);
 }
 function afterCommandHasRun(result,index){
+  if (index===undefined){
+    index=commandQueue.length-1;
+  }
   if (result!==undefined){
     if (commandQueue.length<=1){
       STDOUT(result);
@@ -130,12 +133,14 @@ function resumeExecution(){
 function STDIN(callback){
   dg("STDIN").value="";
   dg("STDIN").readOnly=false;
+  toggleclass(dg("STDIN"),"readonly",false);
   pauseExecution();
   dg("STDIN").onkeyup=function (event){
     if (event.key==="Enter"){
       var result=callback(dg("STDIN").value);
       afterCommandHasRun(result);
       dg("STDIN").readOnly=true;
+      toggleclass(dg("STDIN"),"readonly",true);
       dg("STDIN").onkeyup=null;
       resumeExecution();
     }

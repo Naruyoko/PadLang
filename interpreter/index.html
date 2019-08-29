@@ -25,6 +25,9 @@
         height:240px;
         overflow:auto;
       }
+      .readonly {
+        background-color:#ddd;
+      }
     </style>
   </head>
   <body>
@@ -68,8 +71,8 @@
       <textarea id="hexview" class="program" cols=50 onclick="removeViewColumnFix()" onmouseup="alignSizeToHexView()" onchange="changeHexProgram()"></textarea><br>
     </p>
     <button onclick="runProgram()" style="clear:both">Run</button><br>
-    <textarea id="STDOUT" class="program" readonly></textarea>
-    <input id="STDIN" class="program" type="text" readonly><br>
+    <textarea id="STDOUT" class="program readonly" readonly></textarea>
+    <input id="STDIN" type="text" class="program readonly" readonly><br>
     <p style="clear:both;color:#888;">
       See <a href="https://github.com/Naruyoko/PadLang/issues">here</a> for possible fixes. If you can't find any to match your's, <a href="https://github.com/Naruyoko/PadLang/issues/new">create an issue</a> to let me know what is wrong!
     </p>

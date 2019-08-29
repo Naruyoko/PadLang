@@ -291,3 +291,17 @@ function arrayBufferToString(s){
     return r;
   }
 }
+
+function toggleclass(x,c,t){
+  if (typeof x!="object"){
+    x=dg(x);
+  }
+  var o=x.className;
+  if (!t){
+    x.className=o.replace(new RegExp(c,"g"),"");
+  }else if (x.className.search(c)==-1){
+    x.className+=" "+c;
+  }
+  o=x.className;
+  x.className=o.replace(/  /g," ");
+}
