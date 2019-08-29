@@ -1,12 +1,14 @@
 Digits
 Outputs digits from 0 to 9 consecutively, as "0123456789".
-!Code - 8 chars
-L¢0N=09
+!Code - 9 chars
+0L¯0N=09
 !Hex
-004c 00a2 0030 004e 003d 001a 0030 0039
+0030 004c 00af 0030 004e 003d 001a 0030 0039
 !Explanation
+[implicit output]
+0030 - int of value 0
 004d - do...
-00a2 - Increment and return the original value of
+00af - Increment and return the original value of
  0030 - int of value 0
 004e - ...until
  003d - Is equal?
