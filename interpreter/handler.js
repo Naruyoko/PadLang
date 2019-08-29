@@ -164,8 +164,10 @@ reader.onload=function(e){
   var d=q/t;
   console.log("File imported");
   console.log("Length: "+q+" bytes");
+  console.log("        "+rawProgram.length+" chars");
   console.log("Load time: "+t+"ms");
   console.log(d+" Bps");
+  dg("fileInfo").innerHTML=dg("fileInfo").innerHTML.replace("bytes","bytes("+rawProgram.length+" chars)");
   displayProgram();
 }
 function getInformationOfTheLastLoadedFile(){
@@ -263,10 +265,10 @@ function arrayBufferToString(s){
     }
     f=new Uint16Array(a);
     if (e=="assume"){
-      if (f[0]==0xfeff){
-        e="BE";
-      }else{
+      if (f[0]==0xfffe){
         e="LE";
+      }else{
+        e="BE";
       }
     }
     if ((e=="BE"&&f[0]==0xfeff)||(e=="LE"&&f[0]==0xfffe)){

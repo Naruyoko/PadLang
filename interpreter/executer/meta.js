@@ -98,7 +98,9 @@ function handleQueuedCommands(){
   }
 }
 function runCommand(command,inputs){
-  return commandList[command.commandCode].function(inputs);
+  if (commandList[command.commandCode]){
+    return commandList[command.commandCode].function(inputs);
+  }
 }
 function afterCommandHasRun(result,index){
   if (index===undefined){
