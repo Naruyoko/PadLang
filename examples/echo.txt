@@ -1,7 +1,7 @@
 Echo
 Takes an input, and outputs it.
 !Code - 1 char
-
+
 !Hex
 000c
 !Explanation
