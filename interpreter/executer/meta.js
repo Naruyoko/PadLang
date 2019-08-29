@@ -107,7 +107,7 @@ function afterCommandHasRun(result,index){
     index=commandQueue.length-1;
   }
   if (result!==undefined){
-    if (commandQueue.length<=1){
+    if (index<=1){
       STDOUT(result);
     }else{
       commandQueue[index-1].inputs.push(result);
@@ -149,10 +149,10 @@ function STDIN(callback){
   }
 }
 function STDOUT(s){
-  if (typeof s=="str"){
-    dg("STDOUT").value+=s;
-  }else{
+  if (typeof s=="object"){
     dg("STDOUT").value+=convert("str",s).value;
+  }else{
+    dg("STDOUT").value+=String(s);
   }
   return s;
 }

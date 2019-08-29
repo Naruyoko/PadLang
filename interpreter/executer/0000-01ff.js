@@ -1361,7 +1361,7 @@ commandList[0x00e0]={
       var b=String.fromCharCode(i);
       a+=b;
     }
-    return a;
+    return create("str",a);
   }
 }
 commandList[0x00e1]={
@@ -1376,7 +1376,7 @@ commandList[0x00e1]={
         a+=b;
       }
     }
-    return a;
+    return create("str",a);
   }
 }
 commandList[0x00e2]={
@@ -1387,7 +1387,7 @@ commandList[0x00e2]={
       var b=String.fromCharCode(i);
       a+=b;
     }
-    return a;
+    return create("str",a);
   }
 }
 commandList[0x00e3]={
@@ -1402,7 +1402,7 @@ commandList[0x00e3]={
         a+=b;
       }
     }
-    return a;
+    return create("str",a);
   }
 }
 commandList[0x00e4]={
@@ -1413,7 +1413,7 @@ commandList[0x00e4]={
       var b=String.fromCharCode(i);
       a+=b;
     }
-    return a;
+    return create("str",a);
   }
 }
 commandList[0x00e5]={
@@ -1428,7 +1428,7 @@ commandList[0x00e5]={
         a+=b;
       }
     }
-    return a;
+    return create("str",a);
   }
 }
 commandList[0x00e8]={
