@@ -596,7 +596,10 @@ function alignType(a,b){
   }else if (b.type=="variable"){
     return alignType(a,b.value);
   }else if (!a.type||!b.type){
-    throw "What?";
+    console.log("What?");
+    console.log(a);
+    console.log(b);
+    throw new Error("One of the input is not formatted correctly...");
   }
   var types=["int","uint","superint","superuint","float","double","boolean","str","array","object"];
   /*

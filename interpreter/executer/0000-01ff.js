@@ -796,7 +796,7 @@ commandList[0x00a2]={
   arity:1,
   function:function(inputs){
     var a=read(inputs[0]);
-    write(inputs[0],add(a,1));
+    write(inputs[0],add(a,create("int",1)));
     return a;
   }
 }
@@ -804,7 +804,7 @@ commandList[0x00a3]={
   arity:1,
   function:function(inputs){
     var a=read(inputs[0]);
-    write(inputs[0],sub(a,1));
+    write(inputs[0],sub(a,create("int",1)));
     return a;
   }
 }
@@ -812,14 +812,14 @@ commandList[0x00a4]={
   arity:1,
   function:function(inputs){
     var a=read(inputs[0]);
-    write(inputs[0],add(a,1));
+    write(inputs[0],add(a,create("int",1)));
   }
 }
 commandList[0x00a5]={
   arity:1,
   function:function(inputs){
     var a=read(inputs[0]);
-    write(inputs[0],sub(a,1));
+    write(inputs[0],sub(a,create("int",1)));
   }
 }
 commandList[0x00a6]={
@@ -843,7 +843,7 @@ commandList[0x00af]={
   arity:1,
   function:function(inputs){
     var a=read(inputs[0]);
-    a=add(a,1);
+    a=add(a,create("int",1));
     write(inputs[0],a);
     return a;
   }
@@ -852,7 +852,7 @@ commandList[0x00b0]={
   arity:1,
   function:function(inputs){
     var a=read(inputs[0]);
-    a=sub(a,1);
+    a=sub(a,create("int",1));
     write(inputs[0],a);
     return a;
   }

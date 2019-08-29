@@ -157,7 +157,7 @@ function pushStack(pointer){
   pointer=convert("int",pointer);
   var a=read("stack").value;
   a.push(pointer);
-  write("stack",a);
+  write("stack",create("array",a));
 }
 function popStack(assignToPointer){
   if (assignToPointer===undefined){
@@ -167,11 +167,11 @@ function popStack(assignToPointer){
   if (a.length==0){
     return;
   }
-  var b=a.pop(n);
+  var b=a.pop();
   if (assignToPointer){
     write("pointer",b);
   }
-  write("stack",a);
+  write("stack",create("array",a));
 }
 
 function length(value){
