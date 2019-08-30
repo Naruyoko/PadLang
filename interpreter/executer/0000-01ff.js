@@ -863,6 +863,10 @@ commandList[0x00b1]={
     var a=inputs[0];
     if (["int","superint","float","double"].includes(a.type)){
       return mul(a,create("int",-1));
+    }else if (a.type=="str"){
+      return reverseStr(a);
+    }else if (a.type=="array"){
+      return reverseArray(a);
     }
   }
 }
