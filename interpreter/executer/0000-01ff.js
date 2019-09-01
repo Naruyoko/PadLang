@@ -1322,7 +1322,7 @@ commandList[0x00dd]={
       return create("str",b);
     }else{
       do{
-        b+=c[a.mod(c.length).toJSNumber()];
+        b=c[a.mod(c.length).toJSNumber()]+b;
         a=a.divide(c.length);
       }while (a.gt(0));
       return create("str",b);

@@ -107,7 +107,7 @@ function afterCommandHasRun(result,index){
     index=commandQueue.length-1;
   }
   if (result!==undefined){
-    if (index<=1){
+    if (index<1){
       STDOUT(result);
     }else{
       commandQueue[index-1].inputs.push(result);
