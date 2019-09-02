@@ -273,7 +273,7 @@ commandList[0x003b]={
   arity:0,
   function:function(inputs){
     stepPointer();
-    while ("\u000a\u003a\u003b".includes(charOfProgram().value)&&!isPointerOutsideRange()){
+    while (!"\u000a\u003a\u003b".includes(charOfProgram().value)&&!isPointerOutsideRange()){
       stepPointer();
     }
   }
