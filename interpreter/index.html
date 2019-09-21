@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>PadLang Interpreter</title>
     <script src="../package/BigInteger.js"></script>
     <script src="./functions/array.js"></script>
+    <script src="./functions/base64.js"></script>
     <script src="./functions/compare.js"></script>
     <script src="./functions/convert.js"></script>
     <script src="./functions/operations.js"></script>
+    <script src="./functions/rawbase64.js"></script>
     <script src="./functions/rawhex.js"></script>
     <script src="./functions/string.js"></script>
     <script src="./functions/variables.js"></script>
@@ -29,20 +32,27 @@
       .readonly {
         background-color:#ddd;
       }
+      
+      /*css from https://stackoverflow.com/a/14070126*/
+      .fakelink {
+        cursor:pointer;
+        color:blue;
+        text-decoration:underline;
+      }
     </style>
   </head>
   <body>
     <p>
       <label for="upload">Upload a file</label>
       <input type="file" id="upload" accept=".pdl,.padl,.padlang,.pdlh,.padlh,.padlangh,.padh,.padhex,.padlanghex" onchange="onupload()"><br>
-      <select id="encode" onchange="onimportencodechanged()">
+      <select id="fileImportEncode" onchange="onImportEncodeChanged()">
         <option value="7-bit ASCII">7-bit ASCII</option>
         <option value="Windows-1252">Windows-1252</option>
         <option value="UTF-8">UTF-8</option>
         <option value="UTF-16" selected>UTF-16</option>
       </select>
-      <span id="utf16encodeoptions">
-        <select id="utf16encode">
+      <span id="fileImportUTF16EncodeOptions">
+        <select id="fileImportUTF16Encode">
           <option value="assume">Assume</option>
           <option value="BE">Big endian</option>
           <option value="LE">Little endian</option>
@@ -51,18 +61,20 @@
       <button onclick="readFile()">Read file</button>
     </p>
     <p>
-      <input type="text" id="fileName" onchange="generateFile()" value="name">
-      <select id="fileExtention" onchange="generateFile()"></select>
-      <select id="fileType" onchange="changeFileType();generateFile();">
+      <input type="text" id="fileExportName" onchange="generateFile()" value="name">
+      <select id="fileExportExtention" onchange="generateFile()"></select>
+      <select id="fileExportType" onchange="changeFileType();generateFile();">
         <option value="Raw">Raw</option>
         <option value="Hex">Hex</option>
       </select>
-      <select id="fileEncode" onchange="generateFile()">
+      <select id="fileExportEncode" onchange="generateFile()">
         <option value="UTF-8">UTF-8</option>
         <option value="UTF-16LE">UTF-16LE</option>
         <option value="UTF-16BE">UTF-16BE</option>
       </select>
-      <a id="saveLink">Save</a>
+      <br>
+      <a id="exportLink">Export File</a>
+      <span class="fakelink" onclick="saveAsLink()">Export as a link</span>
     </p>
     <p>
       <div id="fileInfo">&lt;No file&gt;</div>

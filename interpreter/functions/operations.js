@@ -250,6 +250,178 @@ function fac(a){
   return factorial(a);
 }
 
+function permutation(a,b){
+  var x=alignType(a,b);
+  var ca=a;
+  var cb=b;
+  a=x[0];
+  b=x[1];
+  return divide(factorial(a),factorial(subtract(a,b)));
+}
+function prm(a){
+  return permutation(a);
+}
+
+function combination(a,b){
+  var x=alignType(a,b);
+  var ca=a;
+  var cb=b;
+  a=x[0];
+  b=x[1];
+  return divide(factorial(a),multiply(factorial(subtract(a,b)),factorial(b)));
+}
+function cmb(a){
+  return permutation(a);
+}
+
+function arrangementArrayOfLength(n){
+  if (typeof n=="object"){
+    n=convert("int",n).value;
+  }
+  if (n==0){
+    return [[]];
+  }
+  var a=[];
+  var b=arrangementArrayOfLength(n-1).value;
+  var l=b.length;
+  for (var i=0;i<n;i++){
+    for (var j=0;j<l;j++){
+      var e=b[j].value;
+      for (var k=0;k<n-1;k++){
+        if (e[k].value>=i){
+          e[k]=add(e[k],create("int",1));
+        }
+      }
+      e.unshift(i);
+      a.push(create("array",e));
+    }
+  }
+  return create("array",a);
+}
+
+function permutationArrayOfLength(n,m){
+  if (typeof n=="object"){
+    n=convert("int",n).value;
+  }
+  if (m===undefined){
+    m=n;
+  }else if (typeof m=="object"){
+    m=convert("int",m).value;
+  }
+  if (n==0){
+    return [[]];
+  }
+  var a=combinationArrayOfLength(n).value.filter(function(e){return e.length<=m});
+  var b=[];
+  for (var i=0;i<a.length;i++){
+    var e=a[i].value;
+    var r=mapArrayToArray(e,arrangementArrayOfLength(e.length));
+    for (var j=0;j<r.length;j++){
+      b.push(r[j]);
+    }
+  }
+  return create("array",b);
+}
+
+function combinationArrayOfLength(n,m){
+  if (typeof n=="object"){
+    n=convert("int",n).value;
+  }
+  if (m===undefined){
+    m=n;
+  }else if (typeof m=="object"){
+    m=convert("int",m).value;
+  }
+  if (n==0){
+    return [[]];
+  }
+  var a=permutationArrayOfLength(n-1).value.filter(function(e){return e.length<m});
+  var l=a.length;
+  for (var i=0;i<l*2;i+=2){
+    var e=a[i].value;
+    for (var j=0;j<e.length;j++){
+      e[j]=add(e[j],create("int",0));
+    }
+    e=e.slice(0);
+    a[i]=create("array",e);
+    e.unshift(create("int",0));
+    a.unshift(create("array",e))
+  }
+  return create("array",a);
+}
+
+function mapStrToArray(s,a){
+  if (typeof s=="object"){
+    s=convert("str",s).value;
+  }
+  if (typeof a=="object"){
+    a=convert("array",a).value;
+  }
+  var l=s.length;
+  var q="";
+  for (var i=0;i<a.length;i++){
+    var r=convert("int",e[i]).value;
+    if (r>=l){
+      q+="\u0000";
+    }else{
+      q+=s[r];
+    }
+  }
+  return create("str",q);
+}
+
+function mapStrToArrays(s,a){
+  if (typeof s=="object"){
+    s=convert("str",s).value;
+  }
+  if (typeof a=="object"){
+    a=convert("array",a).value;
+  }
+  var l=s.length;
+  var r=[];
+  for (var i=0;i<a.length;i++){
+    var e=a[i];
+    r.push(mapStrToArray(s,e));
+  }
+  return create("array",r);
+}
+
+function mapArrayToArray(s,a){
+  if (typeof s=="object"){
+    s=convert("array",s).value;
+  }
+  if (typeof a=="object"){
+    a=convert("array",a).value;
+  }
+  var l=s.length;
+  var q="";
+  for (var i=0;i<a.length;i++){
+    var r=convert("int",e[i]).value;
+    if (r>=l){
+      q.push(create("int",0));
+    }else{
+      q.push(s[r]);
+    }
+  }
+  return create("str",q);
+}
+
+function mapArrayToArrays(s,a){
+  if (typeof s=="object"){
+    s=convert("str",s).value;
+  }
+  if (typeof a=="object"){
+    a=convert("array",a).value;
+  }
+  var l=s.length;
+  var r=[];
+  for (var i=0;i<a.length;i++){
+    var e=a[i];
+    r.push(mapArrayToArray(s,e));
+  }
+  return create("array",r);
+}
+
 function binary(value){
   var value=clone(value);
   if (["int","uint","superint","superuint"].includes(value.type)){

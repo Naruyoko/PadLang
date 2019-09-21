@@ -10,13 +10,10 @@ function runProgram(resumeMode=false){
 
   }else{
     //Let user copy program
-    var x=hexProgram;
-    do{
-      var x=window.prompt("Copy to clipboard: Ctrl+C, Enter",hexProgram);
-      if (x===null){
-        return;
-      }
-    }while (hexProgram!=x);
+    var x=window.prompt("Copy to clipboard: Ctrl+C, Enter",hexProgram);
+    if (x===null){
+      return;
+    }
     dg("STDOUT").value="";
 
     //execution
@@ -76,7 +73,8 @@ function queueCommand(command){
   commandQueue.push({
     commandCode:command,
     arity:commandList[command].arity,
-    inputs:[]
+    inputs:[],
+    commandRootIndex:read("pointer")
   });
 }
 function handleQueuedCommands(){
@@ -89,7 +87,7 @@ function handleQueuedCommands(){
       arity=command.arity;
     }
     if (command.inputs.length>=arity){
-      var result=runCommand(command,command.inputs);
+      var result=runCommand(command,command.inputs,command.commandRootIndex);
       if (isExecutionBeingPaused){
         return;
       }
@@ -97,9 +95,9 @@ function handleQueuedCommands(){
     }
   }
 }
-function runCommand(command,inputs){
+function runCommand(command,inputs,commandRootIndex){
   if (commandList[command.commandCode]){
-    return commandList[command.commandCode].function(inputs);
+    return commandList[command.commandCode].function(inputs,commandRootIndex);
   }
 }
 function afterCommandHasRun(result,index){
@@ -209,8 +207,8 @@ function getAt(value,index){
 function clone(item) {
     if (!item) { return item; } // null, undefined values check
 
-    var types = [ "number", "string", "boolean" ], 
-        constructors = [ Number, String, Boolean ], 
+    var types = [ "number", "string", "boolean" ],
+        constructors = [ Number, String, Boolean ],
         result;
 
     // normalizing primitives if someone did new String('aaa'), or new Number('444');
@@ -223,13 +221,13 @@ function clone(item) {
     if (typeof result == "undefined") {
         if (Object.prototype.toString.call( item ) === "[object Array]") {
             result = [];
-            item.forEach(function(child, index, array) { 
+            item.forEach(function(child, index, array) {
                 result[index] = clone( child );
             });
         } else if (typeof item == "object") {
             // testing that this is DOM
             if (item.nodeType && typeof item.cloneNode == "function") {
-                result = item.cloneNode( true );    
+                result = item.cloneNode( true );
             } else if (!item.prototype) { // check that this is a literal
                 if (item instanceof Date) {
                     result = new Date(item);
@@ -278,7 +276,7 @@ function doubleToFloat ( d ) {
         round = +( mantissa.length === 23 && b[24] === '1' );
         result = sign*( parseInt( '1' + mantissa, 2 ) + round )*Math.pow( 2, exponent - mantissa.length );
     } else if ( decimalIndex === 1 ) {
-        exponent = 1 - oneIndex;       
+        exponent = 1 - oneIndex;
         if ( oneIndex === 0 ) {
             mantissa = '1' + b.substr( 2, 23 );
             round = +( mantissa.length === 24 && b[25] === '1' );

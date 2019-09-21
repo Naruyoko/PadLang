@@ -110,6 +110,17 @@ function equal(a,b){
   if (["number","string"].includes(typeof a)&&a!=b){
     return create("boolean",false);
   }
+  if (a instanceof Array&&b instanceof Array){
+    if (a.length!=b.length){
+      return false;
+    }
+    for (var i=0;i<a.length;i++){
+      if (!equal(a[i],b[i])){
+        return false;
+      }
+    }
+    return true;
+  }
   if (a==b){
     return create("boolean",true);
   }

@@ -17,6 +17,7 @@ window.onload=function(){
     console.error(error);
   }
   dg("upload").accept=rawExtentions+","+hexExtentions;
+  loadAsLink();
   changeRawProgram();
   changeFileType();
   generateFile();
@@ -58,18 +59,18 @@ function alignSizeToHexView(){
 //file export
 function changeFileType(){
   var extentions;
-  if (dg("fileType").value=="Raw"){
+  if (dg("fileExportType").value=="Raw"){
     extentions=rawExtentions;
-    dg("fileEncode").style.display="";
+    dg("fileExportEncode").style.display="";
   }else{
     extentions=hexExtentions;
-    dg("fileEncode").style.display="none";
+    dg("fileExportEncode").style.display="none";
   }
   var s="";
   for (var i=0;i<extentions.length;i++){
     s+="<option value=\""+extentions[i]+"\">"+extentions[i]+"</option>";
   }
-  dg("fileExtention").innerHTML=s;
+  dg("fileExportExtention").innerHTML=s;
 }
 
 //function from https://stackoverflow.com/a/29339233
@@ -83,7 +84,7 @@ function generateUtf16(str) {
 	// ref: https://stackoverflow.com/q/6226189
 	var charCode, byteArray = [];
 
-  if (dg("fileEncode")=="UTF-16BE"){
+  if (dg("fileExportEncode")=="UTF-16BE"){
 	// BE BOM
   byteArray.push(254, 255);
   }else{
@@ -94,11 +95,11 @@ function generateUtf16(str) {
   for (var i = 0; i < str.length; ++i) {
   
     charCode = str.charCodeAt(i);
-    if (dg("fileEncode")=="UTF-16BE"){
+    if (dg("fileExportEncode")=="UTF-16BE"){
     // BE Bytes
     byteArray.push((charCode & 0xFF00) >>> 8);
     byteArray.push(charCode & 0xFF);
-    }else{    
+    }else{
     // LE Bytes
     byteArray.push(charCode & 0xff);
     byteArray.push(charCode / 256 >>> 0);
@@ -111,9 +112,9 @@ function generateUtf16(str) {
 
 //function from https://stackoverflow.com/a/29339233
 function download(text, name, type) {
-  var a = document.getElementById("saveLink");
+  var a = document.getElementById("exportLink");
   var file;
-  if (dg("fileType").value=="Hex"||dg("fileEncode").value=="UTF-8"){
+  if (dg("fileExportType").value=="Hex"||dg("fileExportEncode").value=="UTF-8"){
     file=generateUtf8(text);
   }else{
     file=generateUtf16(text);
@@ -122,19 +123,19 @@ function download(text, name, type) {
   a.download = name;
 }
 function generateFile(){
-  if (dg("fileType").value=="Raw"){
-    download(rawProgram,dg("fileName").value+dg("fileExtention").value);
+  if (dg("fileExportType").value=="Raw"){
+    download(rawProgram,dg("fileExportName").value+dg("fileExportExtention").value);
   }else{
-    download(hexProgram,dg("fileName").value+dg("fileExtention").value);
+    download(hexProgram,dg("fileExportName").value+dg("fileExportExtention").value);
   }
 }
 
 //file import
-function onimportencodechanged(){
-  if (dg("encode").value=="UTF-16"){
-    dg("utf16encodeoptions").style.display="";
+function onImportEncodeChanged(){
+  if (dg("fileImportEncode").value=="UTF-16"){
+    dg("fileImportUTF16EncodeOptions").style.display="";
   }else{
-    dg("utf16encodeoptions").style.display="none";
+    dg("fileImportUTF16EncodeOptions").style.display="none";
   }
 }
 function onupload(){
@@ -147,7 +148,7 @@ function readFile(){
   dg("fileInfo").innerHTML="<strong>"+file.name+
   "</strong> - "+file.size+" bytes, last modified: "+
   (file.lastModifiedDate?file.lastModifiedDate.toLocaleDateString():"n/a");
-  reader.readAsArrayBuffer(file,dg("encode").value);
+  reader.readAsArrayBuffer(file,dg("fileImportEncode").value);
 }
 reader.onload=function(e){
   var t=new Date();
@@ -186,7 +187,7 @@ function getInformationOfTheLastLoadedFile(){
   }
 }
 function arrayBufferToString(s){
-  if (dg("encode").value=="7-bit ASCII"){
+  if (dg("fileImportEncode").value=="7-bit ASCII"){
     var f=new Uint8Array(s);
     var q="";
     for (var i=0;i<f.length;i++){
@@ -205,7 +206,7 @@ function arrayBufferToString(s){
       q=q.substring(7);
     }
     return r;
-  }else if (dg("encode").value=="Windows-1252"){
+  }else if (dg("fileImportEncode").value=="Windows-1252"){
     var f=new Uint8Array(s);
     var r="";
     for (var i=0;i<f.length;i++){
@@ -213,7 +214,7 @@ function arrayBufferToString(s){
       r+=c;
     }
     return r;
-  }else if (dg("encode").value=="UTF-8"){
+  }else if (dg("fileImportEncode").value=="UTF-8"){
     var f=new Uint8Array(s);
     var r="";
     for (var i=0;i<f.length;i++){
@@ -252,9 +253,9 @@ function arrayBufferToString(s){
       r+=String.fromCharCode(c);
     }
     return r;
-  }else if (dg("encode").value=="UTF-16"){
+  }else if (dg("fileImportEncode").value=="UTF-16"){
     var f=new Uint8Array(s);
-    var e=dg("utf16encode").value;
+    var e=dg("fileImportUTF16Encode").value;
     var r="";
     var a=[];
     for (var i=0;i+1<f.length;i+=2){
@@ -293,6 +294,71 @@ function arrayBufferToString(s){
     return r;
   }
 }
+
+
+//saving by URL
+function saveAsLink(){
+  var encodedProgram=rawStringToURLBase64(rawProgram);
+  var encodedName=rawStringToURLBase64(dg("fileExportName").value);
+  var url=window.location.href;
+  url=UpdateQueryString("program",encodedProgram,url);
+  url=UpdateQueryString("name",encodedName,url);
+  window.history.pushState({},dg("fileExportName").value,url);
+}
+function loadAsLink(){
+  var encodedProgram=getUrlParameter("program");
+  var encodedName=getUrlParameter("name");
+  if (encodedProgram){
+    rawProgram=URLBase64ToRawString(encodedProgram);
+    hexProgram=rawToHex(rawProgram);
+    displayProgram();
+  }
+  if (encodedName){
+    dg("fileExportName").value=URLBase64ToRawString(encodedName);
+  }
+}
+//function from https://davidwalsh.name/query-string-javascript
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
+//function from https://stackoverflow.com/a/11654596
+function UpdateQueryString(key, value, url) {
+    if (!url) url = window.location.href;
+    var re = new RegExp("([?&])" + key + "=.*?(&|#|$)(.*)", "gi"),
+        hash;
+
+    if (re.test(url)) {
+        if (typeof value !== 'undefined' && value !== null) {
+            return url.replace(re, '$1' + key + "=" + value + '$2$3');
+        } 
+        else {
+            hash = url.split('#');
+            url = hash[0].replace(re, '$1$3').replace(/(&|\?)$/, '');
+            if (typeof hash[1] !== 'undefined' && hash[1] !== null) {
+                url += '#' + hash[1];
+            }
+            return url;
+        }
+    }
+    else {
+        if (typeof value !== 'undefined' && value !== null) {
+            var separator = url.indexOf('?') !== -1 ? '&' : '?';
+            hash = url.split('#');
+            url = hash[0] + separator + key + '=' + value;
+            if (typeof hash[1] !== 'undefined' && hash[1] !== null) {
+                url += '#' + hash[1];
+            }
+            return url;
+        }
+        else {
+            return url;
+        }
+    }
+}
+
 
 function toggleclass(x,c,t){
   if (typeof x!="object"){
