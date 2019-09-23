@@ -973,6 +973,12 @@ commandList[0x007c]={
     return create("boolean",a||b);
   }
 }
+commandList[0x007e]={
+  arity:1,
+  function:function(inputs,commandRootIndex){
+    return convertFromBinary(invertRawBinary(convertToBinary(inputs[0])));
+  }
+}
 commandList[0x00a2]={
   arity:1,
   function:function(inputs,commandRootIndex){

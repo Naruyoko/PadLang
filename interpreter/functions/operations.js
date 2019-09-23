@@ -422,18 +422,136 @@ function mapArrayToArrays(s,a){
   return create("array",r);
 }
 
-function binary(value){
+function convertToBinary(value){
   var value=clone(value);
-  if (["int","uint","superint","superuint"].includes(value.type)){
-    var s="";
-    while(greaterThan(value,create("int",2))){
-      s=modulo(value,2).value+s;
-      value=divide(value,2);
+  var t=value.type;
+  if (t=="int"){
+    var v=value.value;
+    var a=Math.abs(v);
+    var b="";
+    for (var i=0;i<32;i++){
+      b=(a&1)+b;
+      a>>=1;
     }
-    return s;
-  }else if (["float","double"].includes(value.type)){
-    //TODO:
-  }else if (value.type=="str"){
+    if (v<0){
+      return "1"+invertRawBinary(b);
+    }else{
+      return "0"+b;
+    }
+  }else if (t=="uint"){
+    var v=value.value;
+    var b="";
+    for (var i=0;i<=32;i++){
+      b=(v&1)+b;
+      v>>=1;
+    }
+    return b;
+  }else if (t=="superint"){
+    var v=value.value;
+    var a=v.abs();
+    var b="";
+    do{
+      b=a.and(1)+b;
+      a=a.shiftRight(1);
+    }while (a.geq(0));
+    if (v<0){
+      return "1"+invertRawBinary(b);
+    }else{
+      return "0"+b;
+    }
+  }else if (t=="superuint"){
+    var v=value.value;
+    var b="";
+    do{
+      b=v.and(1)+b;
+      v=v.shiftRight(1);
+    }while (v.geq(0));
+    return b;
+  }else if (t=="float"){
+    var sign;
+    var exponent;
+    var fraction;
+    var v=value.value;
+    if (v<0){
+      sign="1";
+    }else{
+      sign="0";
+    }
+    v=Math.abs(v);
+    if (v===0){ //0
+      exponent="00000000";
+      fraction="00000000000000000000000";
+    }else if (!isFinite(v)){
+      exponent="11111111";
+      if (isNaN(v)){ //NaN
+        fraction="10000000000000000000001";
+      }else{ //Infinity
+        fraction="00000000000000000000000";
+      }
+    }else{
+      exponent=0x7f;
+      while (v<1){
+        exponent--;
+        v*=2;
+      }
+      while (v>=2){
+        exponent++;
+        v/=2;
+      }
+      exponent=exponent.toString(2);
+      while (exponent.length<8){
+        exponent="0"+exponent;
+      }
+      fraction="";
+      for (var i=0;i<23;i++){
+        v*=2;
+        fraction+=v&1;
+      }
+    }
+    return sign+exponent+fraction;
+  }else if (t=="double"){
+    var sign;
+    var exponent;
+    var fraction;
+    var v=value.value;
+    if (v<0){
+      sign="1";
+    }else{
+      sign="0";
+    }
+    v=Math.abs(v);
+    if (v===0){ //0
+      exponent="00000000000";
+      fraction="0000000000000000000000000000000000000000000000000000";
+    }else if (!isFinite(v)){
+      exponent="11111111111";
+      if (isNaN(v)){ //NaN
+        fraction="1000000000000000000000000000000000000000000000000001";
+      }else{ //Infinity
+        fraction="0000000000000000000000000000000000000000000000000000";
+      }
+    }else{
+      exponent=0x3ff;
+      while (v<1){
+        exponent--;
+        v*=2;
+      }
+      while (v>=2){
+        exponent++;
+        v/=2;
+      }
+      exponent=exponent.toString(2);
+      while (exponent.length<11){
+        exponent="0"+exponent;
+      }
+      fraction="";
+      for (var i=0;i<52;i++){
+        v*=2;
+        fraction+=v&1;
+      }
+    }
+    return sign+exponent+fraction;
+  }else if (t=="str"){
     var c="";
     for (var i=0;i<value.value;i++){
       var d=value.value[i].toString(2);
@@ -447,6 +565,100 @@ function binary(value){
   }
 }
 
-function invertBinary(binaryValue){
+function invertRawBinary(binaryValue){
   return binaryValue.replace(/0/g,"a").replace(/1/g,"0").replace(/a/g,"1");
+}
+
+function convertFromBinary(value,type){
+  if (type=="int"){
+    var v=value.substring(value.length-32);
+    var s=v[0];
+    var r=v.substring(1);
+    var j=0;
+    if (s=="0"){
+      for (var i=0;i<32;i++){
+        j=(j<<1)+Number(r[i]);
+      }
+      return create(type,j);
+    }else{
+      r=invertRawBinary(r);
+      for (var i=0;i<32;i++){
+        j=(j<<1)+Number(r[i]);
+      }
+      return create(type,-j);
+    }
+  }else if (type=="uint"){
+    var v=value.substring(value.length-32);
+    var j=0;
+    for (var i=0;i<=32;i++){
+      j=(j<<1)+Number(v[i]);
+    }
+    return create(type,j);
+  }else if (type=="superint"){
+    var v=value;
+    var s=v[0];
+    var r=v.substring(1);
+    var j=bigInt(0);
+    if (s=="0"){
+      for (var i=0;i<r.length;i++){
+        j=j.shiftLeft(1).add(r[i]);
+      }
+      return create(type,j);
+    }else{
+      r=invertRawBinary(r);
+      for (var i=0;i<r.length;i++){
+        j=j.shiftLeft(1).add(r[i]);
+      }
+      return create(type,j.negate());
+    }
+  }else if (type=="superuint"){
+    var v=value;
+    var j=bigInt(0);
+    for (var i=0;i<v.length;i++){
+      j=j.shiftLeft(1).add(v[i]);
+    }
+    return create(type,j);
+  }else if (type=="float"){
+    var v=value.substring(0,32);
+    var sign=v[0];
+    var exponent=v.substring(1,9);
+    var fraction=v.substring(9);
+    var actual=1;
+    if (exponent=="11111111"){
+      if (fraction=="00000000000000000000000"){
+        actual=Infinity;
+      }else{
+        actual=NaN;
+      }
+    }else{
+      for (var i=0;i<23;i++){
+        actual+=fraction[i]*Math.pow(2,-i);
+      }
+    }
+    return create(type,doubleToFloat(actual*Math.pow(2,parseInt(exponent,2)-127)*Math.pow(-1,parseInt(sign,2))));
+  }else if (type=="double"){
+    var v=value.substring(0,64);
+    var sign=v[0];
+    var exponent=v.substring(1,12);
+    var fraction=v.substring(12);
+    var actual=1;
+    if (exponent=="11111111111"){
+      if (fraction=="0000000000000000000000000000000000000000000000000000"){
+        actual=Infinity;
+      }else{
+        actual=NaN;
+      }
+    }else{
+      for (var i=0;i<52;i++){
+        actual+=fraction[i]*Math.pow(2,-i);
+      }
+    }
+    return actual*Math.pow(2,parseInt(exponent,2)-127)*Math.pow(-1,parseInt(sign,2));
+  }else if (type=="str"){
+    var v=value;
+    while (v.length%6!==0){
+      v+="0";
+    }
+    for (var i=0;i<v.length;i+=)
+  }
 }
