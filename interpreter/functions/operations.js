@@ -653,12 +653,16 @@ function convertFromBinary(value,type){
         actual+=fraction[i]*Math.pow(2,-i);
       }
     }
-    return actual*Math.pow(2,parseInt(exponent,2)-127)*Math.pow(-1,parseInt(sign,2));
+    return create(type,actual*Math.pow(2,parseInt(exponent,2)-127)*Math.pow(-1,parseInt(sign,2)));
   }else if (type=="str"){
     var v=value;
-    while (v.length%6!==0){
+    while (v.length%16!==0){
       v+="0";
     }
-    for (var i=0;i<v.length;i+=)
+    var r="";
+    for (var i=0;i<v.length;i+=16){
+      r+=String.fromCharCode(parseInt(v.substring(i,i+16),2));
+    }
+    return create(type,r);
   }
 }

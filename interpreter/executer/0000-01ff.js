@@ -874,7 +874,6 @@ commandList[0x0072]={
   arity:1,
   function:function(inputs,commandRootIndex){
     if (convert("boolean",inputs[0]).value){
-      alert(JSON.stringify(commandRootIndex));
       pushStack(commandRootIndex);
     }else{
       var a=1;
