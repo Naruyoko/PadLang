@@ -551,6 +551,12 @@ function convertToBinary(value){
       }
     }
     return sign+exponent+fraction;
+  }else if (t=="boolean"){
+    if (value.value){
+      return "1";
+    }else{
+      return "0";
+    }
   }else if (t=="str"){
     var c="";
     for (var i=0;i<value.value;i++){
@@ -572,6 +578,9 @@ function invertRawBinary(binaryValue){
 function convertFromBinary(value,type){
   if (type=="int"){
     var v=value.substring(value.length-32);
+    while (v.length<32){
+      v="0"+v;
+    }
     var s=v[0];
     var r=v.substring(1);
     var j=0;
@@ -589,6 +598,9 @@ function convertFromBinary(value,type){
     }
   }else if (type=="uint"){
     var v=value.substring(value.length-32);
+    while (v.length<32){
+      v="0"+v;
+    }
     var j=0;
     for (var i=0;i<=32;i++){
       j=(j<<1)+Number(v[i]);
@@ -620,6 +632,9 @@ function convertFromBinary(value,type){
     return create(type,j);
   }else if (type=="float"){
     var v=value.substring(0,32);
+    while (v.length<32){
+      v+="0";
+    }
     var sign=v[0];
     var exponent=v.substring(1,9);
     var fraction=v.substring(9);
@@ -638,6 +653,9 @@ function convertFromBinary(value,type){
     return create(type,doubleToFloat(actual*Math.pow(2,parseInt(exponent,2)-127)*Math.pow(-1,parseInt(sign,2))));
   }else if (type=="double"){
     var v=value.substring(0,64);
+    while (v.length<64){
+      v+="0";
+    }
     var sign=v[0];
     var exponent=v.substring(1,12);
     var fraction=v.substring(12);
@@ -654,6 +672,8 @@ function convertFromBinary(value,type){
       }
     }
     return create(type,actual*Math.pow(2,parseInt(exponent,2)-127)*Math.pow(-1,parseInt(sign,2)));
+  }else if (type=="boolean"){
+    return create(type,value.indexOf("1")!=-1);
   }else if (type=="str"){
     var v=value;
     while (v.length%16!==0){

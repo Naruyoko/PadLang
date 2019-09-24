@@ -1013,6 +1013,23 @@ commandList[0x00a6]={
   function:function(inputs,commandRootIndex){
   }
 }
+commandList[0x00a9]={
+  arity:2,
+  function:function(inputs,commandRootIndex){
+    var a=inputs[0]
+    var b=convert("int",inputs[1]).value;
+    var c=convertToBinary(a);
+    if (typeof c!="string"){
+      return;
+    }else if (b<0){
+      return convertFromBinary("0".repeat(convertToBinary(a).length),a.type);
+    }else if (b===0){
+      return clone(a);
+    }else{
+      return convertFromBinary(c.substring(b)+"0".repeat(b),a.type);
+    }
+  }
+}
 commandList[0x00aa]={
   arity:1,
   function:function(inputs,commandRootIndex){
@@ -1022,6 +1039,41 @@ commandList[0x00aa]={
         a.push(charAt(inputs[0],i));
       }
       return create("array",a);
+    }
+  }
+}
+commandList[0x00ab]={
+  arity:2,
+  function:function(inputs,commandRootIndex){
+    var a=inputs[0]
+    var b=convert("int",inputs[1]);
+    var t=a.type;
+    if (b.value<0){
+      return;
+    }else if (b.value===0){
+      return clone(a);
+    }else if (["int","uint","superint","superuint","float","double"].includes(t)){
+      return mul(a,pow(2,b));
+    }else if (t=="str"){
+      var c=convertToBinary(a);
+      return convertFromBinary(c.substring(b)+"0".repeat(b),t);
+    }
+  }
+}
+commandList[0x00ae]={
+  arity:2,
+  function:function(inputs,commandRootIndex){
+    var a=inputs[0]
+    var b=convert("int",inputs[1]).value;
+    var c=convertToBinary(a);
+    if (typeof c!="string"){
+      return;
+    }else if (b<0){
+      return convertFromBinary("0".repeat(convertToBinary(a).length),a.type);
+    }else if (b===0){
+      return clone(a);
+    }else{
+      return convertFromBinary("0".repeat(b)+c.substring(0,c.length-b),a.type);
     }
   }
 }
@@ -1089,6 +1141,24 @@ commandList[0x00ba]={
     var a=inputs[0];
     if (["int","uint","superint","superuint","float","double"].includes(a.type)){
       return sub(a,create("int",1));
+    }
+  }
+}
+commandList[0x00bb]={
+  arity:2,
+  function:function(inputs,commandRootIndex){
+    var a=inputs[0]
+    var b=convert("int",inputs[1]);
+    var t=a.type;
+    if (b.value<0){
+      return;
+    }else if (b.value===0){
+      return clone(a);
+    }else if (["int","uint","superint","superuint","float","double"].includes(t)){
+      return div(a,pow(2,b));
+    }else if (t=="str"){
+      var c=convertToBinary(a);
+      return convertFromBinary("0".repeat(b)+c.substring(0,c.length-b),t);
     }
   }
 }
