@@ -1,0 +1,22 @@
+Square 20 times - Better
+Starting with 2, squares and outputs it 20 times. The last number outputted is greater than centimillillion.
+!Code - 311 chars
+L^2^I2¢0M<021
+!Hex
+004c 0017 005e 0032 005e 0049 0032 00a2 0030 004d 003c 001a 0030 0032 0031
+!Link
+file:///D:/GitHub/PadLang/interpreter/index.html?program=AEwAFwBeADIAXgBJADIAogAwAE0APAAaADAAMgAx&name=AHMAcQB1AGEAcgBlADIAMAB0AGkAbQBlAHMAQgBlAHQAdABlAHI.
+!Explanation
+004c - do...
+0017 - Output with newline
+ 005e - Exponentiate
+  0032 - int of value 2
+  005e - Exponentiate
+   0049 0032 - superint of value 2
+   00a2 - Increment and return incremented value
+    0030 - int of value 0
+004d - do...while
+ 003c - Less than
+  001a - Substitute value of
+   0030 - int of value 0
+  0032 0031 - int of value 21

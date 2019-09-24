@@ -1,0 +1,27 @@
+Square 20 times
+Starting with 2, squares and outputs it 20 times. The last number outputted is greater than centimillillion.
+!Code - 311 chars
+$I2¦1r<¢020$²1¦1J
+!Hex
+0017 0024 0049 0032 00a6 0031 0072 003c 00a2 0030 0032 0030 0017 0024 00b2 001a 0031 00a6 0031 004a
+!Link
+https://naruyoko.github.io/PadLang/interpreter/?program=ABcAJABJADIApgAxAHIAPACiADAAMgAwABcAJACyABoAMQCmADEASg..&name=AHMAcQB1AGEAcgBlADIAMAB0AGkAbQBlAHM.
+!Explanation
+0017 - Output with newline
+ 0024 - Assign
+  0049 0032 - superint of value 2
+  00a6 - Separates int literals
+  0031 - int of value 1
+0072 - while
+ 003c - Less than
+  00a2 - Increment and return incremented value
+   0030 - int of value 0
+  0032 0030 - int of value 20
+0017 - Output with newwline
+ 0024 - Assign
+  00b2 - Square
+   001a - Substitute value of
+    0031 - int of value 1
+    00a6 - Separates int literals
+  0031 - int of value 1
+004a - end-while
