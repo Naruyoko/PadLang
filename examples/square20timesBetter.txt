@@ -5,7 +5,7 @@ L^2^I2¢0M<021
 !Hex
 004c 0017 005e 0032 005e 0049 0032 00a2 0030 004d 003c 001a 0030 0032 0031
 !Link
-file:///D:/GitHub/PadLang/interpreter/index.html?program=AEwAFwBeADIAXgBJADIAogAwAE0APAAaADAAMgAx&name=AHMAcQB1AGEAcgBlADIAMAB0AGkAbQBlAHMAQgBlAHQAdABlAHI.
+https://naruyoko.github.io/PadLang/interpreter/?program=AEwAFwBeADIAXgBJADIAogAwAE0APAAaADAAMgAx&name=AHMAcQB1AGEAcgBlADIAMAB0AGkAbQBlAHMAQgBlAHQAdABlAHI.
 !Explanation
 004c - do...
 0017 - Output with newline

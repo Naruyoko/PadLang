@@ -22,10 +22,10 @@ https://naruyoko.github.io/PadLang/interpreter/?program=ABcAJADMAAwAMABMACQAPwAl
     0032 - int of value 2
    002b - Add
     0031 - int of value 1
-     002a - Multiply
-      001a - Substitute value of
-       0030 - int of value 0
-      0033 - int of value 3
+    002a - Multiply
+     001a - Substitute value of
+      0030 - int of value 0
+     0033 - int of value 3
    002f - Divide
     001a - Substitute value of
      0030 - int of value 0

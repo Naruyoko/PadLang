@@ -80,7 +80,11 @@ function convertToInt(value){
   }else if (value.type=="object"){
     return create("int",0);
   }else if (value.type=="variable"){
-    return convertToInt(value.value);
+    var v=value.value;
+    if (v instanceof Array){
+      v=value.value[0];
+    }
+    return convertToInt(v);
   }
 }
 
@@ -137,7 +141,11 @@ function convertToUint(value){
   }else if (value.type=="object"){
     return create("uint",0);
   }else if (value.type=="variable"){
-    return convertToUint(value.value);
+    var v=value.value;
+    if (v instanceof Array){
+      v=value.value[0];
+    }
+    return convertToUint(v);
   }
 }
 
@@ -188,7 +196,11 @@ function convertToSuperint(value){
   }else if (value.type=="object"){
     return create("superint",new bigInt(0));
   }else if (value.type=="variable"){
-    return convertToSuperint(value.value);
+    var v=value.value;
+    if (v instanceof Array){
+      v=value.value[0];
+    }
+    return convertToSuperint(v);
   }
 }
 
@@ -239,7 +251,11 @@ function convertToSuperuint(value){
   }else if (value.type=="object"){
     return create("superuint",0);
   }else if (value.type=="variable"){
-    return convertToSuperuint(value.value);
+    var v=value.value;
+    if (v instanceof Array){
+      v=value.value[0];
+    }
+    return convertToSuperuint(v);
   }
 }
 
@@ -289,7 +305,11 @@ function convertToFloat(value){
   }else if (value.type=="object"){
     return create("float",0);
   }else if (value.type=="variable"){
-    return convertToFloat(value.value);
+    var v=value.value;
+    if (v instanceof Array){
+      v=value.value[0];
+    }
+    return convertToFloat(v);
   }
 }
 
@@ -338,7 +358,11 @@ function convertToDouble(value){
   }else if (value.type=="object"){
     return create("double",0);
   }else if (value.type=="variable"){
-    return convertToDouble(value.value);
+    var v=value.value;
+    if (v instanceof Array){
+      v=value.value[0];
+    }
+    return convertToDouble(v);
   }
 }
 
@@ -387,7 +411,11 @@ function convertToBoolean(value){
     value.value=value.value.length==0;
     return normalize(value);
   }else if (value.type=="variable"){
-    return convertToBoolean(value.value);
+    var v=value.value;
+    if (v instanceof Array){
+      v=value.value[0];
+    }
+    return convertToBoolean(v);
   }
 }
 
@@ -446,7 +474,11 @@ function convertToStr(value){
     }
     return add(create("str","{").plus(s,create("str","}")));
   }else if (value.type=="variable"){
-    return convertToString(value.value);
+    var v=value.value;
+    if (v instanceof Array){
+      v=value.value[0];
+    }
+    return convertToString(v);
   }
 }
 
@@ -489,7 +521,12 @@ function convertToArray(value){
     return normalize(value);
   }else if (value.type=="variable"){
     value.type="array";
-    value.value=[cvalue];
+    var v=cvalue.value;
+    if (v instanceof Array){
+      value.value=clone(v);
+    }else{
+      value.value=[cvalue];
+    }
     return normalize(value);
   }
 }
@@ -539,7 +576,17 @@ function convertToObject(value){
     return value;
   }else if (value.type=="variable"){
     value.type="object";
-    value.value=[[create("int",0),cvalue]];
+    var v=cvalue.value;
+    if (v instanceof Array){
+      var v=clone(v);
+      var e=[];
+      for (var i=0;i<v.length;i++){
+        e.push([create("int",i),v[i]]);
+      }
+      value.value=e;
+    }else{
+      value.value=[[create("int",0),cvalue]];
+    }
     return normalize(value);
   }
 }
