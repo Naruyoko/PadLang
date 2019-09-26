@@ -314,6 +314,12 @@ commandList[0x003f]={
     }
   }
 }
+commandList[0x0040]={
+  arity:2,
+  function:function(inputs,commandRootIndex){
+    return pushProperty(inputs[0],inputs[1]);
+  }
+}
 commandList[0x0041]={
   arity:2,
   function:function(inputs,commandRootIndex){
@@ -1011,6 +1017,22 @@ commandList[0x00a5]={
 commandList[0x00a6]={
   arity:0,
   function:function(inputs,commandRootIndex){
+  }
+}
+commandList[0x00a7]={
+  arity:1,
+  function:function(inputs,commandRootIndex){
+    var a=convert("variable",inputs[0]);
+    var v=a.value;
+    if (typeof v!="string"){
+      if (v instanceof Array){
+        return v[0];
+      }else{
+        v;
+      }
+    }else{
+      clone(inputs[0]);
+    }
   }
 }
 commandList[0x00a9]={

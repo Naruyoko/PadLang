@@ -4,7 +4,6 @@ Key:
 1 - Has been implemented
 2 - Has been partially implemented
 3 - Has been implemented but buggy
-𝑣 - Requires implementing "complex" variables
 λ - Requires implementing function variable/"eval"
 [space] - Has not been defined yet
 
@@ -13,14 +12,14 @@ xxxx0123456789abcdef
 001x       1  11    
 002x11111111λλ11λ1 1
 003x1111111111111111
-004x𝑣11 11  11 11111
+004x111 11  11 11111
 005x10λλ111111 λ λ1 
 006x1111111 1111  11
 007x101 11111  λ1λ1 
 xxxx0123456789abcdef
 008x                
 009x                
-00ax  11111𝑣 111  11
+00ax  111111 111  11
 00bx1111     111   1
 00cx1111111111111111
 00dx11111   11   111

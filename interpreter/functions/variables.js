@@ -234,3 +234,20 @@ function normalize(value){
     return value;
   }
 }
+
+function pushProperty(name,property){
+  name=convert("variable",name);
+  if (!(name.value instanceof Array)){
+    name.value=[name.value];
+  }
+  name.value.push(clone(property));
+  return name;
+}
+
+function popProperty(name){
+  name=convert("variable",name);
+  if (name.value instanceof Array&&name.value.length>1){
+    name.value.pop();
+  }
+  return name;
+}
