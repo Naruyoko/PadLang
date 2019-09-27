@@ -14,7 +14,7 @@ function lengthOfStr(s,i){
   return create("int",s.value.length);
 }
 function reverseStr(s){
-  if (typeof i=="object"){
+  if (typeof s=="object"){
     s=convert("str",s).value;
   }
   var r="";

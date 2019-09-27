@@ -455,14 +455,15 @@ function convertToStr(value){
   }else if (value.type=="str"){
     return value;
   }else if (value.type=="array"){
-    var s=create("str","");
-    for (var i=0;i<length(value).value;i++){
+    var s="";
+    var l=length(value).value;
+    for (var i=0;i<l;i++){
       if (i!==0){
-        s=add(s,create("str",","));
+        s+=",";
       }
-      s=add(s,convertToString(getAt(value,create("int",i))));
+      s=s+convertToStr(getAt(value,create("int",i))).value;
     }
-    return add(create("str","[").plus(s,create("str","]")));
+    return create("str","["+s+"]");
   }else if (value.type=="object"){
     var s=create("str","");
     for (var i=0;i<length(value).value;i++){
@@ -470,7 +471,7 @@ function convertToStr(value){
         s=add(s,create("str",","));
       }
       var p=value.value[i];
-      s=add(s,add(convertToString(value,create("int",i)[0]),add(create("str",":"),convertToString(value,create("int",i)[1]))));
+      s=add(s,add(convertToStr(value,create("int",i)[0]),add(create("str",":"),convertToStr(value,create("int",i)[1]))));
     }
     return add(create("str","{").plus(s,create("str","}")));
   }else if (value.type=="variable"){
@@ -478,7 +479,7 @@ function convertToStr(value){
     if (v instanceof Array){
       v=value.value[0];
     }
-    return convertToString(v);
+    return convertToStr(v);
   }
 }
 

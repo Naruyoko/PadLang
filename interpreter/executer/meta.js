@@ -77,8 +77,11 @@ function queueCommand(command){
     commandRootIndex:read("pointer")
   });
 }
-function handleQueuedCommands(){
-  for (var i=commandQueue.length-1;i>=0;i--){
+function handleQueuedCommands(startIndex){
+  if (startIndex===undefined){
+    startIndex=commandQueue.length-1;
+  }
+  for (var i=startIndex;i>=0;i--){
     var command=commandQueue[i];
     var arity;
     if (typeof command.arity=="function"){
@@ -87,7 +90,7 @@ function handleQueuedCommands(){
       arity=command.arity;
     }
     if (command.inputs.length>=arity){
-      var result=runCommand(command,command.inputs,command.commandRootIndex);
+      var result=runCommand(command,command.inputs,command.commandRootIndex,i);
       if (isExecutionBeingPaused){
         return;
       }
@@ -95,9 +98,9 @@ function handleQueuedCommands(){
     }
   }
 }
-function runCommand(command,inputs,commandRootIndex){
+function runCommand(command,inputs,commandRootIndex,queueIndex){
   if (commandList[command.commandCode]){
-    return commandList[command.commandCode].function(inputs,commandRootIndex);
+    return commandList[command.commandCode].function(inputs,commandRootIndex,queueIndex);
   }
 }
 function afterCommandHasRun(result,index){
@@ -111,7 +114,7 @@ function afterCommandHasRun(result,index){
       commandQueue[index-1].inputs.push(result);
     }
   }
-  commandQueue.pop();
+  commandQueue.splice(index,1);
 }
 function stepPointer(){
   write("pointer",add(read("pointer"),read("direction")));
@@ -130,15 +133,17 @@ function resumeExecution(){
   runProgram(true);
 }
 
-function STDIN(callback){
+function STDIN(callback,queueIndex){
   dg("STDIN").value="";
   dg("STDIN").readOnly=false;
   toggleclass(dg("STDIN"),"readonly",false);
   pauseExecution();
   dg("STDIN").onkeyup=function (event){
     if (event.key==="Enter"){
-      var result=callback(dg("STDIN").value);
-      afterCommandHasRun(result);
+      var result=callback(create("str",dg("STDIN").value));
+      afterCommandHasRun(result,queueIndex);
+      isExecutionBeingPaused=false;
+      handleQueuedCommands(queueIndex-1);
       dg("STDIN").readOnly=true;
       toggleclass(dg("STDIN"),"readonly",true);
       dg("STDIN").onkeyup=null;
