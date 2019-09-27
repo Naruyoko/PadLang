@@ -227,6 +227,32 @@ commandList[0x0027]={
     }
   }
 }
+commandList[0x0028]={
+  arity:function(index){
+    if (commandQueue.length>index+1&&commandQueue[index+1].commandCode==0x0029){
+      return 0;
+    }else{
+      return Infinity;
+    }
+  },
+  function:function(inputs,commandRootIndex,queueIndex){
+    commandQueue.pop() //Remove ")"
+    return clone(inputs[inputs.length-1]);
+  }
+}
+commandList[0x0029]={
+  arity:function(index){
+    for (var i=index-1;i>=0;i--){
+      if (commandQueue[i].commandCode==0x0028){
+        return Infinity;
+      }
+    }
+    return 0;
+  },
+  function:function(inputs,commandRootIndex,queueIndex){
+    //handled by 0x0028
+  }
+}
 commandList[0x002a]={
   arity:2,
   function:function(inputs,commandRootIndex,queueIndex){
