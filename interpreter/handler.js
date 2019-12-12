@@ -21,7 +21,7 @@ window.onload=function(){
   changeRawProgram();
   changeFileType();
   generateFile();
-}
+};
 function displayProgram(){
   dg("rawview").value=rawProgram;
   dg("hexview").value=hexProgram;

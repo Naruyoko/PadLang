@@ -16,43 +16,49 @@ commandList[0x0000]={
     });
     memory=a;
   }
+};
+commandList[0x0002]={
+  arity:0,
+  function:function(inputs,commandRootIndex,queueIndex){
+    pushStack();
+  }
 }
 commandList[0x0003]={
   arity:0,
   function:function(inputs,commandRootIndex,queueIndex){
     popStack(true);
   }
-}
+};
 commandList[0x0005]={
   arity:0,
   function:function(inputs,commandRootIndex,queueIndex){
     return create("variable","pointer");
   }
-}
+};
 commandList[0x0006]={
   arity:0,
   function:function(inputs,commandRootIndex,queueIndex){
     return create("variable","direction");
   }
-}
+};
 commandList[0x0007]={
   arity:0,
   function:function(inputs,commandRootIndex,queueIndex){
     return create("variable","stack");
   }
-}
+};
 commandList[0x0008]={
   arity:0,
   function:function(inputs,commandRootIndex,queueIndex){
     return create("variable","program");
   }
-}
+};
 commandList[0x000a]={
   arity:0,
   function:function(inputs,commandRootIndex,queueIndex){
     commandStack=[];
   }
-}
+};
 commandList[0x000c]={
   arity:0,
   function:function(inputs,commandRootIndex,queueIndex){
@@ -60,37 +66,37 @@ commandList[0x000c]={
       return input;
     },queueIndex);
   }
-}
+};
 commandList[0x000d]={
   arity:1,
   function:function(inputs,commandRootIndex,queueIndex){
     STDOUT(inputs[0]);
   }
-}
+};
 commandList[0x0017]={
   arity:1,
   function:function(inputs,commandRootIndex,queueIndex){
     STDOUT(add(inputs[0],create("str","\u000a")));
   }
-}
+};
 commandList[0x001a]={
   arity:1,
   function:function(inputs,commandRootIndex,queueIndex){
     return read(inputs[0]);
   }
-}
+};
 commandList[0x001b]={
   arity:0,
   function:function(inputs,commandRootIndex,queueIndex){
     forceExitProgram=true;
   }
-}
+};
 commandList[0x0020]={
   arity:0,
   function:function(inputs,commandRootIndex,queueIndex){
     //no-op
   }
-}
+};
 commandList[0x0021]={
   arity:1,
   function:function(inputs,commandRootIndex,queueIndex){
@@ -104,7 +110,7 @@ commandList[0x0021]={
       return mapArrayToArrays(a,arrangementArrayOfLength(length(a)));
     }
   }
-}
+};
 commandList[0x0022]={
   arity:0,
   function:function(inputs,commandRootIndex,queueIndex){
@@ -117,8 +123,8 @@ commandList[0x0022]={
       if (c=="\\"){
         stepPointer();
         var d=charOfProgram().value;
+        var e="";
         if (d=="x"){
-          var e="";
           stepPointer();
           while ("0123456789abcdefABCDEF".includes(charOfProgram().value)&&!isPointerOutsideRange()){
             e+=charOfProgram().value;
@@ -129,7 +135,6 @@ commandList[0x0022]={
           }
           a+=String.fromCharCode(parseInt(e,16));
         }else if (d=="u"){
-          var e="";
           stepPointer();
           while ("0123456789abcdefABCDEF".includes(charOfProgram().value)&&!isPointerOutsideRange()){
             e+=charOfProgram().value;
@@ -140,7 +145,6 @@ commandList[0x0022]={
           }
           a+=String.fromCharCode(parseInt(e,16));
         }else if ("01234567".includes(d)){
-          var e="";
           stepPointer();
           while ("01234567".includes(charOfProgram().value)&&!isPointerOutsideRange()){
             e+=charOfProgram().value;
@@ -165,7 +169,7 @@ commandList[0x0022]={
     stepPointer();
     return create("str",a);
   }
-}
+};
 commandList[0x0023]={
   arity:1,
   function:function(inputs,commandRootIndex,queueIndex){
@@ -173,20 +177,20 @@ commandList[0x0023]={
       return length(inputs[0]);
     }
   }
-}
+};
 commandList[0x0024]={
   arity:2,
   function:function(inputs,commandRootIndex,queueIndex){
     write(convertToVariable(inputs[1]),inputs[0]);
     return inputs[0];
   }
-}
+};
 commandList[0x0025]={
   arity:2,
   function:function(inputs,commandRootIndex,queueIndex){
     return mod(inputs[0],inputs[1]);
   }
-}
+};
 commandList[0x0026]={
   arity:2,
   function:function(inputs,commandRootIndex,queueIndex){
@@ -194,7 +198,7 @@ commandList[0x0026]={
     var b=convertToRawBoolean(inputs[1]);
     return create("boolean",a&&b);
   }
-}
+};
 commandList[0x0027]={
   arity:2,
   function:function(inputs,commandRootIndex,queueIndex){
@@ -226,7 +230,7 @@ commandList[0x0027]={
       return create("int",0);
     }
   }
-}
+};
 commandList[0x0028]={
   arity:function(index){
     if (commandQueue.length>index+1&&commandQueue[index+1].commandCode==0x0029){
@@ -268,7 +272,7 @@ commandList[0x002b]={
 commandList[0x002c]={
   arity:0,
   function:function(inputs,commandRootIndex,queueIndex){
-    while (![0x0028,0x005b,0x007b].includes(commandQueue[commandQueue.length-2].commandCode)){
+    while (commandQueue.length>0&&![0x0028,0x005b,0x007b].includes(commandQueue[commandQueue.length-2].commandCode)){
       commandQueue.pop();
     }
   }
@@ -336,16 +340,6 @@ commandList[0x003e]={
   arity:2,
   function:function(inputs,commandRootIndex,queueIndex){
     return gt(inputs[0],inputs[1]);
-  }
-}
-commandList[0x003f]={
-  arity:3,
-  function:function(inputs,commandRootIndex,queueIndex){
-    if (convert("boolean",inputs[0]).value){
-      return inputs[1];
-    }else{
-      return inputs[2];
-    }
   }
 }
 commandList[0x0040]={
@@ -565,7 +559,7 @@ commandList[0x0057]={
       b=convert("str",b).value;
       c="";
       for (var i=0;i<a.length;){
-        if (a.substring(i,b.length)==b){
+        if (a.substring(i,i+b.length)==b){
           i+=Math.max(b.length,1);
         }else{
           c+=a[i];
@@ -606,7 +600,7 @@ commandList[0x0058]={
       b=convert("str",b).value;
       c="";
       for (var i=0;i<a.length;){
-        if (a.substring(i,b.length)==b){
+        if (a.substring(i,i+b.length)==b){
           i+=Math.max(b.length,1);
         }else{
           c+=a[i];
@@ -646,7 +640,7 @@ commandList[0x0059]={
       b=convert("str",b).value;
       c="";
       for (var i=0;i<a.length;){
-        if (a.substring(i,b.length)==b){
+        if (a.substring(i,i+b.length)==b){
           i+=Math.max(b.length,1);
         }else{
           c+=a[i];
@@ -869,30 +863,20 @@ commandList[0x006b]={
     return convertToDouble(inputs[0]);
   }
 }
-commandList[0x006e]={
-  arity:2,
+commandList[0x006c]={
+  arity:1,
   function:function(inputs,commandRootIndex,queueIndex){
-    var a=convertToRawBoolean(inputs[0]);
-    var b=convertToRawBoolean(inputs[1]);
-    if (a){
-      return inputs[1];
-    }else{
-      return inputs[0];
-    }
+    STDOUT(inputs[0]);
+    return inputs[0];
   }
-}
-commandList[0x006f]={
-  arity:2,
+};
+commandList[0x006d]={
+  arity:1,
   function:function(inputs,commandRootIndex,queueIndex){
-    var a=convertToRawBoolean(inputs[0]);
-    var b=convertToRawBoolean(inputs[1]);
-    if (a){
-      return inputs[0];
-    }else{
-      return inputs[1];
-    }
+    STDOUT(add(inputs[0],create("str","\u000a")));
+    return inputs[0];
   }
-}
+};
 commandList[0x0070]={
   arity:2,
   function:function(inputs,commandRootIndex,queueIndex){
@@ -1030,12 +1014,42 @@ commandList[0x0078]={
     return create("array",a);
   }
 }
+commandList[0x007b]={
+  arity:function(index){
+    if (commandQueue.length>index+1&&commandQueue[index+1].commandCode==0x007d){
+      return 0;
+    }else{
+      return Infinity;
+    }
+  },
+  function:function(inputs,commandRootIndex,queueIndex){
+    commandQueue.pop() //Remove "}"
+    var a=[];
+    for (var i=0;i+1<inputs.length;i+=2){
+      a.push([clone(inputs[i]),clone(inputs[i+1])]);
+    }
+    return create("object",a);
+  }
+}
 commandList[0x007c]={
   arity:2,
   function:function(inputs,commandRootIndex,queueIndex){
     var a=convertToRawBoolean(inputs[0]);
     var b=convertToRawBoolean(inputs[1]);
     return create("boolean",a||b);
+  }
+}
+commandList[0x007d]={
+  arity:function(index){
+    for (var i=index-1;i>=0;i--){
+      if (commandQueue[i].commandCode==0x007b){
+        return Infinity;
+      }
+    }
+    return 0;
+  },
+  function:function(inputs,commandRootIndex,queueIndex){
+    //handled by 0x007b
   }
 }
 commandList[0x007e]={
@@ -1208,6 +1222,24 @@ commandList[0x00b3]={
     }
   }
 }
+commandList[0x00b4]={
+  arity:4,
+  function:function(inputs,commandRootIndex,queueIndex){
+    return div(add(inputs[0],inputs[1]),add(inputs[2],inputs[3]));
+  }
+}
+commandList[0x00b5]={
+  arity:4,
+  function:function(inputs,commandRootIndex,queueIndex){
+    return create("double",0.000001);
+  }
+}
+commandList[0x00b6]={
+  arity:4,
+  function:function(inputs,commandRootIndex,queueIndex){
+    return create("str","\u000a");
+  }
+}
 commandList[0x00b9]={
   arity:1,
   function:function(inputs,commandRootIndex,queueIndex){
@@ -1215,6 +1247,24 @@ commandList[0x00b9]={
     if (["int","uint","superint","superuint","float","double"].includes(a.type)){
       return add(a,create("int",1));
     }
+  }
+}
+commandList[0x00bc]={
+  arity:4,
+  function:function(inputs,commandRootIndex,queueIndex){
+    return create("double",0.25);
+  }
+}
+commandList[0x00bd]={
+  arity:4,
+  function:function(inputs,commandRootIndex,queueIndex){
+    return create("double",0.5);
+  }
+}
+commandList[0x00be]={
+  arity:4,
+  function:function(inputs,commandRootIndex,queueIndex){
+    return create("double",0.75);
   }
 }
 commandList[0x00ba]={
@@ -1606,6 +1656,13 @@ commandList[0x00d4]={
     return create("str",b);
   }
 }
+commandList[0x00d5]={
+  arity:1,
+  function:function(inputs,commandRootIndex,queueIndex){
+    popStack(true);
+    return inputs[0];
+  }
+}
 commandList[0x00d8]={
   arity:0,
   function:function(inputs,commandRootIndex,queueIndex){
@@ -1914,7 +1971,7 @@ commandList[0x00f1]={
       c=convert("str",c).value;
       d="";
       for (var i=0;i<a.length;){
-        if (a.substring(i,b.length)==b){
+        if (a.substring(i,i+b.length)==b){
           d+=c;
           i+=Math.max(b.length,1);
         }else{
@@ -1960,7 +2017,7 @@ commandList[0x00f2]={
       c=convert("str",c).value;
       d="";
       for (var i=0;i<a.length;){
-        if (a.substring(i,b.length)==b){
+        if (a.substring(i,i+b.length)==b){
           d+=c;
           i+=Math.max(b.length,1);
         }else{
@@ -2005,7 +2062,7 @@ commandList[0x00f3]={
       c=convert("str",c).value;
       d="";
       for (var i=0;i<a.length;){
-        if (a.substring(i,b.length)==b){
+        if (a.substring(i,i+b.length)==b){
           d+=c;
           i+=Math.max(b.length,1);
         }else{
